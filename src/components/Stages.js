@@ -78,6 +78,7 @@ function Stages(props) {
 
   return (
     <main>
+      <div>
         <Link to='/task/new'>New Task</Link>
 
 
