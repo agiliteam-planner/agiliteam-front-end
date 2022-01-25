@@ -11,6 +11,7 @@ import './App.css';
 function App() {
   return (
     <div className='app'>
+      <Navigation />
       <Routes>
         <Route path='/' element={<Stages />} />
         <Route path='/task/:id' element={<TaskDetails />} />
