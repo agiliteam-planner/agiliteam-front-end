@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import Stage from './Stage';
 
+import '../styles/Stages.css';
+
 function Stages(props) {
   // TEMP: Hard coded stages and tasks while building UI
   const tempTasks = [
@@ -61,7 +63,6 @@ function Stages(props) {
       files: ['Stages.js'],
     },
   ];
-
   const tempInit = [
     { name: 'To Do', tasks: tempTasks },
     { name: 'In Progress', tasks: tempTasks },
@@ -99,7 +100,7 @@ function Stages(props) {
           </li> */}
         </ul>
       </div>
-      <div>
+      <div className='stages-container'>
         {stages.map((stage, i) => (
           <Stage key={i} stage={stage} />
         ))}
