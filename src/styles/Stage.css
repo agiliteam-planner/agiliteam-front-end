@@ -1,0 +1,9 @@
+.stage {
+  margin: 1rem;
+  padding: 1rem;
+
+  display: flex;
+  flex-flow: column nowrap;
+
+  background-color: #eceff1;
+}
