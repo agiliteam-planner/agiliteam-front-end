@@ -12,7 +12,7 @@ function App() {
 
 	return (
 		<div className='app'>
-      <Navigation />
+			<Navigation />
 			<Routes>
 				<Route path='/' element={<Stages />} />
 				<Route path='/task/:id' element={<TaskDetails />} />
@@ -22,7 +22,6 @@ function App() {
 			</Routes>
 		</div>
 	);
-
 }
 
 export default App;
