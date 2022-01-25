@@ -1,0 +1,44 @@
+.app-header {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: darkslategray;
+	padding: 0 20px;
+	color: whitesmoke;
+	width: 100%;
+}
+.header-titles {
+    display: flex;
+    align-items: baseline;
+}
+
+.header-titles a {
+    text-decoration: none;
+    color: whitesmoke;
+    padding: 10px;
+}
+
+.nav-title {
+    font-size: 30px;
+}
+.nav-sub-title {
+    font-size: 22px;
+    padding-left: 0px;
+    white-space: nowrap;
+}
+.nav-item {
+	text-decoration: none;
+}
+
+.nav-list {
+	list-style: none;
+	display: flex;
+}
+
+.header-nav a {
+	margin: 8px;
+	color: white;
+}
