@@ -100,11 +100,13 @@ function Stages(props) {
   }, []);
 
   return (
-    <main>
-      <div>
-        <Link to='/task/new'>New Task</Link>
+    <>
+      <div className='stages-heading'>
+        <Link className='new-task' to='/task/new'>
+          New Task
+        </Link>
 
-        <ul>
+        <ul className='stages-options'>
           {/* Each filter adds search params? to be bookmarkable */}
           <li>
             <button>Filter</button>
@@ -129,7 +131,7 @@ function Stages(props) {
           <Stage key={i} stage={stage} />
         ))}
       </div>
-    </main>
+    </>
   );
 }
 
