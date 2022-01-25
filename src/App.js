@@ -9,6 +9,7 @@ import Navigation from './components/Navigation';
 import './App.css';
 
 function App() {
+<<<<<<< HEAD
   return (
     <div className='app'>
       <Navigation />
@@ -26,6 +27,19 @@ function App() {
       </Routes>
     </div>
   );
+=======
+	return (
+		<div className='app'>
+			<Routes>
+				<Route path='/' element={<Stages />} />
+				<Route path='/task/:id' element={<TaskDetails />} />
+				<Route path='/task/new' element={<TaskDetails createNew={true} />} />
+				<Route path='/about' element={<About />} />
+				<Route path='/settings' element={<Settings />} />
+			</Routes>
+		</div>
+	);
+>>>>>>> f3cb376 (pull dev branch)
 }
 
 export default App;
