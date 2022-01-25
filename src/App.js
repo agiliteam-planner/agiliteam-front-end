@@ -14,8 +14,13 @@ function App() {
       <Navigation />
       <Routes>
         <Route path='/' element={<Stages />} />
+<<<<<<< HEAD
         <Route path='/task/:id' element={<TaskDetails />} />
         <Route path='/task/new' element={<TaskDetails createNew={true} />} />
+=======
+        <Route path='/task/:id' element={<CardDetails />} />
+        <Route path='/task/new' element={<CardDetails createNew={true} />} />
+>>>>>>> ea7f6a5 (added tasks.json file)
         <Route path='/about' element={<About />} />
         <Route path='/settings' element={<Settings />} />
       </Routes>
