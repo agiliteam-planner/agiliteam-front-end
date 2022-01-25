@@ -1,7 +1,14 @@
 import { Route, Link } from 'react-router-dom';
 
-function Stage(props) {
-  return <div></div>;
+import '../styles/TaskCard.css';
+
+function TaskCard({ task }) {
+  return (
+    <div className='task-card'>
+      <p>{task.title}</p>
+      <Link to={`/task/${task._id}`} />
+    </div>
+  );
 }
 
-export default Stage;
+export default TaskCard;

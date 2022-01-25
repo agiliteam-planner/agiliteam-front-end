@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Stages from './components/Stages';
 import TaskDetails from './components/TaskDetails';
