@@ -15,11 +15,7 @@
 			{
 				"user": "kurt",
 				"content": "lets do it",
-<<<<<<< HEAD
-				"time": "Mon Jan 24 2022 9:12:52 GMT-0500",
-=======
 				"time": "Mon Jan 24 2022 9:12:52 GMT-0500"
->>>>>>> 6d223b7 (start working on TaskDetails.js)
 			}
 		],
 		"files": ["planning.md"]

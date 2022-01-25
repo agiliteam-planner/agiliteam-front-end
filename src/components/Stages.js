@@ -79,11 +79,7 @@ function Stages(props) {
   return (
     <main>
       <div>
-<<<<<<< HEAD
-        <Link to='task/new'>New Task</Link>
-=======
         <Link to='/task/new'>New Task</Link>
->>>>>>> 6d223b7 (start working on TaskDetails.js)
         <ul>
           {/* Each filter adds search params? to be bookmarkable */}
           <li>
