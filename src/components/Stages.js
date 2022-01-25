@@ -80,8 +80,6 @@ function Stages(props) {
     <main>
       <div>
         <Link to='/task/new'>New Task</Link>
-
-
         <ul>
           {/* Each filter adds search params? to be bookmarkable */}
           <li>
