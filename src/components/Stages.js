@@ -7,23 +7,31 @@ import Stage from './Stage';
 import '../styles/Stages.css';
 
 function Stages(props) {
-  // Hardcoded stages to show all stages even if empty
-  const stages = [
-    { name: 'Todo', tasks: [] },
-    { name: 'In Progress', tasks: [] },
-    { name: 'In Review', tasks: [] },
-    { name: 'Done', tasks: [] },
+  // Initial values while loading tasks from API
+  const placeholderTask = { title: 'Loading...' };
+  const placeholderStages = ['To Do', 'In Progress', 'In Review', 'Done'];
+  const placeholderStagedTasks = [
+    { name: 'To Do', tasks: [placeholderTask] },
+    { name: 'In Progress', tasks: [placeholderTask] },
+    { name: 'In Review', tasks: [placeholderTask] },
+    { name: 'Done', tasks: [placeholderTask] },
   ];
 
-  // State for stages and their tasks
-  const [stagedTasks, setStagedTasks] = useState(stages);
+  // State for stages and tasks
+  const [users, setUsers] = useState([]);
+  const [stages, setStages] = useState(placeholderStages);
+  const [stagedTasks, setStagedTasks] = useState(placeholderStagedTasks);
 
   // Sorts all tasks from API request into each stage
-  function updateTasks(tasks) {
+  function refreshTasks(tasks) {
     const newStagedTasks = stages.map((stage) => {
-      const stageTasks = tasks.filter((task) => task.stage === stage.name);
-      return { name: stage.name, tasks: stageTasks };
+      const stageTasks = tasks.filter((task) => task.stage === stage);
+      return { name: stage, tasks: stageTasks };
     });
+    const newUsers = [...new Set(tasks.map((task) => task.owner))].sort(
+      (a, b) => (a.firstName > b.firstName ? 1 : -1)
+    );
+    setUsers(newUsers);
     setStagedTasks(newStagedTasks);
   }
 
@@ -35,8 +43,11 @@ function Stages(props) {
     // IIFE to make it async
     (async () => {
       try {
-        const response = await axios.get(backendUrl + '/tasks');
-        updateTasks(response.data);
+        const stagesResponse = await axios.get(backendUrl + '/settings');
+        setStages(stagesResponse.data[0].stages);
+
+        const tasksResponse = await axios.get(backendUrl + '/tasks');
+        refreshTasks(tasksResponse.data);
       } catch (error) {
         // TODO: Handle errors for user
         console.error(error);
@@ -54,22 +65,24 @@ function Stages(props) {
 
         <ul className='stages-options'>
           {/* Each filter adds search params? to be bookmarkable */}
+          <li>Sort:</li>
           <li>
-            <button>Filter</button>
+            <button>Priority ▽</button>
           </li>
           <li>
-            <button>Filter</button>
+            <button>Due Date △</button>
           </li>
           <li>
-            <button>Filter</button>
-          </li>
-          {/* <li>
-            <label htmlFor="sort">Sort: </label>
-            <select name="sort" id="sort">
-              <option value="priority">Priority</option>
-              <option value="due-date">Due Date</option>
+            <label htmlFor='filter-user'>Filter: </label>
+            <select name='filter-user' id='filter-user' defaultValue={null}>
+              <option value={null}></option>
+              {users.map((user) => (
+                <option key={user._id} value={user._id}>
+                  {`${user.firstName} ${user.lastName.charAt(0)}.`}
+                </option>
+              ))}
             </select>
-          </li> */}
+          </li>
         </ul>
       </div>
       <div className='stages-container'>
