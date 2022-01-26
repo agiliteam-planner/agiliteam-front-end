@@ -9,20 +9,20 @@ import Navigation from './components/Navigation';
 import './App.css';
 
 function App() {
-
-	return (
-		<div className='app'>
+  return (
+    <div className='app'>
       <Navigation />
-			<Routes>
-				<Route path='/' element={<Stages />} />
-				<Route path='/task/:id' element={<TaskDetails />} />
-				<Route path='/task/new' element={<TaskDetails createNew={true} />} />
-				<Route path='/about' element={<About />} />
-				<Route path='/settings' element={<Settings />} />
-			</Routes>
-		</div>
-	);
-
+      <main>
+        <Routes>
+          <Route path='/' element={<Stages />} />
+          <Route path='/task/:id' element={<TaskDetails />} />
+          <Route path='/task/new' element={<TaskDetails createNew={true} />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/settings' element={<Settings />} />
+        </Routes>
+      </main>
+    </div>
+  );
 }
 
 export default App;

@@ -3,7 +3,9 @@
 		"title": "Make wireframes",
 		"description": "Prepare wireframe for each view",
 		"stage": "Todo",
+
 		"duedate": "2022-01-25",
+
 		"priority": 2,
 		"owner": "eladsadeh",
 		"checklist": [
