@@ -3,11 +3,13 @@
 
   display: grid;
   grid-template-rows: auto auto;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto min-content;
+
   row-gap: 1rem;
   column-gap: 0.5em;
 
   background-color: white;
+  cursor: pointer;
 }
 
 .task-title {
@@ -19,14 +21,19 @@
 .task-date,
 .task-more {
   display: inline-block;
+  align-self: flex-end;
 }
 
-.task-owner,
-.task-priority {
-  justify-self: center;
+.task-owner {
+  padding: 0.25em;
+  border-radius: 0.2em;
+  justify-self: start;
+  background-color: darkslategray;
+  font-weight: bold;
+  color: whitesmoke;
 }
 
-.task-date,
-.task-more {
+.task-priority,
+.task-date {
   justify-self: end;
 }

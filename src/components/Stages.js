@@ -1,75 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import Stage from './Stage';
 
 import '../styles/Stages.css';
 
 function Stages(props) {
-  // TEMP: Hard coded tasks while building UI
-  const tempTasks = [
-    {
-      _id: 'abc',
-      title: 'Dummy task 1',
-      description: 'Prepare wireframe for each view',
-      stage: 'Todo',
-      dueDate: 'Tue Jan 25 2022 10:12:52 GMT-0500',
-      priority: 2,
-      owner: 'eladsadeh',
-      checklist: [{ title: 'Main View', checked: false }],
-      comments: [
-        {
-          user: 'kurt',
-          content: 'lets do it',
-          time: 'Mon Jan 24 2022 9:12:52 GMT-0500',
-        },
-      ],
-      files: ['planning.md'],
-    },
-    {
-      _id: 'def',
-      title: 'Dummy task 2',
-      description: 'Prepare Task Schema based on project proposal definition',
-      stage: 'In Progress',
-      dueDate: 'Tue Jan 25 2022 10:12:52 GMT-0500',
-      priority: 2,
-      owner: 'kurt',
-      checklist: [null],
-      comments: [
-        {
-          user: 'kurt',
-          content: 'Almost done',
-          time: 'Tue Jan 25 2022 9:12:52 GMT-0500',
-        },
-      ],
-      files: ['Task.js'],
-    },
-    {
-      _id: 'ghi',
-      title: 'Dummy task 3',
-      description: 'Build the stages view in React',
-      stage: 'In Progress',
-      dueDate: 'Wed Jan 26 2022 18:00:00 GMT-0500',
-      priority: 2,
-      owner: 'oscar',
-      checklist: [{ title: 'Render stages', checked: true }],
-      comments: [
-        {
-          user: 'Oscar',
-          content: 'On it',
-          time: 'Tue Jan 25 2022 9:12:52 GMT-0500',
-        },
-      ],
-      files: ['Stages.js'],
-    },
-  ];
-
   // Hardcoded stages to show all stages even if empty
   const stages = [
-    { name: 'Todo', tasks: tempTasks },
-    { name: 'In Progress', tasks: tempTasks },
-    { name: 'In Review', tasks: tempTasks },
-    { name: 'Done', tasks: tempTasks },
+    { name: 'Todo', tasks: [] },
+    { name: 'In Progress', tasks: [] },
+    { name: 'In Review', tasks: [] },
+    { name: 'Done', tasks: [] },
   ];
 
   // State for stages and their tasks
@@ -92,11 +35,14 @@ function Stages(props) {
     // IIFE to make it async
     (async () => {
       try {
-        const response = await fetch(backendUrl + '/tasks');
-        const tasks = await response.json();
-        updateTasks(tasks);
-      } catch (error) {}
+        const response = await axios.get(backendUrl + '/tasks');
+        updateTasks(response.data);
+      } catch (error) {
+        // TODO: Handle errors for user
+        console.error(error);
+      }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

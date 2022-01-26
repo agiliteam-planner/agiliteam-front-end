@@ -1,5 +1,5 @@
 .stage {
-  min-width: 250px;
+  width: 25em;
   padding: 1em;
 
   display: flex;
