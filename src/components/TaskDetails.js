@@ -59,6 +59,8 @@ function TaskDetails(props) {
 		setNewComment(ev.target.value);
 	}
 
+
+  
 	function handleChange(ev) {
 		// console.log('handle task details form');
 		setTaskState({ ...taskState, [ev.target.id]: ev.target.value });
