@@ -8,7 +8,12 @@ function TaskDetails(props) {
 
 	// temporary array of users
 	const users = ['Kurt', 'Oscar', 'Elad'];
+	const currentUser = 'Elad';
 
+	// New comment state
+	let [newComment, setNewComment] = useState('');
+
+	// Initialize Task state
 	const initialTaskState = {
 		title: 'New title',
 		description: 'Some more details',
@@ -36,6 +41,24 @@ function TaskDetails(props) {
 	const [taskState, setTaskState] = useState(initialTaskState);
 	console.log(taskState);
 
+	function handleComment(ev) {
+		ev.preventDefault();
+		const tmpTask = taskState;
+		const timeStamp = new Date().toISOString().slice(0, 10);
+		tmpTask.comments.push({
+			user: currentUser,
+			time: timeStamp,
+			content: newComment,
+		});
+		console.log(tmpTask);
+		setTaskState(tmpTask);
+		setNewComment('');
+	}
+
+	function handleCommentChange(ev) {
+		setNewComment(ev.target.value);
+	}
+
 	function handleChange(ev) {
 		// console.log('handle task details form');
 		setTaskState({ ...taskState, [ev.target.id]: ev.target.value });
@@ -43,7 +66,7 @@ function TaskDetails(props) {
 
 	return (
 		<div>
-			<form className='task-details-form'>
+			<form id='task-details-form'>
 				<label htmlFor='title'>Title</label>
 				<input
 					type='text'
@@ -103,7 +126,12 @@ function TaskDetails(props) {
 							);
 						})}
 					</div>
-					<button>Add comment</button>
+					<button onClick={handleComment}>Add comment</button>
+					<input
+						type='text'
+						id='new_comment'
+						value={newComment}
+						onChange={handleCommentChange}></input>
 				</div>
 			</form>
 		</div>
