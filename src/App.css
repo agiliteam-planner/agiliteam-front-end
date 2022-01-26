@@ -7,6 +7,11 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -14,6 +19,10 @@ a {
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+main {
+  padding: 2em 3em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
