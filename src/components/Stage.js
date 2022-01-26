@@ -7,7 +7,7 @@ import '../styles/Stage.css';
 function Stage({ stage }) {
   return (
     <div className='stage'>
-      <div>{stage.name}</div>
+      <h3>{stage.name}</h3>
       {stage.tasks.map((task, i) => (
         <TaskCard key={task._id} task={task} />
       ))}
