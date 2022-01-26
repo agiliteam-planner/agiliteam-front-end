@@ -1,10 +1,16 @@
-import { Route, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import '../styles/TaskCard.css';
 
 function TaskCard({ task }) {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate(`/task/${task._id}`);
+  }
+
   return (
-    <div className='task-card'>
+    <div className='task-card' onClick={handleClick}>
       <p className='task-title'>{task.title}</p>
       {/* TODO: Refactor to show avatar or initials when owner is populated in tasks */}
       <p className='task-owner'>{task.owner}</p>
@@ -12,9 +18,6 @@ function TaskCard({ task }) {
       <p className='task-date'>
         {new Date(task.dueDate).toLocaleString('en-US', { dateStyle: 'short' })}
       </p>
-      <Link className='task-more' to={`/task/${task._id}`}>
-        More
-      </Link>
     </div>
   );
 }

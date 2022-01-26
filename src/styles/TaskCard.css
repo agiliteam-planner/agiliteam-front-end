@@ -3,11 +3,13 @@
 
   display: grid;
   grid-template-rows: auto auto;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
+
   row-gap: 1rem;
   column-gap: 0.5em;
 
   background-color: white;
+  cursor: pointer;
 }
 
 .task-title {
