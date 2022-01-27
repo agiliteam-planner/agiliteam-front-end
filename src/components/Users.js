@@ -21,6 +21,8 @@ function Users(props) {
 	};
 	// TODO: Move url to a settings location or env variable?
 	const backendUrl = 'https://arcane-plateau-58687.herokuapp.com';
+	// TEST process.env
+	// const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 	// On initial mount
 	useEffect(() => {
@@ -34,7 +36,8 @@ function Users(props) {
 				console.error(error);
 			}
 		})();
-	}, [editingUser, handleSubmit]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [editingUser]);
 
 	// Change editing user state if no other editing is happening
 	function handleRowClick(userID) {
