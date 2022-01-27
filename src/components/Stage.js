@@ -1,5 +1,3 @@
-import { Route, Link } from 'react-router-dom';
-
 import TaskCard from './TaskCard';
 
 import '../styles/Stage.css';
