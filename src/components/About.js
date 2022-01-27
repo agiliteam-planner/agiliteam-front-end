@@ -3,6 +3,7 @@ import '../styles/About.css'
 
 function About(props) {
   return (
+    <div className="about-wrapper">
 		<div className='about-container'>
 			<h1>About AgiliTeam</h1>
 			<p>
@@ -24,6 +25,7 @@ function About(props) {
 				Kurt Shields of the General Assembly SEIR1115 cohort.
       </p>
 		</div>
+    </div>
 
 	);
 }
