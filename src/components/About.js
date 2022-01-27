@@ -25,12 +25,7 @@ function About(props) {
 				Kurt Shields of the General Assembly SEIR1115 cohort.
       </p>
 		</div>
-<<<<<<< HEAD
     </div>
-
-=======
-</div>
->>>>>>> 0a24a72 (add a wrapper to about div, fix CSS)
 	);
 }
 
