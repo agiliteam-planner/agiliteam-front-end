@@ -19,7 +19,7 @@ img {
 }
 
 @media (min-width: 500px) {
-    main {
+    .about-wrapper {
         display: flex;
         justify-content: center;
     }
