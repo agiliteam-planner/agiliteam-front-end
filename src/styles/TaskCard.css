@@ -1,4 +1,50 @@
 .task-card {
-  margin: 0.5rem;
-  background-color: white;
+	padding: 0.75em;
+
+	display: grid;
+	grid-template-rows: auto auto;
+	grid-template-columns: auto auto min-content;
+	grid-template-areas:
+		'title title title'
+		'owner priority date';
+
+	row-gap: 1rem;
+	column-gap: 0.5em;
+
+	background-color: white;
+	cursor: pointer;
+}
+
+.task-title {
+	grid-area: title;
+}
+
+.task-owner,
+.task-priority,
+.task-date,
+.task-more {
+	display: inline-block;
+	align-self: flex-end;
+}
+
+.task-owner {
+	padding: 0.25em;
+	border-radius: 0.2em;
+
+	grid-area: owner;
+	justify-self: start;
+
+	background-color: darkslategray;
+	font-weight: bold;
+	color: whitesmoke;
+}
+
+.task-priority {
+	grid-area: priority;
+	justify-self: end;
+}
+
+.task-date {
+	grid-area: date;
+	justify-self: end;
 }

@@ -1,5 +1,23 @@
-.stages-container {
+.stages-heading {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.new-task {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.stages-options li {
+  display: inline;
+  margin-left: 0.5em;
+}
+
+.stages-container {
+  margin-top: 2em;
+  display: flex;
+  gap: 1.5em;
   align-items: flex-start;
 }

@@ -1,7 +1,15 @@
-import { Route, Link } from 'react-router-dom';
+import Users from './Users';
+
+import '../styles/Settings.css';
 
 function Settings(props) {
-  return <div></div>;
+	return (
+		<>
+			<h2>Settings</h2>
+			<Users />
+			{/* look at <Users /> top div to match styling when adding other Settings panels */}
+		</>
+	);
 }
 
 export default Settings;

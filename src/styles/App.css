@@ -1,0 +1,21 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+main {
+	padding: 2em 3em;
+}
+
+main h2 {
+	margin-bottom: 1em;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
