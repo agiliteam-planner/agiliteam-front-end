@@ -1,15 +1,15 @@
-function Users({ user, editingUser, edits, handleRowClick, handleChange }) {
-	// Handle table header if no user object was passed
-	if (typeof user !== 'object') {
-		return (
-			<tr>
-				<th>Username</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th></th>
-			</tr>
-		);
-	}
+function Users({
+	user,
+	editingUser,
+	edits,
+	handleRowClick,
+	handleChange,
+	handleDelete,
+}) {
+	// // Handle New User case
+	// if (user === null && editingUser === 'NEW_USER') {
+	// 	user =
+	// }
 
 	if (editingUser === user._id) {
 		// Show editing fields
@@ -43,7 +43,12 @@ function Users({ user, editingUser, edits, handleRowClick, handleChange }) {
 					/>
 				</td>
 				<td>
-					<button type='submit'>Save</button>
+					<button type='submit' id='save'>
+						Save
+					</button>
+					{/* <button type='button' id='delete'>
+						Delete
+					</button> */}
 				</td>
 			</tr>
 		);
