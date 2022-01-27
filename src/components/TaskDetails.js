@@ -92,7 +92,7 @@ function TaskDetails(props) {
 
 	// DELETE a task
 	function deleteTask(url) {
-    console.log('delete:', url);
+		console.log('delete:', url);
 		axios.delete(url).then((res) => {
 			console.log('delete results:', res);
 		});
@@ -184,11 +184,9 @@ function TaskDetails(props) {
 					})}
 				</select>
 				<label htmlFor='owner'>Owner</label>
-				<select id='owner' onChange={handleChange} value={task.owner.firstName}>
+				<select id='owner' onChange={handleChange} value={task.owner._id}>
 					<option value=''></option>
 					{users.map((user, idx) => {
-            console.log(task.owner.firstName);
-            console.log('map:' + user.firstName);
 						return (
 							<option key={user._id} value={user._id}>
 								{user.firstName}
