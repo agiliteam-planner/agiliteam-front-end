@@ -29,45 +29,69 @@ function TaskDetails(props) {
 		image: null,
 	};
 
-	// New comment state
-	let [newComment, setNewComment] = useState('');
-
-	// Stages state
-	const [stages, setStages] = useState([]);
-
 	// Initialize Task state
 	const initialTask = {
 		title: '',
 		description: '',
-		stage: 'Todo',
+		stage: 'To Do',
 		priority: '',
 		checklist: [],
-		dueDate: new Date().toISOString().slice(0, 10),
+		dueDate: new Date().toISOString(),
 		files: [],
 		comments: [],
 		owner: '',
 	};
 
+	// New comment state
+	let [newComment, setNewComment] = useState('');
+
+	// Stages state
+	const [stages, setStages] = useState([]);
 	const [task, setTask] = useState(initialTask);
-	// When component mount, fetch task details IF id is not 'new"
+	const [loadingUsers, setLoadingUsers] = useState(true);
+	const [loadingSettings, setLoadingSettings] = useState(true);
+
+	// When component mount, fetch task details IF id is not 'new'
 	useEffect(() => {
+		setLoadingUsers(true);
+		setLoadingSettings(true);
+
 		// Get all users from database
-		axios.get(`${baseUrl}/users`).then((res) => {
-			console.log('users:', res.data);
-			setUsers(res.data);
-		});
+		axios
+			.get(`${baseUrl}/users`)
+			.then((res) => {
+				console.log('users:', res.data);
+				setUsers(res.data);
+				console.log('loadingUsers=', loadingUsers);
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
+				setLoadingUsers(false);
+				console.log('loadingUsers=', loadingUsers);
+			});
+
 		// Get stages from settings
-		axios.get(`${baseUrl}/settings`).then((res) => {
-			console.log('settings:', res.data[0].stages);
-			setStages(res.data[0].stages);
-		});
+		axios
+			.get(`${baseUrl}/settings`)
+			.then((res) => {
+				console.log('loadingSettings =', loadingSettings);
+				console.log('stages:', res.data[0].stages);
+				setStages(res.data[0].stages);
+				
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
+        setTask({ ...initialTask, stage: stages[0] });
+				setLoadingSettings(false);
+				console.log('loadingSettings =', loadingSettings);
+			});
+
 		// IF its not a new task get the task from database ELSE intialize to defaults
 		if (!newTask) {
 			console.log('fetching task details', id);
 			getTaskDetails(`${baseUrl}/tasks/${id}`);
 		} else {
-			setTask(initialTask);
-			console.log('adding new task');
+			console.log('adding new task:', task);
 		}
 	}, [id]);
 
@@ -83,11 +107,11 @@ function TaskDetails(props) {
 	// POST a new task
 	function postTask(url) {
 		console.log('post a new task:', task);
-		axios.post(url, task).then((res) => {
-			console.log('post results:', res);
-		});
+		// axios.post(url, task).then((res) => {
+		// 	console.log('post results:', res);
+		// });
 		// Go to main view after posting a new task
-		navigate('/');
+		// navigate('/');
 	}
 
 	// UPDATE a task
@@ -121,7 +145,10 @@ function TaskDetails(props) {
 	}
 
 	function handleComment(ev) {
+		// console.log(ev);
 		ev.preventDefault();
+		// console.log(ev.target.id, ev.target.value);
+		// console.log('handleComment: ' + newComment +"'");
 		const tmpTask = task;
 		const timeStamp = new Date().toISOString();
 		tmpTask.comments.push({
@@ -129,17 +156,16 @@ function TaskDetails(props) {
 			time: timeStamp,
 			content: newComment,
 		});
-		console.log(tmpTask);
+		// console.log(tmpTask);
 		setTask(tmpTask);
 		setNewComment('');
 	}
 
 	function handleChange(ev) {
 		// console.log('handle task details form');
-		console.log(ev.target.id, ev.target.value);
+		// console.log('handleChange:',ev.target.id, ev.target.value);
 		setTask({ ...task, [ev.target.id]: ev.target.value });
-
-		console.log(task);
+		// console.log(task);
 	}
 
 	function handleTaskSubmit(ev) {
@@ -153,11 +179,17 @@ function TaskDetails(props) {
 			updateTask(`${baseUrl}/tasks/${id}`);
 		}
 	}
-
-	if (!task) return null;
+	// console.log('stages', task.stage);
+	// console.log(!task.stage || !task);
+	if (!task) return <div>Loading...</div>;
+	console.log('rendering:', task);
 	return (
 		<div>
-			<form id='task-details-form'>
+			<form
+				id='task-details-form'
+				onSubmit={(ev) => {
+					ev.preventDefault();
+				}}>
 				<label htmlFor='title'>Title</label>
 				<input
 					type='text'
@@ -226,15 +258,28 @@ function TaskDetails(props) {
 							);
 						})}
 					</div>
-					<button onClick={handleComment}>Add comment</button>
+					<button type='button' onClick={handleComment}>
+						Add comment
+					</button>
 					<input
 						type='text'
 						id='new_comment'
 						value={newComment}
-						onChange={(ev) => setNewComment(ev.target.value)}></input>
+						onChange={(ev) => {
+							setNewComment(ev.target.value);
+						}}></input>
 				</div>
-				<button onClick={handleTaskSubmit}>Submit</button>
-				<button onClick={handleDeleteTask}>Delete</button>
+				<button type='button' onClick={handleTaskSubmit}>
+					Save
+				</button>
+				{!newTask && <button onClick={handleDeleteTask}>Delete</button>}
+				<button
+					type='button'
+					onClick={(ev) => {
+						navigate('/');
+					}}>
+					Cancel
+				</button>
 			</form>
 		</div>
 	);
