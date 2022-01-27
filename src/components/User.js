@@ -5,12 +5,8 @@ function Users({
 	handleRowClick,
 	handleChange,
 	handleDelete,
+	clearEditingStates,
 }) {
-	// // Handle New User case
-	// if (user === null && editingUser === 'NEW_USER') {
-	// 	user =
-	// }
-
 	if (editingUser === user._id) {
 		// Show editing fields
 		return (
@@ -42,13 +38,21 @@ function Users({
 						value={edits?.lastName ?? user.lastName}
 					/>
 				</td>
-				<td>
+				<td className='user-control'>
 					<button type='submit' id='save'>
 						Save
 					</button>
-					{/* <button type='button' id='delete'>
-						Delete
-					</button> */}
+					{user._id !== 'NEW_USER' && (
+						<button
+							type='button'
+							id='delete'
+							onClick={() => handleDelete(user._id)}>
+							Delete
+						</button>
+					)}
+					<button type='button' id='cancel' onClick={clearEditingStates}>
+						Cancel
+					</button>
 				</td>
 			</tr>
 		);

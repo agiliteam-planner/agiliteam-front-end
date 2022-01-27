@@ -55,7 +55,23 @@ function Users(props) {
 		setEdits({ ...edits, [e.target.id]: e.target.value });
 	}
 
-	// TODO: Should this function be
+	// Delete user and reload page
+	function handleDelete(userID) {
+		axios
+			.delete(`${backendUrl}/users/${userID}`)
+			.then((res) => console.log(res))
+			.finally(clearEditingStates);
+	}
+
+	// Clear editing variables and reload page
+	function clearEditingStates() {
+		setEditingUser(null);
+		setEdits({});
+		// Trigger refresh
+		navigate('/settings', { replace: true });
+	}
+
+	// TODO: Should this function be async or useEffect?
 	function handleSubmit(e) {
 		e.preventDefault();
 
@@ -63,70 +79,68 @@ function Users(props) {
 			// Update user
 			axios
 				.put(`${backendUrl}/users/${edits._id}`, edits)
-				.then((res) => console.log(res));
+				.then((res) => console.log(res))
+				.finally(clearEditingStates);
 		} else {
 			const userToPost = edits;
 			delete userToPost._id; // Remove temporary _id property
 			axios
 				.post(`${backendUrl}/users`, userToPost)
-				.then((res) => console.log(res));
+				.then((res) => console.log(res))
+				.finally(clearEditingStates);
 		}
-
-		setEditingUser(null);
-		setEdits({});
-
-		// Trigger refresh
-		navigate('/settings', { replace: true });
 	}
 
 	return (
-		<div>
-			<div className='settings-users'>
-				<h3>Manage Users</h3>
-				<form id='edit-users' action='' onSubmit={handleSubmit}>
-					<table className='users-table'>
-						<thead>
-							<tr>
-								<th>Username</th>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>{/* Controls Row */}</th>
-							</tr>
-						</thead>
-						<tbody>
-							{users.map((user) => (
-								<User
-									key={user._id}
-									user={user}
-									editingUser={editingUser}
-									edits={edits}
-									handleRowClick={handleRowClick}
-									handleChange={handleChange}
-								/>
-							))}
-							{editingUser === 'NEW_USER' && (
-								<User
-									key='NEW_USER'
-									user={newUser}
-									editingUser={editingUser}
-									edits={edits}
-									handleRowClick={handleRowClick}
-									handleChange={handleChange}
-								/>
-							)}
-						</tbody>
-					</table>
-					{/* Display New User Button if not editing */}
-					{!editingUser && (
-						<button
-							type='button'
-							onClick={() => handleRowClick('NEW_USER')}
-							id='new-user'>
-							New User
-						</button>
-					)}
-				</form>
-			</div>
+		<div className='settings-panel users'>
+			<h3>Manage Users</h3>
+			<form id='edit-users' action='' onSubmit={handleSubmit}>
+				<table className='users-table'>
+					<thead>
+						<tr>
+							<th>Username</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>{/* Controls Row */}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{users.map((user) => (
+							<User
+								key={user._id}
+								user={user}
+								editingUser={editingUser}
+								edits={edits}
+								handleRowClick={handleRowClick}
+								handleChange={handleChange}
+								handleDelete={handleDelete}
+								clearEditingStates={clearEditingStates}
+							/>
+						))}
+						{editingUser === 'NEW_USER' && (
+							<User
+								key='NEW_USER'
+								user={newUser}
+								editingUser={editingUser}
+								edits={edits}
+								handleRowClick={handleRowClick}
+								handleChange={handleChange}
+								handleDelete={handleDelete}
+								clearEditingStates={clearEditingStates}
+							/>
+						)}
+					</tbody>
+				</table>
+				{/* Display New User Button if not editing */}
+				{!editingUser && (
+					<button
+						type='button'
+						onClick={() => handleRowClick('NEW_USER')}
+						id='new-user'>
+						New User
+					</button>
+				)}
+			</form>
 		</div>
 	);
 }

@@ -6,23 +6,23 @@ import About from './components/About';
 import Settings from './components/Settings';
 import Navigation from './components/Navigation';
 
-import './App.css';
+import './styles/App.css';
 
 function App() {
-  return (
-    <div className='app'>
-      <Navigation />
-      <main>
-        <Routes>
-          <Route path='/' element={<Stages />} />
-          <Route path='/task/:id' element={<TaskDetails />} />
-          <Route path='/task/new' element={<TaskDetails createNew={true} />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/settings' element={<Settings />} />
-        </Routes>
-      </main>
-    </div>
-  );
+	return (
+		<div className='app'>
+			<Navigation />
+			<main>
+				<Routes>
+					<Route path='/' element={<Stages />} />
+					<Route path='/task/:id' element={<TaskDetails />} />
+					<Route path='/task/new' element={<TaskDetails createNew={true} />} />
+					<Route path='/about' element={<About />} />
+					<Route path='/settings' element={<Settings />} />
+				</Routes>
+			</main>
+		</div>
+	);
 }
 
 export default App;
