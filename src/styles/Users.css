@@ -1,0 +1,12 @@
+.users-table tr {
+	cursor: pointer;
+}
+
+.click-edit {
+	color: lightslategrey;
+	visibility: hidden;
+}
+
+.click-edit:hover {
+	visibility: visible;
+}
