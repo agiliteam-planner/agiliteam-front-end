@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, useMatch } from 'react-router-dom';
+// Bring in CSS style
+import '../styles/TaskDetails.css';
 
 import data from '../tasks.json';
 
@@ -12,11 +14,20 @@ function TaskDetails(props) {
 	const navigate = useNavigate();
 
 	// API url
-	const baseUrl = 'http://localhost:3111/tasks';
+	// const baseUrl = 'http://localhost:3111/tasks';
+	const baseUrl = 'https://arcane-plateau-58687.herokuapp.com';
 
 	// temporary array of users
-	const users = ['Kurt', 'Oscar', 'Elad'];
-	const currentUser = 'Elad';
+	// let users = ['Kurt', 'Oscar', 'Elad'];
+	const [users, setUsers] = useState([]);
+	const priorities = ['high', 'medium', 'low'];
+	const currentUser = {
+		_id: '61f1b20c74641d982a713f1a',
+		username: 'es',
+		firstName: 'Elad',
+		lastName: 'Sadeh',
+		image: null,
+	};
 
 	// New comment state
 	let [newComment, setNewComment] = useState('');
@@ -26,7 +37,7 @@ function TaskDetails(props) {
 		title: '',
 		description: '',
 		stage: 'Todo',
-		priority: 2,
+		priority: '',
 		checklist: [],
 		dueDate: new Date().toISOString().slice(0, 10),
 		files: [],
@@ -37,9 +48,13 @@ function TaskDetails(props) {
 	const [task, setTask] = useState(initialTask);
 	// When component mount, fetch task details IF id is not 'new"
 	useEffect(() => {
+		axios.get(`${baseUrl}/users`).then((res) => {
+			console.log('users:', res.data);
+			setUsers(res.data);
+		});
 		if (!newTask) {
 			console.log('fetching task details', id);
-			getTaskDetails(`${baseUrl}/${id}`);
+			getTaskDetails(`${baseUrl}/tasks/${id}`);
 		} else {
 			setTask(initialTask);
 			console.log('adding new task');
@@ -62,7 +77,7 @@ function TaskDetails(props) {
 			console.log('post results:', res);
 		});
 		// Go to main view after posting a new task
-		navigate('/');
+		// navigate('/');
 	}
 
 	// POST a new task
@@ -72,16 +87,17 @@ function TaskDetails(props) {
 			console.log('put results:', res);
 		});
 		// Go to main view after updating a task
-		navigate('/');
+		// navigate('/');
 	}
 
 	// DELETE a task
 	function deleteTask(url) {
+    console.log('delete:', url);
 		axios.delete(url).then((res) => {
 			console.log('delete results:', res);
 		});
 		// Go to main view after deleting a task
-		navigate('/');
+		navigate('/task/new');
 	}
 
 	// ---------------------------------------------
@@ -91,36 +107,40 @@ function TaskDetails(props) {
 		console.log('delete task');
 		console.log(id);
 		// Add verifiction (do you really want to delete ?)
-		deleteTask(`${baseUrl}/${id}`);
+		deleteTask(`${baseUrl}/tasks/${id}`);
 	}
 
 	function handleComment(ev) {
 		ev.preventDefault();
 		const tmpTask = task;
-		const timeStamp = new Date().toISOString().slice(0, 10);
+		const timeStamp = new Date().toISOString();
 		tmpTask.comments.push({
 			user: currentUser,
 			time: timeStamp,
 			content: newComment,
 		});
+		console.log(tmpTask);
 		setTask(tmpTask);
 		setNewComment('');
 	}
 
 	function handleChange(ev) {
 		// console.log('handle task details form');
+		console.log(ev.target.id, ev.target.value);
 		setTask({ ...task, [ev.target.id]: ev.target.value });
+
+		console.log(task);
 	}
 
 	function handleTaskSubmit(ev) {
 		ev.preventDefault();
 		console.log('submit');
 		if (newTask) {
-			console.log('creating new task');
-			postTask(baseUrl);
+			console.log('creating new task', task);
+			postTask(`${baseUrl}/tasks`);
 		} else {
 			console.log('updating task', id);
-			updateTask(`${baseUrl}/${id}`);
+			updateTask(`${baseUrl}/tasks/${id}`);
 		}
 	}
 
@@ -150,24 +170,28 @@ function TaskDetails(props) {
 					id='dueDate'
 					onChange={handleChange}
 					placeholder='Task Description'
-					value={task.dueDate}
+					value={task.dueDate.slice(0, 10)}
 				/>
 				<label htmlFor='priority'>Priority</label>
-				<input
-					type='number'
-					min='1'
-					id='priority'
-					onChange={handleChange}
-					placeholder='Task Description'
-					value={task.priority}
-				/>
+				<select id='priority' onChange={handleChange} value={task.priority}>
+					<option value={null}></option>
+					{priorities.map((priority, idx) => {
+						return (
+							<option key={idx} value={idx}>
+								{priority}
+							</option>
+						);
+					})}
+				</select>
 				<label htmlFor='owner'>Owner</label>
-				<select id='owner' onChange={handleChange} value={task.owner}>
+				<select id='owner' onChange={handleChange} value={task.owner.firstName}>
 					<option value=''></option>
 					{users.map((user, idx) => {
+            console.log(task.owner.firstName);
+            console.log('map:' + user.firstName);
 						return (
-							<option key={idx} value={user}>
-								{user}
+							<option key={user._id} value={user._id}>
+								{user.firstName}
 							</option>
 						);
 					})}
@@ -178,7 +202,8 @@ function TaskDetails(props) {
 						{task.comments.map((comment, idx) => {
 							return (
 								<div key={idx}>
-									{comment.user}: {comment.content} @{comment.time}
+									{comment.user.firstName}: {comment.content} @
+									{comment.time.slice(0, 10)}
 								</div>
 							);
 						})}
