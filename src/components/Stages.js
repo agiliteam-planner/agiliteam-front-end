@@ -22,21 +22,27 @@ function Stages(props) {
 	const [stages, setStages] = useState(placeholderStages);
 	const [stagedTasks, setStagedTasks] = useState(placeholderStagedTasks);
 
-	// Sorts all tasks from API request into each stage
+	// Sort tasks from API into appropriate stage
+	// And grab only users that appear in those tasks
 	function refreshTasks(tasks) {
 		const newStagedTasks = stages.map((stage) => {
 			const stageTasks = tasks.filter((task) => task.stage === stage);
 			return { name: stage, tasks: stageTasks };
 		});
-		// Get an array of unique owners present in tasks
+
+		// Keep only truthy owners present in tasks
+		let newUsers = tasks.filter((task) => task.owner);
+		// Keep only unique owners
 		// https://stackoverflow.com/a/58429784/1074802
-		const newUsers = [
-			...new Map(tasks.map((task) => [task.owner?._id, task.owner])).values(),
+		newUsers = [
+			...new Map(newUsers.map((task) => [task.owner._id, task.owner])).values(),
 		];
 		// And sort users alphabetically
 		newUsers.sort((a, b) =>
 			a.firstName.toLowerCase() > b.firstName.toLowerCase() ? 1 : -1
 		);
+
+		// Set states
 		setUsers(newUsers);
 		setStagedTasks(newStagedTasks);
 	}
