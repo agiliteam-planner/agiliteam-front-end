@@ -28,8 +28,14 @@ function Stages(props) {
       const stageTasks = tasks.filter((task) => task.stage === stage);
       return { name: stage, tasks: stageTasks };
     });
-    const newUsers = [...new Set(tasks.map((task) => task.owner))].sort(
-      (a, b) => (a.firstName > b.firstName ? 1 : -1)
+    // Get an array of unique owners present in tasks
+    // https://stackoverflow.com/a/58429784/1074802
+    const newUsers = [
+      ...new Map(tasks.map((task) => [task.owner._id, task.owner])).values(),
+    ];
+    // And sort users alphabetically
+    newUsers.sort((a, b) =>
+      a.firstName.toLowerCase() > b.firstName.toLowerCase() ? 1 : -1
     );
     setUsers(newUsers);
     setStagedTasks(newStagedTasks);
@@ -78,7 +84,7 @@ function Stages(props) {
               <option value={null}></option>
               {users.map((user) => (
                 <option key={user._id} value={user._id}>
-                  {`${user.firstName} ${user.lastName.charAt(0)}.`}
+                  {`${user.firstName} ${user.lastName}`}
                 </option>
               ))}
             </select>
