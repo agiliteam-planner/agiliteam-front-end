@@ -34,7 +34,7 @@ function Users(props) {
 				console.error(error);
 			}
 		})();
-	}, [editingUser]);
+	}, [editingUser, handleSubmit]);
 
 	// Change editing user state if no other editing is happening
 	function handleRowClick(userID) {
