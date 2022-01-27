@@ -49,10 +49,10 @@ function Stages(props) {
     // IIFE to make it async
     (async () => {
       try {
-        const stagesResponse = await axios.get(backendUrl + '/settings');
+        const stagesResponse = await axios.get(`${backendUrl}/settings`);
         setStages(stagesResponse.data[0].stages);
 
-        const tasksResponse = await axios.get(backendUrl + '/tasks');
+        const tasksResponse = await axios.get(`${backendUrl}/tasks`);
         refreshTasks(tasksResponse.data);
       } catch (error) {
         // TODO: Handle errors for user
