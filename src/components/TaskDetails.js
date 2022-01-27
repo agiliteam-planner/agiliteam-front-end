@@ -20,7 +20,7 @@ function TaskDetails(props) {
 	// temporary array of users
 	// let users = ['Kurt', 'Oscar', 'Elad'];
 	const [users, setUsers] = useState([]);
-	const priorities = ['high', 'medium', 'low'];
+	const priorities = ['High', 'Medium', 'Low'];
 	const currentUser = {
 		_id: '61f1b20c74641d982a713f1a',
 		username: 'es',
@@ -34,7 +34,7 @@ function TaskDetails(props) {
 		title: '',
 		description: '',
 		stage: 'To Do',
-		priority: '',
+		priority: '1',
 		checklist: [],
 		dueDate: new Date().toISOString(),
 		files: [],
@@ -62,12 +62,12 @@ function TaskDetails(props) {
 			.then((res) => {
 				console.log('users:', res.data);
 				setUsers(res.data);
-				console.log('loadingUsers=', loadingUsers);
+				// console.log('loadingUsers=', loadingUsers);
 			})
 			.catch((err) => console.log(err))
 			.finally(() => {
 				setLoadingUsers(false);
-				console.log('loadingUsers=', loadingUsers);
+				// console.log('loadingUsers=', loadingUsers);
 			});
 
 		// Get stages from settings
@@ -107,11 +107,11 @@ function TaskDetails(props) {
 	// POST a new task
 	function postTask(url) {
 		console.log('post a new task:', task);
-		// axios.post(url, task).then((res) => {
-		// 	console.log('post results:', res);
-		// });
+		axios.post(url, task).then((res) => {
+			console.log('post results:', res);
+		});
 		// Go to main view after posting a new task
-		// navigate('/');
+		navigate('/');
 	}
 
 	// UPDATE a task
@@ -135,6 +135,7 @@ function TaskDetails(props) {
 	}
 
 	// ---------------------------------------------
+
 
 	function handleDeleteTask(ev) {
 		ev.preventDefault();
@@ -170,7 +171,17 @@ function TaskDetails(props) {
 
 	function handleTaskSubmit(ev) {
 		ev.preventDefault();
-		console.log('submit');
+		console.log('new/update:', task);
+		// Task object validation
+		if (!task.stage) {
+			console.log('task has no stage setting to', stages[0]);
+			task.stage = stages[0];
+		}
+		if (!/[a-z]/i.test(task.title)) {
+			console.log('Task must have a title');
+      return null;
+		}
+		console.log(task);
 		if (newTask) {
 			console.log('creating new task', task);
 			postTask(`${baseUrl}/tasks`);
@@ -190,14 +201,66 @@ function TaskDetails(props) {
 				onSubmit={(ev) => {
 					ev.preventDefault();
 				}}>
-				<label htmlFor='title'>Title</label>
-				<input
-					type='text'
-					id='title'
-					onChange={handleChange}
-					placeholder='Task Title'
-					value={task.title}
-				/>
+				<div className='task-title-wrapper'>
+					<label htmlFor='title'>Title</label>
+					<input
+						type='text'
+						id='title'
+						onChange={handleChange}
+						placeholder='Task Title'
+						value={task.title}
+					/>
+				</div>
+				<div className='task-selectors-wrapper'>
+					<div className='task-duedate-selector task-selector'>
+						<label htmlFor='dueDate'>Due Date</label>
+						<input
+							type='date'
+							id='dueDate'
+							onChange={handleChange}
+							placeholder='Task Description'
+							value={task.dueDate.slice(0, 10)}
+						/>
+					</div>
+					<div className='task-stage-selector task-selector'>
+						<label htmlFor='stage'>Stage</label>
+						<select id='stage' onChange={handleChange} value={task.stage}>
+							{stages.map((stage, idx) => {
+								return (
+									<option key={idx} value={stage}>
+										{stage}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+					<div className='task-priority-selector task-selector'>
+						<label htmlFor='priority'>Priority</label>
+						<select id='priority' onChange={handleChange} value={task.priority}>
+							<option value={null}></option>
+							{priorities.map((priority, idx) => {
+								return (
+									<option key={idx} value={idx}>
+										{priority}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+					<div className='task-owner-selector task-selector'>
+						<label htmlFor='owner'>Owner</label>
+						<select id='owner' onChange={handleChange} value={task.owner ? task.owner._id: ''}>
+							<option value=''></option>
+							{users.map((user, idx) => {
+								return (
+									<option key={user._id} value={user._id}>
+										{user.firstName}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+				</div>
 				<label htmlFor='description'>Description</label>
 				<textarea
 					type='text'
@@ -206,80 +269,45 @@ function TaskDetails(props) {
 					placeholder='Task Description'
 					value={task.description}
 				/>
-				<label htmlFor='dueDate'>Due Date</label>
-				<input
-					type='date'
-					id='dueDate'
-					onChange={handleChange}
-					placeholder='Task Description'
-					value={task.dueDate.slice(0, 10)}
-				/>
-				<label htmlFor='stage'>Stage</label>
-				<select id='stage' onChange={handleChange} value={task.stage}>
-					{stages.map((stage, idx) => {
-						return (
-							<option key={idx} value={stage}>
-								{stage}
-							</option>
-						);
-					})}
-				</select>
-				<label htmlFor='priority'>Priority</label>
-				<select id='priority' onChange={handleChange} value={task.priority}>
-					<option value={null}></option>
-					{priorities.map((priority, idx) => {
-						return (
-							<option key={idx} value={idx}>
-								{priority}
-							</option>
-						);
-					})}
-				</select>
-				<label htmlFor='owner'>Owner</label>
-				<select id='owner' onChange={handleChange} value={task.owner._id}>
-					<option value=''></option>
-					{users.map((user, idx) => {
-						return (
-							<option key={user._id} value={user._id}>
-								{user.firstName}
-							</option>
-						);
-					})}
-				</select>
 				<div className='task-comments'>
 					Comments
 					<div className='task-comments-list'>
 						{task.comments.map((comment, idx) => {
 							return (
-								<div key={idx}>
-									{comment.user.firstName}: {comment.content} @
-									{comment.time.slice(0, 10)}
+								<div className='task-comment' key={idx}>
+									<span className='task-comment-user'>{comment.user.firstName}:</span> <span className='task-comment-content'>{comment.content}</span>
+									<span className='task-comment-time'>{comment.time}</span>
 								</div>
 							);
 						})}
 					</div>
-					<button type='button' onClick={handleComment}>
-						Add comment
+					<div className='task-new-comment-wrapper'>
+            <button type='button' onClick={handleComment}>
+              Add comment
+            </button>
+            <input
+              type='text'
+              id='new_comment'
+              placeholder='New comment here'
+              value={newComment}
+              onChange={(ev) => {
+                setNewComment(ev.target.value);
+              }}></input>
+                    </div>
+          </div>
+				<div className='task-bottom-buttons'>
+					<button type='button' onClick={handleTaskSubmit}>
+						Save
 					</button>
-					<input
-						type='text'
-						id='new_comment'
-						value={newComment}
-						onChange={(ev) => {
-							setNewComment(ev.target.value);
-						}}></input>
+					{!newTask && <button onClick={handleDeleteTask}>Delete</button>}
+					<button
+						type='button'
+						onClick={(ev) => {
+							navigate('/');
+						}}>
+						Cancel
+					</button>
 				</div>
-				<button type='button' onClick={handleTaskSubmit}>
-					Save
-				</button>
-				{!newTask && <button onClick={handleDeleteTask}>Delete</button>}
-				<button
-					type='button'
-					onClick={(ev) => {
-						navigate('/');
-					}}>
-					Cancel
-				</button>
 			</form>
 		</div>
 	);
