@@ -20,7 +20,7 @@ function TaskDetails(props) {
 	// temporary array of users
 	// let users = ['Kurt', 'Oscar', 'Elad'];
 	const [users, setUsers] = useState([]);
-	const priorities = ['high', 'medium', 'low'];
+	const priorities = ['High', 'Medium', 'Low'];
 	const currentUser = {
 		_id: '61f1b20c74641d982a713f1a',
 		username: 'es',
@@ -29,45 +29,69 @@ function TaskDetails(props) {
 		image: null,
 	};
 
-	// New comment state
-	let [newComment, setNewComment] = useState('');
-
-	// Stages state
-	const [stages, setStages] = useState([]);
-
 	// Initialize Task state
 	const initialTask = {
 		title: '',
 		description: '',
-		stage: 'Todo',
-		priority: '',
+		stage: 'To Do',
+		priority: '1',
 		checklist: [],
-		dueDate: new Date().toISOString().slice(0, 10),
+		dueDate: new Date().toISOString(),
 		files: [],
 		comments: [],
 		owner: '',
 	};
 
+	// New comment state
+	let [newComment, setNewComment] = useState('');
+
+	// Stages state
+	const [stages, setStages] = useState([]);
 	const [task, setTask] = useState(initialTask);
-	// When component mount, fetch task details IF id is not 'new"
+	const [loadingUsers, setLoadingUsers] = useState(true);
+	const [loadingSettings, setLoadingSettings] = useState(true);
+
+	// When component mount, fetch task details IF id is not 'new'
 	useEffect(() => {
+		setLoadingUsers(true);
+		setLoadingSettings(true);
+
 		// Get all users from database
-		axios.get(`${baseUrl}/users`).then((res) => {
-			console.log('users:', res.data);
-			setUsers(res.data);
-		});
+		axios
+			.get(`${baseUrl}/users`)
+			.then((res) => {
+				console.log('users:', res.data);
+				setUsers(res.data);
+				// console.log('loadingUsers=', loadingUsers);
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
+				setLoadingUsers(false);
+				// console.log('loadingUsers=', loadingUsers);
+			});
+
 		// Get stages from settings
-		axios.get(`${baseUrl}/settings`).then((res) => {
-			console.log('settings:', res.data[0].stages);
-			setStages(res.data[0].stages);
-		});
+		axios
+			.get(`${baseUrl}/settings`)
+			.then((res) => {
+				console.log('loadingSettings =', loadingSettings);
+				console.log('stages:', res.data[0].stages);
+				setStages(res.data[0].stages);
+				
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
+        setTask({ ...initialTask, stage: stages[0] });
+				setLoadingSettings(false);
+				console.log('loadingSettings =', loadingSettings);
+			});
+
 		// IF its not a new task get the task from database ELSE intialize to defaults
 		if (!newTask) {
 			console.log('fetching task details', id);
 			getTaskDetails(`${baseUrl}/tasks/${id}`);
 		} else {
-			setTask(initialTask);
-			console.log('adding new task');
+			console.log('adding new task:', task);
 		}
 	}, [id]);
 
@@ -112,6 +136,7 @@ function TaskDetails(props) {
 
 	// ---------------------------------------------
 
+
 	function handleDeleteTask(ev) {
 		ev.preventDefault();
 		console.log('delete task');
@@ -121,7 +146,10 @@ function TaskDetails(props) {
 	}
 
 	function handleComment(ev) {
+		// console.log(ev);
 		ev.preventDefault();
+		// console.log(ev.target.id, ev.target.value);
+		// console.log('handleComment: ' + newComment +"'");
 		const tmpTask = task;
 		const timeStamp = new Date().toISOString();
 		tmpTask.comments.push({
@@ -129,22 +157,31 @@ function TaskDetails(props) {
 			time: timeStamp,
 			content: newComment,
 		});
-		console.log(tmpTask);
+		// console.log(tmpTask);
 		setTask(tmpTask);
 		setNewComment('');
 	}
 
 	function handleChange(ev) {
 		// console.log('handle task details form');
-		console.log(ev.target.id, ev.target.value);
+		// console.log('handleChange:',ev.target.id, ev.target.value);
 		setTask({ ...task, [ev.target.id]: ev.target.value });
-
-		console.log(task);
+		// console.log(task);
 	}
 
 	function handleTaskSubmit(ev) {
 		ev.preventDefault();
-		console.log('submit');
+		console.log('new/update:', task);
+		// Task object validation
+		if (!task.stage) {
+			console.log('task has no stage setting to', stages[0]);
+			task.stage = stages[0];
+		}
+		if (!/[a-z]/i.test(task.title)) {
+			console.log('Task must have a title');
+      return null;
+		}
+		console.log(task);
 		if (newTask) {
 			console.log('creating new task', task);
 			postTask(`${baseUrl}/tasks`);
@@ -153,19 +190,77 @@ function TaskDetails(props) {
 			updateTask(`${baseUrl}/tasks/${id}`);
 		}
 	}
-
-	if (!task) return null;
+	// console.log('stages', task.stage);
+	// console.log(!task.stage || !task);
+	if (!task) return <div>Loading...</div>;
+	console.log('rendering:', task);
 	return (
 		<div>
-			<form id='task-details-form'>
-				<label htmlFor='title'>Title</label>
-				<input
-					type='text'
-					id='title'
-					onChange={handleChange}
-					placeholder='Task Title'
-					value={task.title}
-				/>
+			<form
+				id='task-details-form'
+				onSubmit={(ev) => {
+					ev.preventDefault();
+				}}>
+				<div className='task-title-wrapper'>
+					<label htmlFor='title'>Title</label>
+					<input
+						type='text'
+						id='title'
+						onChange={handleChange}
+						placeholder='Task Title'
+						value={task.title}
+					/>
+				</div>
+				<div className='task-selectors-wrapper'>
+					<div className='task-duedate-selector task-selector'>
+						<label htmlFor='dueDate'>Due Date</label>
+						<input
+							type='date'
+							id='dueDate'
+							onChange={handleChange}
+							placeholder='Task Description'
+							value={task.dueDate.slice(0, 10)}
+						/>
+					</div>
+					<div className='task-stage-selector task-selector'>
+						<label htmlFor='stage'>Stage</label>
+						<select id='stage' onChange={handleChange} value={task.stage}>
+							{stages.map((stage, idx) => {
+								return (
+									<option key={idx} value={stage}>
+										{stage}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+					<div className='task-priority-selector task-selector'>
+						<label htmlFor='priority'>Priority</label>
+						<select id='priority' onChange={handleChange} value={task.priority}>
+							<option value={null}></option>
+							{priorities.map((priority, idx) => {
+								return (
+									<option key={idx} value={idx}>
+										{priority}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+					<div className='task-owner-selector task-selector'>
+						<label htmlFor='owner'>Owner</label>
+						<select id='owner' onChange={handleChange} value={task.owner ? task.owner._id: ''}>
+							<option value=''></option>
+							{users.map((user, idx) => {
+								return (
+									<option key={user._id} value={user._id}>
+										{user.firstName}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+				</div>
 				<label htmlFor='description'>Description</label>
 				<textarea
 					type='text'
@@ -174,67 +269,45 @@ function TaskDetails(props) {
 					placeholder='Task Description'
 					value={task.description}
 				/>
-				<label htmlFor='dueDate'>Due Date</label>
-				<input
-					type='date'
-					id='dueDate'
-					onChange={handleChange}
-					placeholder='Task Description'
-					value={task.dueDate.slice(0, 10)}
-				/>
-				<label htmlFor='stage'>Stage</label>
-				<select id='stage' onChange={handleChange} value={task.stage}>
-					{stages.map((stage, idx) => {
-						return (
-							<option key={idx} value={stage}>
-								{stage}
-							</option>
-						);
-					})}
-				</select>
-				<label htmlFor='priority'>Priority</label>
-				<select id='priority' onChange={handleChange} value={task.priority}>
-					<option value={null}></option>
-					{priorities.map((priority, idx) => {
-						return (
-							<option key={idx} value={idx}>
-								{priority}
-							</option>
-						);
-					})}
-				</select>
-				<label htmlFor='owner'>Owner</label>
-				<select id='owner' onChange={handleChange} value={task.owner._id}>
-					<option value=''></option>
-					{users.map((user, idx) => {
-						return (
-							<option key={user._id} value={user._id}>
-								{user.firstName}
-							</option>
-						);
-					})}
-				</select>
 				<div className='task-comments'>
 					Comments
 					<div className='task-comments-list'>
 						{task.comments.map((comment, idx) => {
 							return (
-								<div key={idx}>
-									{comment.user.firstName}: {comment.content} @
-									{comment.time.slice(0, 10)}
+								<div className='task-comment' key={idx}>
+									<span className='task-comment-user'>{comment.user.firstName}:</span> <span className='task-comment-content'>{comment.content}</span>
+									<span className='task-comment-time'>{comment.time}</span>
 								</div>
 							);
 						})}
 					</div>
-					<button onClick={handleComment}>Add comment</button>
-					<input
-						type='text'
-						id='new_comment'
-						value={newComment}
-						onChange={(ev) => setNewComment(ev.target.value)}></input>
+					<div className='task-new-comment-wrapper'>
+            <button type='button' onClick={handleComment}>
+              Add comment
+            </button>
+            <input
+              type='text'
+              id='new_comment'
+              placeholder='New comment here'
+              value={newComment}
+              onChange={(ev) => {
+                setNewComment(ev.target.value);
+              }}></input>
+                    </div>
+          </div>
+				<div className='task-bottom-buttons'>
+					<button type='button' onClick={handleTaskSubmit}>
+						Save
+					</button>
+					{!newTask && <button onClick={handleDeleteTask}>Delete</button>}
+					<button
+						type='button'
+						onClick={(ev) => {
+							navigate('/');
+						}}>
+						Cancel
+					</button>
 				</div>
-				<button onClick={handleTaskSubmit}>Submit</button>
-				<button onClick={handleDeleteTask}>Delete</button>
 			</form>
 		</div>
 	);
