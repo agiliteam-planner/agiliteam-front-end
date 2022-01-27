@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, useMatch } from 'react-router-dom';
 // Bring in CSS style
 import '../styles/TaskDetails.css';
 
-import data from '../tasks.json';
+// import data from '../tasks.json';
 
 function TaskDetails(props) {
 	const { params } = useMatch('/task/:id');
@@ -32,6 +32,9 @@ function TaskDetails(props) {
 	// New comment state
 	let [newComment, setNewComment] = useState('');
 
+	// Stages state
+	const [stages, setStages] = useState([]);
+
 	// Initialize Task state
 	const initialTask = {
 		title: '',
@@ -48,10 +51,17 @@ function TaskDetails(props) {
 	const [task, setTask] = useState(initialTask);
 	// When component mount, fetch task details IF id is not 'new"
 	useEffect(() => {
+		// Get all users from database
 		axios.get(`${baseUrl}/users`).then((res) => {
 			console.log('users:', res.data);
 			setUsers(res.data);
 		});
+		// Get stages from settings
+		axios.get(`${baseUrl}/settings`).then((res) => {
+			console.log('settings:', res.data[0].stages);
+			setStages(res.data[0].stages);
+		});
+		// IF its not a new task get the task from database ELSE intialize to defaults
 		if (!newTask) {
 			console.log('fetching task details', id);
 			getTaskDetails(`${baseUrl}/tasks/${id}`);
@@ -77,17 +87,17 @@ function TaskDetails(props) {
 			console.log('post results:', res);
 		});
 		// Go to main view after posting a new task
-		// navigate('/');
+		navigate('/');
 	}
 
-	// POST a new task
+	// UPDATE a task
 	function updateTask(url) {
 		console.log('update task:', task);
 		axios.put(url, task).then((res) => {
 			console.log('put results:', res);
 		});
 		// Go to main view after updating a task
-		// navigate('/');
+		navigate('/');
 	}
 
 	// DELETE a task
@@ -97,7 +107,7 @@ function TaskDetails(props) {
 			console.log('delete results:', res);
 		});
 		// Go to main view after deleting a task
-		navigate('/task/new');
+		navigate('/');
 	}
 
 	// ---------------------------------------------
@@ -172,6 +182,16 @@ function TaskDetails(props) {
 					placeholder='Task Description'
 					value={task.dueDate.slice(0, 10)}
 				/>
+				<label htmlFor='stage'>Stage</label>
+				<select id='stage' onChange={handleChange} value={task.stage}>
+					{stages.map((stage, idx) => {
+						return (
+							<option key={idx} value={stage}>
+								{stage}
+							</option>
+						);
+					})}
+				</select>
 				<label htmlFor='priority'>Priority</label>
 				<select id='priority' onChange={handleChange} value={task.priority}>
 					<option value={null}></option>
