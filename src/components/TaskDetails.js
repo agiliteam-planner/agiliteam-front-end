@@ -35,7 +35,7 @@ function TaskDetails(props) {
 		stage: 'To Do',
 		priority: '1',
 		checklist: [],
-		dueDate: new Date().toISOString(),
+		dueDate: '',
 		files: [],
 		comments: [],
 		owner: null,
