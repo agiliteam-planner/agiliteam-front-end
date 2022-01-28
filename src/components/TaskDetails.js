@@ -39,7 +39,7 @@ function TaskDetails(props) {
 		dueDate: new Date().toISOString(),
 		files: [],
 		comments: [],
-		owner: '',
+		owner: null,
 	};
 
 	// New comment state
@@ -259,7 +259,6 @@ function TaskDetails(props) {
 					<div className='task-priority-selector task-selector'>
 						<label htmlFor='priority'>Priority</label>
 						<select id='priority' onChange={handleChange} value={task.priority}>
-							<option value={null}></option>
 							{priorities.map((priority, idx) => {
 								return (
 									<option key={idx} value={idx}>
@@ -274,7 +273,7 @@ function TaskDetails(props) {
 						<select
 							id='owner'
 							onChange={handleChange}
-							value={task.owner ? task.owner._id : ''}>
+							value={task.owner ? task.owner._id : null}>
 							<option value=''></option>
 							{users.map((user, idx) => {
 								return (
@@ -341,7 +340,7 @@ function TaskDetails(props) {
 						{newTask ? 'Save' : 'Update'}
 					</button>
 					{!newTask && (
-						<button className='task-button' onClick={handleDeleteTask}>
+						<button type='button' className='task-button' onClick={handleDeleteTask}>
 							Delete
 						</button>
 					)}
