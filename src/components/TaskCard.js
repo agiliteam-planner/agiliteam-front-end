@@ -5,20 +5,8 @@ import '../styles/TaskCard.css';
 function TaskCard({ task }) {
 	const navigate = useNavigate();
 
-	// TEMP values to test display
-	if (typeof task.owner === 'string') {
-		task.owner = {
-			_id: '61f1a98a1176f7e63c741284',
-			username: 'ks42',
-			firstName: 'Kurt',
-			lastName: 'Shields',
-			image: 'best image location',
-			__v: 0,
-		};
-	} // TODO: Delete this temp object
-
-	// TODO: Load these values from settings
-	// const priorities = ['high', 'medium', 'low'];
+	// TODO: Load these values from settings?
+	// const priorities = ['high', 'medium', 'low']; // in db settings
 	const priorities = [
 		{ icon: '❗️', string: 'High' },
 		{ icon: '', string: 'Medium' },
@@ -45,11 +33,14 @@ function TaskCard({ task }) {
 			)}
 			<p
 				className='task-priority'
-				title={priorities[task.priority].string + ' priority'}>
-				{priorities[task.priority].icon}
+				title={priorities[task.priority ?? 1].string + ' priority'}>
+				{priorities[task.priority ?? 1].icon}
 			</p>
 			<p className='task-date' title='Due date'>
-				{new Date(task.dueDate).toLocaleString('en-US', { dateStyle: 'short' })}
+				{task.dueDate &&
+					new Date(task.dueDate).toLocaleString('en-US', {
+						dateStyle: 'short',
+					})}
 			</p>
 		</div>
 	);
