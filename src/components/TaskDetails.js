@@ -77,11 +77,10 @@ function TaskDetails(props) {
 				console.log('loadingSettings =', loadingSettings);
 				console.log('stages:', res.data[0].stages);
 				setStages(res.data[0].stages);
-				
 			})
 			.catch((err) => console.log(err))
 			.finally(() => {
-        setTask({ ...initialTask, stage: stages[0] });
+				setTask({ ...initialTask, stage: stages[0] });
 				setLoadingSettings(false);
 				console.log('loadingSettings =', loadingSettings);
 			});
@@ -134,9 +133,31 @@ function TaskDetails(props) {
 		navigate('/');
 	}
 
-	// ---------------------------------------------
+	// ------ Helper Functions ---------------------
+	function titleIsValidated() {
+		// console.log('title validation', /[a-z]/i.test(task.title));
+		return /[a-z]/i.test(task.title) ? true : false;
+	}
+	function commentIsValidated() {
+		// console.log('title validation', /[a-z]/i.test(task.title));
+		return /[a-z]/i.test(newComment) ? true : false;
+	}
 
+  function formatTime(time) {
+    // console.log(time);
+    // const now = new Date();
+    const commentTime = new Date(time);
+    // const nowday = String(now).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
+    // const nowtime = String(now).match(/(\d\d:\d\d)/)[0];
+    // console.log(nowday, nowtime);
+    const day = String(commentTime).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
+		const hour = String(commentTime).match(/(\d\d:\d\d)/)[0];
+    // console.log(`${hour.padStart(2, '0')}:${minutes.padStart(2, '0')}`);
+    return (`${day} ${hour}`);
+    // console.log(new Date(time));
+  }
 
+	// ------------ Handle Events ---------------
 	function handleDeleteTask(ev) {
 		ev.preventDefault();
 		console.log('delete task');
@@ -179,7 +200,7 @@ function TaskDetails(props) {
 		}
 		if (!/[a-z]/i.test(task.title)) {
 			console.log('Task must have a title');
-      return null;
+			return null;
 		}
 		console.log(task);
 		if (newTask) {
@@ -193,7 +214,7 @@ function TaskDetails(props) {
 	// console.log('stages', task.stage);
 	// console.log(!task.stage || !task);
 	if (!task) return <div>Loading...</div>;
-	console.log('rendering:', task);
+	// console.log('rendering:', task);
 	return (
 		<div>
 			<form
@@ -204,10 +225,11 @@ function TaskDetails(props) {
 				<div className='task-title-wrapper'>
 					<label htmlFor='title'>Title</label>
 					<input
+						className={titleIsValidated() ? '' : 'required-field'}
 						type='text'
 						id='title'
 						onChange={handleChange}
-						placeholder='Task Title'
+						placeholder='Task Title - required field'
 						value={task.title}
 					/>
 				</div>
@@ -249,7 +271,10 @@ function TaskDetails(props) {
 					</div>
 					<div className='task-owner-selector task-selector'>
 						<label htmlFor='owner'>Owner</label>
-						<select id='owner' onChange={handleChange} value={task.owner ? task.owner._id: ''}>
+						<select
+							id='owner'
+							onChange={handleChange}
+							value={task.owner ? task.owner._id : ''}>
 							<option value=''></option>
 							{users.map((user, idx) => {
 								return (
@@ -269,39 +294,60 @@ function TaskDetails(props) {
 					placeholder='Task Description'
 					value={task.description}
 				/>
-				<div className='task-comments'>
+				<div className='task-comments-wrapper'>
 					Comments
 					<div className='task-comments-list'>
 						{task.comments.map((comment, idx) => {
+              formatTime(comment.time)
 							return (
 								<div className='task-comment' key={idx}>
-									<span className='task-comment-user'>{comment.user.firstName}:</span> <span className='task-comment-content'>{comment.content}</span>
-									<span className='task-comment-time'>{comment.time}</span>
+									<div className='task-comment-header'>
+                    <span className='task-comment-user'>
+                      {comment.user.firstName}
+                    </span>
+                    <span className='task-comment-time'>
+                      {formatTime(comment.time)}
+                    </span>
+                  </div>
+									<div className='task-comment-content'>{comment.content}</div>
 								</div>
 							);
 						})}
 					</div>
 					<div className='task-new-comment-wrapper'>
-            <button type='button' onClick={handleComment}>
-              Add comment
-            </button>
-            <input
-              type='text'
-              id='new_comment'
-              placeholder='New comment here'
-              value={newComment}
-              onChange={(ev) => {
-                setNewComment(ev.target.value);
-              }}></input>
-                    </div>
-          </div>
+						<button
+							className='task-comment-button task-button'
+							disabled={commentIsValidated() ? false : true}
+							type='button'
+							onClick={handleComment}>
+							Add comment
+						</button>
+						<input
+							type='text'
+							id='new_comment'
+							placeholder='New comment here'
+							value={newComment}
+							onChange={(ev) => {
+								setNewComment(ev.target.value);
+							}}></input>
+					</div>
+				</div>
 				<div className='task-bottom-buttons'>
-					<button type='button' onClick={handleTaskSubmit}>
-						Save
+					<button
+						className='task-button'
+						disabled={titleIsValidated() ? false : true}
+						type='button'
+						onClick={handleTaskSubmit}>
+						{newTask ? 'Save' : 'Update'}
 					</button>
-					{!newTask && <button onClick={handleDeleteTask}>Delete</button>}
+					{!newTask && (
+						<button className='task-button' onClick={handleDeleteTask}>
+							Delete
+						</button>
+					)}
 					<button
 						type='button'
+						className='task-button'
 						onClick={(ev) => {
 							navigate('/');
 						}}>
