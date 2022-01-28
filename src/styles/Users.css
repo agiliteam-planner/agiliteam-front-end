@@ -30,7 +30,12 @@
 }
 
 .users-wrapper {
-	background-color: aqua;
 	display: flex;
 	flex-direction: column;
+}
+@media (min-width: 600px) {
+	.users-wrapper {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
 }
