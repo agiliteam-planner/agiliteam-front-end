@@ -1,49 +1,61 @@
+import '../styles/User.css'
 function Users({
 	user,
 	editingUser,
 	edits,
-	handleRowClick,
 	handleChange,
 	handleDelete,
 	clearEditingStates,
+	setEditingUser,
+	handleSubmit,
+	setEdits,
 }) {
+	function startEdit(e) {
+		// console.log(user._id, user.username, user.firstName, user.lastName);
+		if (editingUser) return;
+		setEditingUser(user._id)
+		let userToEdit = { _id: user._id, username: user.username, firstName: user.firstName, lastName: user.lastName}
+		setEdits({ ...userToEdit })
+	}
 	if (editingUser === user._id) {
 		// Show editing fields
 		return (
-			<tr id={user._id}>
-				<td>
-					<input
-						type='text'
-						form='edit-users'
-						id='username'
-						pattern='[a-z0-9_-]{6,12}'
-						onChange={handleChange}
-						value={edits?.username ?? user.username}
-						required
-					/>
-				</td>
-				<td>
-					<input
-						type='text'
-						form='edit-users'
-						id='firstName'
-						onChange={handleChange}
-						value={edits?.firstName ?? user.firstName}
-						required
-					/>
-				</td>
-				<td>
-					<input
-						type='text'
-						form='edit-users'
-						id='lastName'
-						onChange={handleChange}
-						value={edits?.lastName ?? user.lastName}
-						required
-					/>
-				</td>
-				<td className='user-control'>
-					<button type='submit' id='save'>
+			<form>
+				<legend>First Name</legend>
+				<input
+					type='text'
+					form='edit-users'
+					id='firstName'
+					pattern='[a-z0-9]'
+					onChange={handleChange}
+					value={edits?.firstName ?? user.firstName}
+					required
+				/>
+				<legend>Last Name</legend>
+				<input
+					type='text'
+					form='edit-users'
+					id='lastName'
+					pattern='[a-z0-9]'
+					onChange={handleChange}
+					value={edits?.lastName ?? user.lastName}
+					required
+				/>
+				<legend>Username</legend>
+				<input
+					type='text'
+					form='edit-users'
+					id='username'
+					pattern='[a-z0-9_-]{6,12}'
+					onChange={handleChange}
+					value={edits?.username ?? user.username}
+					required
+				/>
+				<div className='user-control'>
+					<button 
+						type='submit' 
+						id='save'
+						onClick={handleSubmit}>
 						Save
 					</button>
 					{user._id !== 'NEW_USER' && (
@@ -57,18 +69,30 @@ function Users({
 					<button type='button' id='cancel' onClick={clearEditingStates}>
 						Cancel
 					</button>
-				</td>
-			</tr>
+				</div>
+			</form>
 		);
 	} else {
 		// Not editing: Display normal user row
 		return (
-			<tr onClick={() => handleRowClick(user._id)} id={user._id}>
-				<td>{user.username}</td>
-				<td>{user.firstName}</td>
-				<td>{user.lastName}</td>
-				<td className='click-edit'>(click to edit)</td>
-			</tr>
+			<div className='user-card' onClick={startEdit}>
+				<div className='user-realname'>
+					<div className='user-name-header'>
+						Name:
+					</div>
+					<div className='user-name-values'>
+						{user.firstName} {user.lastName}
+					</div>	
+				</div>	
+				<div className='user-username'>
+					<div className='username-header'>
+						Username: 
+					</div>
+					<div className='username-value'>
+						{user.username}
+					</div>	
+				</div>	
+			</div>
 		);
 	}
 }

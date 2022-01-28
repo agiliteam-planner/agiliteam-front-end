@@ -1,0 +1,18 @@
+.user-card {
+    background-color: white;
+    margin: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.user-realname {
+    display: flex;
+    justify-content: space-between;
+}
+.user-username {
+    display: flex;
+    justify-content: space-between;
+}
+input {
+    max-width: 80px;
+}

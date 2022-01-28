@@ -28,3 +28,9 @@
 .click-edit:hover {
 	visibility: visible;
 }
+
+.users-wrapper {
+	background-color: aqua;
+	display: flex;
+	flex-direction: column;
+}
