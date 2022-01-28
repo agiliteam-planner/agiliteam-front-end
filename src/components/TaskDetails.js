@@ -241,7 +241,7 @@ function TaskDetails(props) {
 							id='dueDate'
 							onChange={handleChange}
 							placeholder='Task Description'
-							value={task.dueDate.slice(0, 10)}
+							value={task.dueDate ? task.dueDate.slice(0, 10) : ''}
 						/>
 					</div>
 					<div className='task-stage-selector task-selector'>
@@ -297,17 +297,17 @@ function TaskDetails(props) {
 					Comments
 					<div className='task-comments-list'>
 						{task.comments.map((comment, idx) => {
-              formatTime(comment.time)
+							formatTime(comment.time);
 							return (
 								<div className='task-comment' key={idx}>
 									<div className='task-comment-header'>
-                    <span className='task-comment-user'>
-                      {comment.user.firstName}
-                    </span>
-                    <span className='task-comment-time'>
-                      {formatTime(comment.time)}
-                    </span>
-                  </div>
+										<span className='task-comment-user'>
+											{comment.user.firstName}
+										</span>
+										<span className='task-comment-time'>
+											{formatTime(comment.time)}
+										</span>
+									</div>
 									<div className='task-comment-content'>{comment.content}</div>
 								</div>
 							);
@@ -340,7 +340,10 @@ function TaskDetails(props) {
 						{newTask ? 'Save' : 'Update'}
 					</button>
 					{!newTask && (
-						<button type='button' className='task-button' onClick={handleDeleteTask}>
+						<button
+							type='button'
+							className='task-button'
+							onClick={handleDeleteTask}>
 							Delete
 						</button>
 					)}
