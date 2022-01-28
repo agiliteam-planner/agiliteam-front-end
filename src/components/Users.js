@@ -10,7 +10,7 @@ function Users(props) {
 	const [users, setUsers] = useState([]);
 	const [edits, setEdits] = useState({});
 	const [editingUser, setEditingUser] = useState(null);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const newUser = {
 		_id: 'NEW_USER',
@@ -71,10 +71,10 @@ function Users(props) {
 		setEditingUser(null);
 		setEdits({});
 		// Trigger refresh
-		navigate('/settings', { replace: true });
+		// navigate('/settings', { replace: true });
 	}
 
-	// TODO: Should this function be async or useEffect?
+	// Post new user or put edits
 	function handleSubmit(e) {
 		e.preventDefault();
 
