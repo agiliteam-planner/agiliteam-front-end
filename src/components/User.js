@@ -16,8 +16,10 @@ function Users({
 						type='text'
 						form='edit-users'
 						id='username'
+						pattern='[a-z0-9_-]{6,12}'
 						onChange={handleChange}
 						value={edits?.username ?? user.username}
+						required
 					/>
 				</td>
 				<td>
@@ -27,6 +29,7 @@ function Users({
 						id='firstName'
 						onChange={handleChange}
 						value={edits?.firstName ?? user.firstName}
+						required
 					/>
 				</td>
 				<td>
@@ -36,6 +39,7 @@ function Users({
 						id='lastName'
 						onChange={handleChange}
 						value={edits?.lastName ?? user.lastName}
+						required
 					/>
 				</td>
 				<td className='user-control'>
