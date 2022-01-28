@@ -5,7 +5,6 @@ import { useNavigate, useParams, useMatch } from 'react-router-dom';
 import '../styles/TaskDetails.css';
 
 // import data from '../tasks.json';
-
 function TaskDetails(props) {
 	const { params } = useMatch('/task/:id');
 	const id = params.id;
@@ -36,20 +35,21 @@ function TaskDetails(props) {
 		stage: 'To Do',
 		priority: '1',
 		checklist: [],
-		dueDate: new Date().toISOString(),
+		dueDate: '',
 		files: [],
 		comments: [],
-		owner: '',
+		owner: null,
 	};
 
 	// New comment state
 	let [newComment, setNewComment] = useState('');
 
 	// Stages state
-	const [stages, setStages] = useState([]);
-	const [task, setTask] = useState(initialTask);
+	const [stages, setStages] = useState([]); // Available stages
+	const [task, setTask] = useState(initialTask); // Task object
 	const [loadingUsers, setLoadingUsers] = useState(true);
 	const [loadingSettings, setLoadingSettings] = useState(true);
+	const [showDeleteModal, setDeleteModal] = useState(false); // show modal before delete
 
 	// When component mount, fetch task details IF id is not 'new'
 	useEffect(() => {
@@ -143,27 +143,35 @@ function TaskDetails(props) {
 		return /[a-z]/i.test(newComment) ? true : false;
 	}
 
-  function formatTime(time) {
-    // console.log(time);
-    // const now = new Date();
-    const commentTime = new Date(time);
-    // const nowday = String(now).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
-    // const nowtime = String(now).match(/(\d\d:\d\d)/)[0];
-    // console.log(nowday, nowtime);
-    const day = String(commentTime).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
+	function formatTime(time) {
+		// console.log(time);
+		// const now = new Date();
+		const commentTime = new Date(time);
+		// const nowday = String(now).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
+		// const nowtime = String(now).match(/(\d\d:\d\d)/)[0];
+		// console.log(nowday, nowtime);
+		const day = String(commentTime).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
 		const hour = String(commentTime).match(/(\d\d:\d\d)/)[0];
-    // console.log(`${hour.padStart(2, '0')}:${minutes.padStart(2, '0')}`);
-    return (`${day} ${hour}`);
-    // console.log(new Date(time));
-  }
+		// console.log(`${hour.padStart(2, '0')}:${minutes.padStart(2, '0')}`);
+		return `${day} ${hour}`;
+		// console.log(new Date(time));
+	}
+
+	function confirmDelete(confirm) {
+		setDeleteModal(false);
+		console.log('delete task?', confirm);
+		// Delete task if confirmed
+		confirm && deleteTask(`${baseUrl}/tasks/${id}`);
+	}
 
 	// ------------ Handle Events ---------------
 	function handleDeleteTask(ev) {
 		ev.preventDefault();
-		console.log('delete task');
-		console.log(id);
+		// Open a model to get confirmation
+		setDeleteModal(true);
 		// Add verifiction (do you really want to delete ?)
-		deleteTask(`${baseUrl}/tasks/${id}`);
+		// let allowDelete = confirmDelete(task);
+		// console.log('allow:', allowDelete);
 	}
 
 	function handleComment(ev) {
@@ -198,10 +206,13 @@ function TaskDetails(props) {
 			console.log('task has no stage setting to', stages[0]);
 			task.stage = stages[0];
 		}
-		if (!/[a-z]/i.test(task.title)) {
-			console.log('Task must have a title');
-			return null;
-		}
+		console.log(task.owner);
+		if (!task.owner) task.owner = null;
+		console.log(task.owner);
+		// if (!/[a-z]/i.test(task.title)) {
+		// 	console.log('Task must have a title');
+		// 	return null;
+		// }
 		console.log(task);
 		if (newTask) {
 			console.log('creating new task', task);
@@ -217,6 +228,27 @@ function TaskDetails(props) {
 	// console.log('rendering:', task);
 	return (
 		<div>
+			{showDeleteModal && (
+				<div className='delete-confirm-wrapper'>
+          <div className='delete-confirm-modal'>
+            <div>Are you sure you want to delete <br/>"{task.title}"?</div>
+            <button
+              className='task-button confirm-button'
+              onClick={() => {
+                confirmDelete(true);
+              }}>
+              Delete
+            </button>
+            <button
+              className='task-button confirm-button'
+              onClick={() => {
+                confirmDelete(false);
+              }}>
+              Cancel
+            </button>
+          </div>
+        </div>
+			)}
 			<form
 				id='task-details-form'
 				onSubmit={(ev) => {
@@ -241,7 +273,7 @@ function TaskDetails(props) {
 							id='dueDate'
 							onChange={handleChange}
 							placeholder='Task Description'
-							value={task.dueDate.slice(0, 10)}
+							value={task.dueDate ? task.dueDate.slice(0, 10) : ''}
 						/>
 					</div>
 					<div className='task-stage-selector task-selector'>
@@ -259,7 +291,6 @@ function TaskDetails(props) {
 					<div className='task-priority-selector task-selector'>
 						<label htmlFor='priority'>Priority</label>
 						<select id='priority' onChange={handleChange} value={task.priority}>
-							<option value={null}></option>
 							{priorities.map((priority, idx) => {
 								return (
 									<option key={idx} value={idx}>
@@ -298,17 +329,17 @@ function TaskDetails(props) {
 					Comments
 					<div className='task-comments-list'>
 						{task.comments.map((comment, idx) => {
-              formatTime(comment.time)
+							formatTime(comment.time);
 							return (
 								<div className='task-comment' key={idx}>
 									<div className='task-comment-header'>
-                    <span className='task-comment-user'>
-                      {comment.user.firstName}
-                    </span>
-                    <span className='task-comment-time'>
-                      {formatTime(comment.time)}
-                    </span>
-                  </div>
+										<span className='task-comment-user'>
+											{comment.user.firstName}
+										</span>
+										<span className='task-comment-time'>
+											{formatTime(comment.time)}
+										</span>
+									</div>
 									<div className='task-comment-content'>{comment.content}</div>
 								</div>
 							);
@@ -341,7 +372,10 @@ function TaskDetails(props) {
 						{newTask ? 'Save' : 'Update'}
 					</button>
 					{!newTask && (
-						<button className='task-button' onClick={handleDeleteTask}>
+						<button
+							type='button'
+							className='task-button'
+							onClick={handleDeleteTask}>
 							Delete
 						</button>
 					)}

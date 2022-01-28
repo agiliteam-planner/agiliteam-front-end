@@ -1,6 +1,7 @@
 #task-details-form {
 	display: flex;
 	flex-direction: column;
+	padding: 3vh 5vw;
 }
 
 .task-title-wrapper {
@@ -56,7 +57,7 @@ select {
 
 .task-comments-list {
 	border: none;
-    background-color: gray;
+	background-color: gray;
 	border-radius: 5px;
 	padding: 2px 4px;
 }
@@ -81,9 +82,9 @@ select {
 }
 
 .task-comment-content {
-    padding: 5px 0 5px 20px;
-    background-color: white;
-    border-radius:  0 0 5px 5px;
+	padding: 5px 0 5px 20px;
+	background-color: white;
+	border-radius: 0 0 5px 5px;
 }
 .task-new-comment-wrapper {
 	display: flex;
@@ -121,6 +122,35 @@ select {
 #title.required-field::placeholder {
 	border-color: rgba(179, 0, 0, 0.7);
 	color: rgba(179, 0, 0, 0.7);
+}
+
+/* Delete confirmation modal */
+.delete-confirm-wrapper {
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: rgba(201, 201, 201, 0.51);
+}
+
+.delete-confirm-modal {
+	background-color: whitesmoke;
+	max-width: 30rem;
+	margin-top: 5rem;
+	margin-bottom: auto;
+	padding: 25px;
+	text-align: center;
+	border-radius: 4px;
+	border: 1px solid gray;
+	box-shadow: 0px 0px 5px gray;
+	font-size: 1rem;
+	line-height: 1.5;
+	align-content: center;
 }
 
 button:disabled {

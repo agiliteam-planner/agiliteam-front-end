@@ -105,7 +105,7 @@ function Stages(props) {
 							<option value={null}></option>
 							{users.map((user) => (
 								<option key={user._id} value={user._id}>
-									{`${user.firstName} ${user.lastName}`}
+									{`${user.firstName} ${user.lastName.charAt(0)}.`}
 								</option>
 							))}
 						</select>
