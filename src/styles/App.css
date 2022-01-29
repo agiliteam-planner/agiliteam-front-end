@@ -3,8 +3,27 @@
 	box-sizing: border-box;
 }
 
+html,
+body,
+.root,
+.app {
+	/* Fix all the parent components
+	taking up the full viewport */
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	overflow: hidden;
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+}
+
 main {
-	/* padding: 2em 3em; */
+	/* This causes main to create no box so that the
+	child div (component) falls straight into .app */
+	display: contents;
 }
 
 main h2 {

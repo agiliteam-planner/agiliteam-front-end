@@ -1,7 +1,9 @@
 .app-header {
-	position: -webkit-sticky; /* Safari */
+	/* Safari */
+	/* position: -webkit-sticky; 
 	position: sticky;
 	top: 0;
+	left: 0; */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -11,23 +13,23 @@
 	width: 100%;
 }
 .header-titles {
-    display: flex;
-    align-items: baseline;
+	display: flex;
+	align-items: baseline;
 }
 
 .header-titles a {
-    text-decoration: none;
-    color: whitesmoke;
-    padding: 10px;
+	text-decoration: none;
+	color: whitesmoke;
+	padding: 10px;
 }
 
 .nav-title {
-    font-size: 30px;
+	font-size: 30px;
 }
 .nav-sub-title {
-    font-size: 22px;
-    padding-left: 0px;
-    white-space: nowrap;
+	font-size: 22px;
+	padding-left: 0px;
+	white-space: nowrap;
 }
 .nav-item {
 	text-decoration: none;

@@ -74,9 +74,11 @@ function Stages(props) {
 	];
 	function sortByPriority(e) {
 		let sortedTasks = [];
-		stagedTasks.forEach((element) => {sortedTasks.push(element.tasks)})
+		stagedTasks.forEach((element) => {
+			sortedTasks.push(element.tasks);
+		});
 		console.log(sortedTasks);
-	};
+	}
 
 	return (
 		<>
@@ -89,7 +91,9 @@ function Stages(props) {
 					{/* Each filter adds search params? to be bookmarkable */}
 					<li>Show Cards by Priority:</li>
 					<li>
-						<select onChange={(e) => sortByPriority(e.target.value)} htmlFor='prioritySorting'>
+						<select
+							onChange={(e) => sortByPriority(e.target.value)}
+							htmlFor='prioritySorting'>
 							<option value=''>Priority</option>
 							<option value='0'>❗️ High</option>
 							<option value='1'>Medium</option>

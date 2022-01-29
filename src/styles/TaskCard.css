@@ -1,5 +1,7 @@
 .task-card {
+	width: max(300px, 19vw);
 	padding: 0.75em;
+	flex: none;
 
 	display: grid;
 	grid-template-rows: auto auto;
@@ -13,6 +15,8 @@
 
 	background-color: white;
 	cursor: pointer;
+
+	/* scroll-snap-align: start; */
 }
 
 .task-title {
@@ -47,4 +51,10 @@
 .task-date {
 	grid-area: date;
 	justify-self: end;
+}
+
+@media (max-width: 500px) {
+	.task-card {
+		width: auto;
+	}
 }
