@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams, useMatch } from 'react-router-dom';
+import { useNavigate, useMatch } from 'react-router-dom';
 // Bring in CSS style
 import '../styles/TaskDetails.css';
 
 // import data from '../tasks.json';
-
 function TaskDetails(props) {
 	const { params } = useMatch('/task/:id');
 	const id = params.id;
@@ -14,8 +13,8 @@ function TaskDetails(props) {
 	const navigate = useNavigate();
 
 	// API url
-	// const baseUrl = 'http://localhost:3111/tasks';
-	const baseUrl = 'https://arcane-plateau-58687.herokuapp.com';
+	// const baseUrl = 'http://localhost:3111';
+	const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 	// temporary array of users
 	// let users = ['Kurt', 'Oscar', 'Elad'];
@@ -30,79 +29,77 @@ function TaskDetails(props) {
 	};
 
 	// Initialize Task state
-	const initialTask = {
+	const newTaskDefault = {
 		title: '',
 		description: '',
 		stage: 'To Do',
 		priority: '1',
 		checklist: [],
-		dueDate: new Date().toISOString(),
+		dueDate: '',
 		files: [],
 		comments: [],
-		owner: '',
+		owner: null,
 	};
 
 	// New comment state
 	let [newComment, setNewComment] = useState('');
 
 	// Stages state
-	const [stages, setStages] = useState([]);
-	const [task, setTask] = useState(initialTask);
-	const [loadingUsers, setLoadingUsers] = useState(true);
-	const [loadingSettings, setLoadingSettings] = useState(true);
+	const [stages, setStages] = useState([]); // Available stages
+	const [task, setTask] = useState(null); // Task object
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState('');
+	const [showDeleteModal, setDeleteModal] = useState(false); // show modal before delete
 
 	// When component mount, fetch task details IF id is not 'new'
 	useEffect(() => {
-		setLoadingUsers(true);
-		setLoadingSettings(true);
-
-		// Get all users from database
-		axios
-			.get(`${baseUrl}/users`)
-			.then((res) => {
-				console.log('users:', res.data);
-				setUsers(res.data);
-				// console.log('loadingUsers=', loadingUsers);
-			})
-			.catch((err) => console.log(err))
-			.finally(() => {
-				setLoadingUsers(false);
-				// console.log('loadingUsers=', loadingUsers);
-			});
-
-		// Get stages from settings
-		axios
-			.get(`${baseUrl}/settings`)
-			.then((res) => {
-				console.log('loadingSettings =', loadingSettings);
-				console.log('stages:', res.data[0].stages);
-				setStages(res.data[0].stages);
-			})
-			.catch((err) => console.log(err))
-			.finally(() => {
-				setTask({ ...initialTask, stage: stages[0] });
-				setLoadingSettings(false);
-				console.log('loadingSettings =', loadingSettings);
-			});
-
-		// IF its not a new task get the task from database ELSE intialize to defaults
-		if (!newTask) {
-			console.log('fetching task details', id);
-			getTaskDetails(`${baseUrl}/tasks/${id}`);
-		} else {
-			console.log('adding new task:', task);
-		}
+		// get all needed data from API
+		getData(baseUrl);
 	}, [id]);
 
-	// API operations functions
-	// Get Task details based on id for existing task (edit)
-	async function getTaskDetails(url) {
-		const res = await fetch(url);
-		const data = await res.json();
-		console.log('fetch data:', data);
-		setTask(data);
-	}
+	// ----------- API Calls ----------------
 
+	async function getData(url) {
+		// start loading data from API
+		setLoading(true);
+		setError('');
+		console.log('fetching all needed data');
+		try {
+			// Fetch settings
+			let res = await axios.get(`${url}/settings`);
+			if (res.status === 200) {
+				setStages(res.data[0].stages);
+			} else {
+				setError('Could not get settings data');
+				setLoading(false);
+			}
+			// if (!loading) return false;
+			// Fetch users
+			res = await axios.get(`${url}/users`);
+			if (res.status === 200) {
+				setUsers(res.data);
+			} else {
+				setError('Could not get users data');
+				setLoading(false);
+			}
+			if (newTask) {
+				setTask(newTaskDefault);
+				setLoading(false);
+			} else {
+				res = await axios.get(`${url}/tasks/${id}`);
+				if (res.status === 200) {
+					setTask(res.data);
+				} else {
+					setError('Could not get task data');
+				}
+				setLoading(false);
+			}
+		} catch (err) {
+			setError('Something went wrong. Please go back and try again.');
+			setLoading(false);
+			// console.log('error:', err.response.data);
+		}
+	}
 	// POST a new task
 	function postTask(url) {
 		console.log('post a new task:', task);
@@ -143,34 +140,35 @@ function TaskDetails(props) {
 		return /[a-z]/i.test(newComment) ? true : false;
 	}
 
-  function formatTime(time) {
-    // console.log(time);
-    // const now = new Date();
-    const commentTime = new Date(time);
-    // const nowday = String(now).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
-    // const nowtime = String(now).match(/(\d\d:\d\d)/)[0];
-    // console.log(nowday, nowtime);
-    const day = String(commentTime).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
+	function formatTime(time) {
+		// const now = new Date();
+		const commentTime = new Date(time);
+		// const nowday = String(now).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
+		// const nowtime = String(now).match(/(\d\d:\d\d)/)[0];
+		// console.log(nowday, nowtime);
+		const day = String(commentTime).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
 		const hour = String(commentTime).match(/(\d\d:\d\d)/)[0];
-    // console.log(`${hour.padStart(2, '0')}:${minutes.padStart(2, '0')}`);
-    return (`${day} ${hour}`);
-    // console.log(new Date(time));
-  }
+		// console.log(`${hour.padStart(2, '0')}:${minutes.padStart(2, '0')}`);
+		return `${day} ${hour}`;
+		// console.log(new Date(time));
+	}
+
+	function confirmDelete(confirm) {
+		setDeleteModal(false);
+		console.log('delete task?', confirm);
+		// Delete task if confirmed
+		confirm && deleteTask(`${baseUrl}/tasks/${id}`);
+	}
 
 	// ------------ Handle Events ---------------
 	function handleDeleteTask(ev) {
 		ev.preventDefault();
-		console.log('delete task');
-		console.log(id);
-		// Add verifiction (do you really want to delete ?)
-		deleteTask(`${baseUrl}/tasks/${id}`);
+		// Open a model to get confirmation
+		setDeleteModal(true);
 	}
 
 	function handleComment(ev) {
-		// console.log(ev);
 		ev.preventDefault();
-		// console.log(ev.target.id, ev.target.value);
-		// console.log('handleComment: ' + newComment +"'");
 		const tmpTask = task;
 		const timeStamp = new Date().toISOString();
 		tmpTask.comments.push({
@@ -198,10 +196,8 @@ function TaskDetails(props) {
 			console.log('task has no stage setting to', stages[0]);
 			task.stage = stages[0];
 		}
-		if (!/[a-z]/i.test(task.title)) {
-			console.log('Task must have a title');
-			return null;
-		}
+		if (!task.owner) task.owner = null;
+
 		console.log(task);
 		if (newTask) {
 			console.log('creating new task', task);
@@ -211,12 +207,49 @@ function TaskDetails(props) {
 			updateTask(`${baseUrl}/tasks/${id}`);
 		}
 	}
-	// console.log('stages', task.stage);
-	// console.log(!task.stage || !task);
-	if (!task) return <div>Loading...</div>;
-	// console.log('rendering:', task);
+
+	if (loading)
+		return (
+			<div className='loading-message'>
+				<div>Loading data ...</div>
+			</div>
+		);
+	else if (error)
+		return (
+			<div className='error-message'>
+				<div className='error-content'>{error}</div>
+				<button className='error-button' onClick={() => navigate('/')}>
+					Go Back to Safty
+				</button>
+			</div>
+		);
+	if (!task) return <div>Waiting for task information ...</div>;
+	console.log('rendering:', task);
 	return (
 		<div>
+			{showDeleteModal && (
+				<div className='delete-confirm-wrapper'>
+					<div className='delete-confirm-modal'>
+						<div>
+							Are you sure you want to delete <br />"{task.title}"?
+						</div>
+						<button
+							className='task-button confirm-button'
+							onClick={() => {
+								confirmDelete(true);
+							}}>
+							Delete
+						</button>
+						<button
+							className='task-button confirm-button'
+							onClick={() => {
+								confirmDelete(false);
+							}}>
+							Cancel
+						</button>
+					</div>
+				</div>
+			)}
 			<form
 				id='task-details-form'
 				onSubmit={(ev) => {
@@ -228,6 +261,7 @@ function TaskDetails(props) {
 						className={titleIsValidated() ? '' : 'required-field'}
 						type='text'
 						id='title'
+            maxLength='70'
 						onChange={handleChange}
 						placeholder='Task Title - required field'
 						value={task.title}
@@ -241,7 +275,7 @@ function TaskDetails(props) {
 							id='dueDate'
 							onChange={handleChange}
 							placeholder='Task Description'
-							value={task.dueDate.slice(0, 10)}
+							value={task.dueDate ? task.dueDate.slice(0, 10) : ''}
 						/>
 					</div>
 					<div className='task-stage-selector task-selector'>
@@ -259,7 +293,6 @@ function TaskDetails(props) {
 					<div className='task-priority-selector task-selector'>
 						<label htmlFor='priority'>Priority</label>
 						<select id='priority' onChange={handleChange} value={task.priority}>
-							<option value={null}></option>
 							{priorities.map((priority, idx) => {
 								return (
 									<option key={idx} value={idx}>
@@ -298,17 +331,17 @@ function TaskDetails(props) {
 					Comments
 					<div className='task-comments-list'>
 						{task.comments.map((comment, idx) => {
-              formatTime(comment.time)
+							formatTime(comment.time);
 							return (
 								<div className='task-comment' key={idx}>
 									<div className='task-comment-header'>
-                    <span className='task-comment-user'>
-                      {comment.user.firstName}
-                    </span>
-                    <span className='task-comment-time'>
-                      {formatTime(comment.time)}
-                    </span>
-                  </div>
+										<span className='task-comment-user'>
+											{comment.user.firstName}
+										</span>
+										<span className='task-comment-time'>
+											{formatTime(comment.time)}
+										</span>
+									</div>
 									<div className='task-comment-content'>{comment.content}</div>
 								</div>
 							);
@@ -341,7 +374,10 @@ function TaskDetails(props) {
 						{newTask ? 'Save' : 'Update'}
 					</button>
 					{!newTask && (
-						<button className='task-button' onClick={handleDeleteTask}>
+						<button
+							type='button'
+							className='task-button'
+							onClick={handleDeleteTask}>
 							Delete
 						</button>
 					)}

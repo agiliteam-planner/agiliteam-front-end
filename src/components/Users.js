@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import User from './User';
@@ -10,20 +9,11 @@ function Users(props) {
 	const [users, setUsers] = useState([]);
 	const [edits, setEdits] = useState({});
 	const [editingUser, setEditingUser] = useState(null);
-	const navigate = useNavigate();
 
-	const newUser = {
-		_id: 'NEW_USER',
-		username: '',
-		firstName: '',
-		lastName: '',
-		image: '',
-	};
 	// TODO: Move url to a settings location or env variable?
 	const backendUrl = 'https://arcane-plateau-58687.herokuapp.com';
 	// TEST process.env
 	// const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
 	// On initial mount
 	useEffect(() => {
 		// IIFE to make it async
@@ -40,18 +30,9 @@ function Users(props) {
 	}, [editingUser]);
 
 	// Change editing user state if no other editing is happening
-	function handleRowClick(userID) {
-		if (editingUser) return; // do nothing
-
-		setEditingUser(userID);
-		let userToEdit;
-
-		if (userID === 'NEW_USER') {
-			userToEdit = { _id: userID };
-		} else {
-			userToEdit = users.find((user) => user._id === userID);
-		}
-		setEdits({ ...userToEdit });
+	function startNewUser() {
+		setEditingUser('NEW_USER')
+		setEdits({ ...edits, _id: 'NEW_USER'})
 	}
 
 	function handleChange(e) {
@@ -69,14 +50,12 @@ function Users(props) {
 	// Clear editing variables and reload page
 	function clearEditingStates() {
 		setEditingUser(null);
-		setEdits({});
-		// Trigger refresh
-		navigate('/settings', { replace: true });
+		setEdits({})
 	}
 
 	// TODO: Should this function be async or useEffect?
-	function handleSubmit(e) {
-		e.preventDefault();
+	function handleSubmit(event) {
+		event.preventDefault();
 
 		if (edits._id !== 'NEW_USER') {
 			// Update user
@@ -97,53 +76,60 @@ function Users(props) {
 	return (
 		<div className='settings-panel users'>
 			<h3>Manage Users</h3>
-			<form id='edit-users' action='' onSubmit={handleSubmit}>
-				<table className='users-table'>
-					<thead>
-						<tr>
-							<th>Username</th>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>{/* Controls Row */}</th>
-						</tr>
-					</thead>
-					<tbody>
-						{users.map((user) => (
-							<User
-								key={user._id}
-								user={user}
-								editingUser={editingUser}
-								edits={edits}
-								handleRowClick={handleRowClick}
-								handleChange={handleChange}
-								handleDelete={handleDelete}
-								clearEditingStates={clearEditingStates}
-							/>
-						))}
-						{editingUser === 'NEW_USER' && (
-							<User
-								key='NEW_USER'
-								user={newUser}
-								editingUser={editingUser}
-								edits={edits}
-								handleRowClick={handleRowClick}
-								handleChange={handleChange}
-								handleDelete={handleDelete}
-								clearEditingStates={clearEditingStates}
-							/>
-						)}
-					</tbody>
-				</table>
-				{/* Display New User Button if not editing */}
-				{!editingUser && (
-					<button
-						type='button'
-						onClick={() => handleRowClick('NEW_USER')}
-						id='new-user'>
-						New User
-					</button>
-				)}
-			</form>
+			<div className='users-wrapper'>
+				{users.map((user) => (
+					<User
+						key={user._id}
+						user={user}
+						editingUser={editingUser}
+						edits={edits}
+						setEditingUser={setEditingUser}
+						handleChange={handleChange}
+						handleDelete={handleDelete}
+						clearEditingStates={clearEditingStates}
+						handleSubmit={handleSubmit}
+						setEdits={setEdits}
+					/>
+				))}
+			</div>
+			{editingUser !== "NEW_USER" ? (
+				<button onClick={startNewUser}>Add New User</button>
+			) : (
+				<form className='new-user-form'>
+					<div className='new-user-form-wrapper'>
+						<h2 style={{ textAlign: 'center' }}>Add New User</h2>
+						<legend>First Name:</legend>
+						<input 
+							type='text' 
+							onChange={handleChange}
+							id='firstName'
+							value={edits?.firstName ?? users.firstName}>
+							</input>
+						<legend style={{paddingTop: '15px'}}>Last Name:</legend>
+						<input 
+							type='text' 
+							onChange={handleChange}
+							id='lastName'>
+
+						</input>
+						<legend style={{paddingTop: '15px'}}>
+							User Name (6-10 characters):
+						</legend>
+						<input 
+							type='text' 
+							onChange={handleChange}
+							id='username'>
+
+						</input>
+					</div>
+				</form>
+			)}
+			{editingUser !== "NEW_USER" ? null : (
+				<div>
+					<button onClick={handleSubmit}>Add User</button>
+					<button onClick={clearEditingStates}>Cancel</button>
+				</div>
+			)}
 		</div>
 	);
 }

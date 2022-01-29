@@ -68,6 +68,16 @@ function Stages(props) {
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+	const priorities = [
+		{ icon: '❗️', string: 'High' },
+		{ icon: '', string: 'Medium' },
+		{ icon: '⬇', string: 'Low' },
+	];
+	function sortByPriority(e) {
+		let sortedTasks = [];
+		stagedTasks.forEach((element) => {sortedTasks.push(element.tasks)})
+		console.log(sortedTasks);
+	};
 
 	return (
 		<>
@@ -78,9 +88,14 @@ function Stages(props) {
 
 				<ul className='stages-options'>
 					{/* Each filter adds search params? to be bookmarkable */}
-					<li>Sort:</li>
+					<li>Show Cards by Priority:</li>
 					<li>
-						<button>Priority ▽</button>
+						<select onChange={(e) => sortByPriority(e.target.value)} htmlFor='prioritySorting'>
+							<option value=''>Priority</option>
+							<option value='0'>❗️ High</option>
+							<option value='1'>Medium</option>
+							<option value='2'>⬇ Low</option>
+						</select>
 					</li>
 					<li>
 						<button>Due Date △</button>
@@ -91,7 +106,7 @@ function Stages(props) {
 							<option value={null}></option>
 							{users.map((user) => (
 								<option key={user._id} value={user._id}>
-									{`${user.firstName} ${user.lastName}`}
+									{`${user.firstName} ${user.lastName.charAt(0)}.`}
 								</option>
 							))}
 						</select>
