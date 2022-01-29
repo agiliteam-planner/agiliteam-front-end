@@ -13,8 +13,8 @@ function TaskDetails(props) {
 	const navigate = useNavigate();
 
 	// API url
-	// const baseUrl = 'http://localhost:3111';
-	const baseUrl = process.env.REACT_APP_BACKEND_URL;
+	const baseUrl = 'http://localhost:3111';
+	// const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 	// temporary array of users
 	// let users = ['Kurt', 'Oscar', 'Elad'];
@@ -97,7 +97,7 @@ function TaskDetails(props) {
 		} catch (err) {
 			setError('Something went wrong. Please go back and try again.');
 			setLoading(false);
-			console.log('error:', err);
+			// console.log('error:', err.response.data);
 		}
 	}
 	// POST a new task
@@ -261,6 +261,7 @@ function TaskDetails(props) {
 						className={titleIsValidated() ? '' : 'required-field'}
 						type='text'
 						id='title'
+            maxLength='70'
 						onChange={handleChange}
 						placeholder='Task Title - required field'
 						value={task.title}
