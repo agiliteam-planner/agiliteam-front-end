@@ -49,8 +49,8 @@ function Stages(props) {
 
 	// On initial mount
 	useEffect(() => {
-		// TODO: Move url to a settings location or env variable?
-		const backendUrl = 'https://arcane-plateau-58687.herokuapp.com';
+		// const backendUrl = 'https://agiliteam-mern.herokuapp.com';
+		const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 		// IIFE to make it async
 		(async () => {
@@ -67,11 +67,13 @@ function Stages(props) {
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	const priorities = [
 		{ icon: '❗️', string: 'High' },
 		{ icon: '', string: 'Medium' },
 		{ icon: '⬇', string: 'Low' },
 	];
+
 	function sortByPriority(e) {
 		let sortedTasks = [];
 		stagedTasks.forEach((element) => {
@@ -84,11 +86,10 @@ function Stages(props) {
 		<>
 			<div className='stages-heading'>
 				<Link className='new-task' to='/task/new'>
-					New Task
+					<button type='button'>New Task</button>
 				</Link>
 
-				<ul className='stages-options'>
-					{/* Each filter adds search params? to be bookmarkable */}
+				{/* <ul className='stages-options'>
 					<li>Show Cards by Priority:</li>
 					<li>
 						<select
@@ -114,7 +115,7 @@ function Stages(props) {
 							))}
 						</select>
 					</li>
-				</ul>
+				</ul> */}
 			</div>
 			<div className='stages-container'>
 				{stagedTasks.map((stage, i) => (

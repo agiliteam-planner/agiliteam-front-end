@@ -10,10 +10,9 @@ function Users(props) {
 	const [edits, setEdits] = useState({});
 	const [editingUser, setEditingUser] = useState(null);
 
-	// TODO: Move url to a settings location or env variable?
-	const backendUrl = 'https://arcane-plateau-58687.herokuapp.com';
-	// TEST process.env
-	// const backendUrl = process.env.REACT_APP_BACKEND_URL;
+	// const backendUrl = 'https://agiliteam-mern.herokuapp.com';
+	const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 	// On initial mount
 	useEffect(() => {
 		// IIFE to make it async
@@ -31,8 +30,8 @@ function Users(props) {
 
 	// Change editing user state if no other editing is happening
 	function startNewUser() {
-		setEditingUser('NEW_USER')
-		setEdits({ ...edits, _id: 'NEW_USER'})
+		setEditingUser('NEW_USER');
+		setEdits({ ...edits, _id: 'NEW_USER' });
 	}
 
 	function handleChange(e) {
@@ -50,7 +49,7 @@ function Users(props) {
 	// Clear editing variables and reload page
 	function clearEditingStates() {
 		setEditingUser(null);
-		setEdits({})
+		setEdits({});
 	}
 
 	// TODO: Should this function be async or useEffect?
@@ -92,39 +91,28 @@ function Users(props) {
 					/>
 				))}
 			</div>
-			{editingUser !== "NEW_USER" ? (
+			{editingUser !== 'NEW_USER' ? (
 				<button onClick={startNewUser}>Add New User</button>
 			) : (
 				<form className='new-user-form'>
 					<div className='new-user-form-wrapper'>
 						<h2 style={{ textAlign: 'center' }}>Add New User</h2>
 						<legend>First Name:</legend>
-						<input 
-							type='text' 
+						<input
+							type='text'
 							onChange={handleChange}
 							id='firstName'
-							value={edits?.firstName ?? users.firstName}>
-							</input>
-						<legend style={{paddingTop: '15px'}}>Last Name:</legend>
-						<input 
-							type='text' 
-							onChange={handleChange}
-							id='lastName'>
-
-						</input>
-						<legend style={{paddingTop: '15px'}}>
+							value={edits?.firstName ?? users.firstName}></input>
+						<legend style={{ paddingTop: '15px' }}>Last Name:</legend>
+						<input type='text' onChange={handleChange} id='lastName'></input>
+						<legend style={{ paddingTop: '15px' }}>
 							User Name (6-10 characters):
 						</legend>
-						<input 
-							type='text' 
-							onChange={handleChange}
-							id='username'>
-
-						</input>
+						<input type='text' onChange={handleChange} id='username'></input>
 					</div>
 				</form>
 			)}
-			{editingUser !== "NEW_USER" ? null : (
+			{editingUser !== 'NEW_USER' ? null : (
 				<div>
 					<button onClick={handleSubmit}>Add User</button>
 					<button onClick={clearEditingStates}>Cancel</button>
