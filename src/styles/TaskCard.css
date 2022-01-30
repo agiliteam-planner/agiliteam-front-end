@@ -1,6 +1,7 @@
 .task-card {
-	width: max(300px, 19vw);
+	width: auto;
 	padding: 0.75em;
+	margin-bottom: 1em;
 	flex: none;
 
 	display: grid;
@@ -55,6 +56,6 @@
 
 @media (max-width: 500px) {
 	.task-card {
-		width: auto;
+		width: 80vw;
 	}
 }

@@ -5,7 +5,7 @@
 }
 
 .stages-heading {
-	padding: 2em 3em;
+	margin-bottom: var(--main-vertical-spacing);
 	position: sticky;
 
 	left: 0;
@@ -16,7 +16,7 @@
 }
 
 .new-task {
-	font-size: larger;
+	/* font-size: larger; */
 	font-weight: bold;
 }
 
@@ -26,25 +26,25 @@
 }
 
 .stages-container {
-	padding: 0 3em;
 	flex-grow: 1;
 	/* flex-basis: max-content; */
 
 	display: flex;
 	align-items: flex-start;
-	gap: 1.5em;
 
 	/* Enable horizontal scrolling */
 	overflow-x: auto;
 
 	/* Control snap for children tasks */
 	scroll-snap-type: x proximity;
-	scroll-padding-left: 3em;
+	scroll-padding-left: var(--app-left-right-margin);
 }
 
 /* Narrow screen */
 @media (max-width: 500px) {
 	.stages-container {
+		margin-left: 0;
+		margin-right: 0;
 		scroll-snap-type: x mandatory;
 	}
 }

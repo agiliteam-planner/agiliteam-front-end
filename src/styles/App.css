@@ -1,3 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+
+/* Global Variables */
+:root {
+	/* Spacing */
+	--app-left-right-margin: 2rem;
+	--nav-top-bottom-margin: 1.75rem;
+	--main-vertical-spacing: 1.5rem;
+	--main-children-spacing: 1rem;
+	--material-padding: var(--main-children-spacing);
+	--inline-element-spacing: 0.75rem;
+
+	/* Fonts */
+	--body-font: 'Oxygen', sans-serif;
+
+	/* Colors */
+	--header-background-color: darkslategray;
+	--header-font-color: whitesmoke;
+	--accent-color: var(--header-background-color);
+}
+
+/* Determine root font size */
+/* All em units scale relative to this */
+body {
+	font-family: var(--body-font);
+	/* Scale everything down because
+	Oxygen font is a little too large */
+	font-size: 0.9rem;
+}
+
 * {
 	margin: 0;
 	box-sizing: border-box;
@@ -7,8 +37,8 @@ html,
 body,
 .root,
 .app {
-	/* Fix all the parent components
-	taking up the full viewport */
+	/* Set all the parent components
+	to take up the full viewport */
 	width: 100vw;
 	height: 100vh;
 	position: absolute;
@@ -22,19 +52,53 @@ body,
 
 main {
 	/* This causes main to create no box so that the
-	child div (component) falls straight into .app */
+	child component falls straight into .app */
 	display: contents;
 }
 
-main h2 {
-	margin-bottom: 1em;
+/* Uniform margins and spacing for components inside main */
+main > * {
+	margin: 0 var(--app-left-right-margin);
+}
+main > *:first-child {
+	margin-top: var(--main-vertical-spacing);
+}
+main > *:last-child {
+	margin-bottom: var(--main-vertical-spacing);
+}
+
+main > h2 {
+	margin-bottom: var(--main-vertical-spacing);
 }
 
 a {
 	text-decoration: none;
 }
 
+a:hover {
+	/* text-decoration: underline; */
+	text-shadow: 0 0.2em 0.2em black;
+}
+
 ul {
 	list-style: none;
 	padding: 0;
+}
+
+button {
+	padding: 0.5em 1em;
+	background-color: rgb(244, 244, 244);
+	border: 1px solid gray;
+	border-radius: 0.3rem;
+	cursor: pointer;
+}
+button:hover {
+	filter: brightness(0.88);
+}
+button:disabled {
+	color: gray;
+}
+button:disabled:hover {
+	cursor: auto;
+	filter: brightness(1);
 }
