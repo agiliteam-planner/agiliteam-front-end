@@ -12,11 +12,11 @@ import Login from './components/Login';
 import './styles/App.css';
 
 function App() {
-	const [user, setUser] = useState();
+	const [user, setUser] = useState(null);
 
 	return (
 		<div className='app'>
-			<UserContext.Provider value={{ user, setUser }}>
+			<UserContext.Provider value={{ user }}>
 				<Navigation />
 				<main>
 					<Routes>
@@ -27,7 +27,7 @@ function App() {
 							element={<TaskDetails createNew={true} />}
 						/>
 						<Route path='/about' element={<About />} />
-						<Route path='/login' element={<Login />} />
+						<Route path='/login' element={<Login setUser={setUser}/>} />
 						<Route path='/settings' element={<Settings />} />
 					</Routes>
 				</main>
