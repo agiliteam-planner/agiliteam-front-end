@@ -1,4 +1,4 @@
-import '../styles/User.css'
+import '../styles/User.css';
 function Users({
 	user,
 	editingUser,
@@ -13,14 +13,24 @@ function Users({
 	function startEdit(e) {
 		// console.log(user._id, user.username, user.firstName, user.lastName);
 		if (editingUser) return;
-		setEditingUser(user._id)
-		let userToEdit = { _id: user._id, username: user.username, firstName: user.firstName, lastName: user.lastName}
-		setEdits({ ...userToEdit })
+		setEditingUser(user._id);
+		let userToEdit = {
+			_id: user._id,
+			username: user.username,
+			firstName: user.firstName,
+			lastName: user.lastName,
+		};
+		setEdits({ ...userToEdit });
 	}
 	if (editingUser === user._id) {
 		// Show editing fields
 		return (
-			<form style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+			<form
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+				}}>
 				<legend style={{ backgroundColor: 'lightblue', padding: '5px' }}>
 					First Name
 				</legend>
@@ -78,23 +88,17 @@ function Users({
 	} else {
 		// Not editing: Display normal user row
 		return (
-			<div className='user-card' onClick={startEdit}>
+			<div className='user-card card-style' onClick={startEdit}>
 				<div className='user-realname'>
-					<div className='user-name-header'>
-						Name:
-					</div>
+					<div className='user-name-header'>Name:</div>
 					<div className='user-name-values'>
 						{user.firstName} {user.lastName}
-					</div>	
-				</div>	
-				<div className='user-username'>
-					<div className='username-header'>
-						Username: 
 					</div>
-					<div className='username-value'>
-						{user.username}
-					</div>	
-				</div>	
+				</div>
+				<div className='user-username'>
+					<div className='username-header'>Username:</div>
+					<div className='username-value'>{user.username}</div>
+				</div>
 			</div>
 		);
 	}

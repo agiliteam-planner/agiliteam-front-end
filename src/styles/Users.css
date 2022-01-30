@@ -1,5 +1,13 @@
-.users-table .user-control button {
-	display: inline-block;
+.users.panel-style {
+	width: 50vw;
+	align-items: stretch;
+}
+
+.users-wrapper {
+	margin-bottom: var(--material-padding);
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--material-padding);
 }
 
 .click-edit {
@@ -9,11 +17,6 @@
 
 .click-edit:hover {
 	visibility: visible;
-}
-
-.users-wrapper {
-	display: flex;
-	flex-direction: column;
 }
 
 @media (max-width: 600px) {

@@ -1,6 +1,6 @@
 .task-card.card-style {
-	width: auto;
-	margin-bottom: 1em;
+	width: 100%;
+	margin-bottom: var(--material-padding);
 	flex: none;
 
 	display: grid;
@@ -10,14 +10,17 @@
 		'title title title'
 		'owner priority date';
 
-	row-gap: 1rem;
-	column-gap: 0.5em;
+	row-gap: var(--material-padding);
+	column-gap: var(--inline-element-spacing);
+
+	font-size: smaller;
 
 	cursor: pointer;
 
 	/* scroll-snap-align: start; */
 }
 
+/* Tiny margin to allow for drop shadow */
 .task-card:last-child {
 	margin-bottom: 0.2rem;
 }
@@ -36,14 +39,14 @@
 
 .task-owner {
 	padding: 0.25em;
-	border-radius: 0.2em;
+	border-radius: var(--typical-radius);
 
 	grid-area: owner;
 	justify-self: start;
 
-	background-color: darkslategray;
+	background-color: var(--accent-color);
 	font-weight: bold;
-	color: whitesmoke;
+	color: var(--card-background-color);
 }
 
 .task-priority {

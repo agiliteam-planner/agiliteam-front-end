@@ -32,7 +32,6 @@ body {
 	font-family: var(--body-font);
 	/* Scale everything down because
 	Oxygen font is a little too large */
-	font-size: 0.9rem;
 }
 
 * {
@@ -125,8 +124,9 @@ main .section-heading-style {
 
 .card-style {
 	padding: var(--inline-element-spacing);
-	background-color: var(--card-background-color);
+	border-radius: var(--typical-radius);
 	box-shadow: 0 0.1em 0.2em var(--accent-background-color);
+	background-color: var(--card-background-color);
 }
 
 a {

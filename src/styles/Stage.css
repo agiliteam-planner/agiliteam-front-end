@@ -10,6 +10,7 @@
    3em subtracts the intermediate margins */
 	flex: 0 0 calc(((100%) - (3rem)) / 4);
 	position: static;
+	align-items: stretch;
 
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -26,7 +27,7 @@
 }
 
 .stage-name {
-	margin: 0 -1rem;
+	margin: 0 calc(var(--material-padding) * -1);
 	position: sticky;
 	width: inherit;
 	top: 0;
