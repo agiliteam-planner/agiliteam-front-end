@@ -19,7 +19,7 @@ function TaskCard({ task }) {
 	}
 
 	return (
-		<div className='task-card' onClick={handleClick}>
+		<div className='task-card card-style' onClick={handleClick}>
 			<p className='task-title'>{task.title}</p>
 			{/* TODO: Refactor to show avatar or initials when owner is populated in tasks */}
 			{task.owner && (

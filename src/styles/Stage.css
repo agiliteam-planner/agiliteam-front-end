@@ -1,18 +1,18 @@
-.stage {
+.stage.panel-style {
 	max-height: 100%;
-	padding: 0 var(--material-padding);
+	padding-top: 0;
+	padding-bottom: 0;
 	margin-right: var(--main-children-spacing);
+	border-bottom: var(--material-padding) solid var(--panel-background-color);
 	/* Width of stages in 'desktop' view
    grow/shrink 0 keep them equal width 
    4 is to show four stages in full width
    3em subtracts the intermediate margins */
 	flex: 0 0 calc(((100%) - (3rem)) / 4);
+	position: static;
 
-	display: flex;
-	flex-direction: column;
+	overflow-x: hidden;
 	overflow-y: auto;
-
-	background-color: #eceff1;
 
 	/* Control snap for stage (horizontal) */
 	scroll-snap-align: start;
@@ -26,19 +26,16 @@
 }
 
 .stage-name {
-	padding: var(--material-padding) 0;
+	margin: 0 -1rem;
 	position: sticky;
+	width: inherit;
 	top: 0;
+	left: 0;
 
 	background-color: inherit;
-	text-align: center;
 }
-
-.stage-footer {
-	width: 100%;
-	height: var(--material-padding);
-	position: relative;
-	bottom: 0;
+.stage-name h3 {
+	margin-top: var(--material-padding);
 }
 
 /* Narrow screen */

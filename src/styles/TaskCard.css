@@ -1,6 +1,5 @@
-.task-card {
+.task-card.card-style {
 	width: auto;
-	padding: 0.75em;
 	margin-bottom: 1em;
 	flex: none;
 
@@ -14,10 +13,13 @@
 	row-gap: 1rem;
 	column-gap: 0.5em;
 
-	background-color: white;
 	cursor: pointer;
 
 	/* scroll-snap-align: start; */
+}
+
+.task-card:last-child {
+	margin-bottom: 0.2rem;
 }
 
 .task-title {

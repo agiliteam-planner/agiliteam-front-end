@@ -5,12 +5,14 @@
 	position: sticky;
 	top: 0;
 	left: 0; */
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	background-color: var(--header-background-color);
 	padding: 0 var(--app-left-right-margin);
 	color: var(--header-font-color);
+	font-family: var(--heading-font);
 }
 
 .header-titles {
@@ -23,10 +25,6 @@
 	font-size: xx-large;
 	margin-top: var(--nav-top-bottom-margin);
 	margin-bottom: var(--nav-top-bottom-margin);
-}
-
-.app-header a {
-	color: inherit;
 }
 
 .nav-list {

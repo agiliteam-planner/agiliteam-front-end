@@ -16,7 +16,7 @@
 	flex-direction: column;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
 	.users-wrapper {
 		flex-direction: row;
 		flex-wrap: wrap;
