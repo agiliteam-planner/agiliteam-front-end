@@ -1,23 +1,50 @@
+.stages-wrapper {
+	height: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
 .stages-heading {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: baseline;
+	margin-bottom: var(--main-vertical-spacing);
+	position: sticky;
+
+	left: 0;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: baseline;
 }
 
 .new-task {
-  font-size: larger;
-  font-weight: bold;
+	/* font-size: larger; */
+	font-weight: bold;
 }
 
 .stages-options li {
-  display: inline;
-  margin-left: 0.5em;
+	display: inline;
+	margin-left: 0.5em;
 }
 
 .stages-container {
-  margin-top: 2em;
-  display: flex;
-  gap: 1.5em;
-  align-items: flex-start;
+	flex-grow: 1;
+	/* flex-basis: max-content; */
+
+	display: flex;
+	align-items: flex-start;
+
+	/* Enable horizontal scrolling */
+	overflow-x: auto;
+
+	/* Control snap for children tasks */
+	scroll-snap-type: x proximity;
+	scroll-padding-left: var(--app-left-right-margin);
+}
+
+/* Narrow screen */
+@media (max-width: 500px) {
+	.stages-container {
+		margin-left: 0;
+		margin-right: 0;
+		scroll-snap-type: x mandatory;
+	}
 }

@@ -1,7 +1,7 @@
 #task-details-form {
 	display: flex;
 	flex-direction: column;
-	padding: 3vh 5vw;
+	/* padding: 3vh 5vw; */
 }
 
 .task-title-wrapper {
@@ -12,7 +12,7 @@
 
 .task-title-wrapper input {
 	flex-grow: 1;
-	border-radius: 5px;
+	border-radius: 0.3rem;
 	border: 1px solid;
 	padding: 5px;
 	border-color: gray;
@@ -58,14 +58,14 @@ select {
 .task-comments-list {
 	border: none;
 	background-color: gray;
-	border-radius: 5px;
+	border-radius: 0.3rem;
 	padding: 2px 4px;
 }
 .task-comment {
 	/* padding: 5px 10px; */
 	margin: 4px 0px;
 	border: 1px solid gray;
-	border-radius: 5px;
+	border-radius: 0.3rem;
 }
 
 .task-comment-user {
@@ -101,22 +101,17 @@ select {
 
 /* Buttons */
 .task-button {
-	padding: 8px 15px;
 	margin-right: 10px;
 	margin-top: 10px;
-	background-color: rgb(244, 244, 244);
-	border: 1px solid gray;
-	border-radius: 4px;
-	cursor: pointer;
 }
 
 .task-comment-button {
 	margin: 0;
 }
 
-.task-button:hover {
+/* .task-button:hover {
 	background-color: rgb(215, 215, 215);
-}
+} */
 
 #title.required-field,
 #title.required-field::placeholder {
@@ -177,12 +172,4 @@ select {
 	justify-content: center;
 	align-items: center;
 	min-height: 50vh;
-}
-
-button:disabled {
-	color: gray;
-}
-button:disabled:hover {
-	cursor: auto;
-	background-color: rgb(244, 244, 244);
 }

@@ -1,44 +1,37 @@
 .app-header {
-	position: -webkit-sticky; /* Safari */
+	/* Viewport is fixed now, we can make
+	<main> scrollable when needed */
+	/* position: -webkit-sticky; 
 	position: sticky;
 	top: 0;
+	left: 0; */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: darkslategray;
-	padding: 0 20px;
-	color: whitesmoke;
-	width: 100%;
-}
-.header-titles {
-    display: flex;
-    align-items: baseline;
+	background-color: var(--header-background-color);
+	padding: 0 var(--app-left-right-margin);
+	color: var(--header-font-color);
 }
 
-.header-titles a {
-    text-decoration: none;
-    color: whitesmoke;
-    padding: 10px;
+.header-titles {
+	display: flex;
+	align-items: baseline;
+	gap: var(--inline-element-spacing);
 }
 
 .nav-title {
-    font-size: 30px;
+	font-size: xx-large;
+	margin-top: var(--nav-top-bottom-margin);
+	margin-bottom: var(--nav-top-bottom-margin);
 }
-.nav-sub-title {
-    font-size: 22px;
-    padding-left: 0px;
-    white-space: nowrap;
-}
-.nav-item {
-	text-decoration: none;
+
+.app-header a {
+	color: inherit;
 }
 
 .nav-list {
 	list-style: none;
 	display: flex;
-}
-
-.header-nav a {
-	margin: 8px;
-	color: white;
+	gap: var(--inline-element-spacing);
+	font-size: larger;
 }
