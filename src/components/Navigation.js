@@ -19,6 +19,9 @@ function Navigation(props) {
 					<li className='nav-item'>
 						<Link to='/about'>About</Link>
 					</li>
+					<li className='nav-item'>
+						<Link to='/login'>Login</Link>
+					</li>
 				</ul>
 			</nav>
 		</header>

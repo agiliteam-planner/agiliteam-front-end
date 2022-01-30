@@ -7,8 +7,8 @@ import { UserContext } from '../context/UserContext';
 
 import '../styles/Login.css';
 
-function Login({ setUser }) {
-	const { user } = useContext(UserContext);
+function Login({ setCurrentUser }) {
+	const { currentUser } = useContext(UserContext);
 	const navigate = useNavigate();
 
 	const initialState = {
@@ -18,6 +18,8 @@ function Login({ setUser }) {
 	const [formState, setFormState] = useState(initialState);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
+	const [userExist, setUserExist] = useState(true);
+	const [passwordMatch, setPasswordMatch] = useState(true);
 
 	const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -28,17 +30,19 @@ function Login({ setUser }) {
 	function handleSubmit(ev) {
 		ev.preventDefault();
 		console.log('submit:', formState);
-		validateUser(baseUrl);
+		getUserInfo(baseUrl);
 	}
 
-	async function validateUser(url) {
+	async function getUserInfo(url) {
 		// get the user info from the database
-		setLoading(true)
+		setLoading(true);
 		try {
-			const res = await axios.get(`${url}/users?username=${formState.username}`);
+			const res = await axios.get(
+				`${url}/users?username=${formState.username}`
+			);
 			if (res.status === 200) {
-				const fetchedUser = res.data[0];
-				console.log(res.data);
+				// Check if username exist and if the password is correct
+				validateUser(res.data[0]);
 				// setUsers(res.data);
 			} else {
 				setError('Could not get users data');
@@ -51,9 +55,22 @@ function Login({ setUser }) {
 		}
 	}
 
-	function handleLogout(params) {
-		console.log('logout');
-		// setUser({ username: '', password: '' });
+	function validateUser(user) {
+		// Check if username exist and if the password is correct
+		if (user) {
+			console.log('found user:', user);
+			setUserExist(true);
+			if (user.password === formState.password) {
+				console.log('password match!');
+				setPasswordMatch(true);
+				setCurrentUser(user);
+			} else {
+				console.log('wrong password');
+				setPasswordMatch(false);
+			}
+		} else {
+			setUserExist(false);
+		}
 	}
 
 	return (
@@ -95,6 +112,10 @@ function Login({ setUser }) {
 					onClick={() => navigate(-1)}>
 					Cancel
 				</button>
+			</div>
+			<div className='login-message'>
+				{userExist ? '' : 'Could not find username, please try again.'}
+				{passwordMatch ? '' : 'Password is incorrect, please try again.'}
 			</div>
 		</div>
 	);

@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate, useMatch } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
+
 // Bring in CSS style
+
 import '../styles/TaskDetails.css';
 
 // import data from '../tasks.json';
 function TaskDetails(props) {
 	const { params } = useMatch('/task/:id');
+	const { currentUser } = useContext(UserContext);
+	console.log(currentUser);
 	const id = params.id;
 	const newTask = id === 'new' ? true : false;
+
 
 	const navigate = useNavigate();
 
@@ -20,13 +26,13 @@ function TaskDetails(props) {
 	// let users = ['Kurt', 'Oscar', 'Elad'];
 	const [users, setUsers] = useState([]);
 	const priorities = ['High', 'Medium', 'Low'];
-	const currentUser = {
-		_id: '61f1b20c74641d982a713f1a',
-		username: 'es',
-		firstName: 'Elad',
-		lastName: 'Sadeh',
-		image: null,
-	};
+	// const currentUser = {
+	// 	_id: '61f1b20c74641d982a713f1a',
+	// 	username: 'es',
+	// 	firstName: 'Elad',
+	// 	lastName: 'Sadeh',
+	// 	image: null,
+	// };
 
 	// Initialize Task state
 	const newTaskDefault = {
