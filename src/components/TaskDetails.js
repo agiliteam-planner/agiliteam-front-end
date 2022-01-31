@@ -369,6 +369,7 @@ function TaskDetails(props) {
 						<p className='task-login-message'>
 							To add a new task, or update existing one, please{' '}
 							<button
+								type='button'
 								className='task-login-link'
 								onClick={() => navigate('/login')}>
 								login

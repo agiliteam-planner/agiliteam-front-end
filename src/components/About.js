@@ -22,7 +22,7 @@ function About(props) {
 				<br />
 				<p>
 					Inspired by kanban boards such as those seen on the TV show Silicon
-					Valley, AgiliTeam is designed to help teams visualize tasks at a
+					Valley, AgiliTeam is designed to help teams visualize the workflow at a
 					glance, with each task name, owner, and priority clearly visible.
 				</p>
 				<br />
