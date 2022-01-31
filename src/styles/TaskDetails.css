@@ -128,10 +128,6 @@ of the longest nowrap 'row' */
 	margin-right: var(--inline-element-spacing);
 }
 
-/* .task-button:hover {
-	background-color: rgb(215, 215, 215);
-} */
-
 #title.required-field,
 #title.required-field::placeholder {
 	border-color: rgba(179, 0, 0, 0.7);
@@ -193,4 +189,17 @@ of the longest nowrap 'row' */
 	justify-content: center;
 	align-items: center;
 	min-height: 50vh;
+}
+
+.task-login-link {
+	border: 1px solid gray;
+	padding: 4px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.task-login-message {
+	padding: 10px 0px;
+	font-size: 1.1rem;
+	color: rgba(179, 0, 0, 0.7);
 }
