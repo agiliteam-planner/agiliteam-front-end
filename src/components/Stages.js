@@ -33,7 +33,6 @@ function Stages(props) {
 		// Keep only truthy owners present in tasks
 		let newUsers = tasks.filter((task) => task.owner);
 		// Keep only unique owners
-		// https://stackoverflow.com/a/58429784/1074802
 		newUsers = [
 			...new Map(newUsers.map((task) => [task.owner._id, task.owner])).values(),
 		];
@@ -49,7 +48,6 @@ function Stages(props) {
 
 	// On initial mount
 	useEffect(() => {
-		// const backendUrl = 'https://agiliteam-mern.herokuapp.com';
 		const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 		// IIFE to make it async

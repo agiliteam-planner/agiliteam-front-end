@@ -37,7 +37,3 @@
 .user-edit-form .user-control button {
 	flex-grow: 1;
 }
-
-/* Mobile screen */
-@media only screen and (max-width: 640px) {
-}

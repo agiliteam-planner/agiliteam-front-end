@@ -17,10 +17,6 @@
 
 	/* Control snap for stage (horizontal) */
 	scroll-snap-align: start;
-
-	/* Control snap for children tasks */
-	/* scroll-snap-type: y proximity;
-	scroll-padding-top: calc(4 * var(--material-padding)); */
 }
 
 .stage:last-child {
