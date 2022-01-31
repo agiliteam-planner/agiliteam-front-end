@@ -49,7 +49,6 @@
 }
 
 .nav-logout:hover {
-	/* text-decoration: underline; */
 	text-shadow: 0 0.2em 0.2em black;
 }
 
@@ -95,6 +94,5 @@
 }
 
 .nav-logout:hover {
-	/* text-decoration: underline; */
 	text-shadow: 0 0.2em 0.2em black;
 }

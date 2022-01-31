@@ -1,5 +1,4 @@
 .new-task {
-	/* font-size: larger; */
 	font-weight: bold;
 	width: calc(((100%) - (3rem)) / 4);
 	text-align: center;
@@ -16,15 +15,12 @@ button.new-task {
 
 .stages-container {
 	flex-grow: 1;
-	/* flex-basis: max-content; */
 
 	display: flex;
 	align-items: flex-start;
 
-	/* Enable horizontal scrolling */
 	overflow-x: auto;
 
-	/* Control snap for children tasks */
 	-ms-scroll-snap-type: x proximity;
 	scroll-snap-type: x proximity;
 	scroll-padding-left: var(--app-left-right-margin);

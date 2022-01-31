@@ -3,7 +3,6 @@ import '../styles/About.css';
 function About(props) {
 	return (
 		<div className='main-section-style'>
-			{/* <h2 className='section-heading-style'>About</h2> */}
 			<div className='about-container panel-style'>
 				<h3>About AgiliTeam</h3>
 				<p>
@@ -22,8 +21,8 @@ function About(props) {
 				<br />
 				<p>
 					Inspired by kanban boards such as those seen on the TV show Silicon
-					Valley, AgiliTeam is designed to help teams visualize the workflow at a
-					glance, with each task name, owner, and priority clearly visible.
+					Valley, AgiliTeam is designed to help teams visualize the workflow at
+					a glance, with each task name, owner, and priority clearly visible.
 				</p>
 				<br />
 				<p>

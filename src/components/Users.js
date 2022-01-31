@@ -11,7 +11,6 @@ function Users(props) {
 	const [editingUser, setEditingUser] = useState(null);
 
 	const backendUrl = process.env.REACT_APP_BACKEND_URL;
-	// console.log(backendUrl);
 
 	// On initial mount
 	useEffect(() => {
@@ -53,7 +52,6 @@ function Users(props) {
 		setEdits({});
 	}
 
-	// TODO: Should this function be async or useEffect?
 	function handleSubmit(event) {
 		event.preventDefault();
 
@@ -119,8 +117,6 @@ function Users(props) {
 					</div>
 				</form>
 			)}
-			{/* {editingUser !== 'NEW_USER' ? null : (
-			)} */}
 		</div>
 	);
 }

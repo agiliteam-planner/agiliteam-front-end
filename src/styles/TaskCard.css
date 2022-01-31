@@ -16,8 +16,6 @@
 	font-size: smaller;
 
 	cursor: pointer;
-
-	/* scroll-snap-align: start; */
 }
 
 /* Tiny margin to allow for drop shadow */
@@ -40,7 +38,6 @@
 .task-owner {
 	padding: 0.5em;
 	border-radius: 50%;
-	/* border-radius: var(--typical-radius); */
 
 	grid-area: owner;
 	justify-self: start;
@@ -71,7 +68,6 @@
 						)
 				) / 2
 		);
-		/* font-size: small; */
 	}
 }
 @media only screen and (max-width: 450px) {
