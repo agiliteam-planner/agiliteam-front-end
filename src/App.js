@@ -32,7 +32,7 @@ function App() {
 							element={<Login setCurrentUser={setCurrentUser} />}
 						/>
 						<Route path='/settings' element={<Settings />} />
-						<Route path='*' element={<Navigate to='/home' />} />
+						<Route path='*' element={<Navigate to='/' />} />
 					</Routes>
 				</main>
 			</UserContext.Provider>
