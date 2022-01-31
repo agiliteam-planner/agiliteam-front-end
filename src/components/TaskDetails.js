@@ -11,7 +11,6 @@ import '../styles/TaskDetails.css';
 function TaskDetails(props) {
 	const { params } = useMatch('/task/:id');
 	const { currentUser } = useContext(UserContext);
-	console.log(currentUser);
 	const id = params.id;
 	const newTask = id === 'new' ? true : false;
 
@@ -19,26 +18,18 @@ function TaskDetails(props) {
 	const navigate = useNavigate();
 
 	// API url
-	// const baseUrl = 'http://localhost:3111';
 	const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 	// temporary array of users
-	// let users = ['Kurt', 'Oscar', 'Elad'];
 	const [users, setUsers] = useState([]);
 	const priorities = ['High', 'Medium', 'Low'];
-	// const currentUser = {
-	// 	_id: '61f1b20c74641d982a713f1a',
-	// 	username: 'es',
-	// 	firstName: 'Elad',
-	// 	lastName: 'Sadeh',
-	// 	image: null,
-	// };
+
 
 	// Initialize Task state
 	const newTaskDefault = {
 		title: '',
 		description: '',
-		stage: 'To Do',
+		stage: '',
 		priority: '1',
 		checklist: [],
 		dueDate: '',
@@ -69,7 +60,6 @@ function TaskDetails(props) {
 		// start loading data from API
 		setLoading(true);
 		setError('');
-		console.log('fetching all needed data');
 		try {
 			// Fetch settings
 			let res = await axios.get(`${url}/settings`);
@@ -79,7 +69,6 @@ function TaskDetails(props) {
 				setError('Could not get settings data');
 				setLoading(false);
 			}
-			// if (!loading) return false;
 			// Fetch users
 			res = await axios.get(`${url}/users`);
 			if (res.status === 200) {
@@ -138,30 +127,21 @@ function TaskDetails(props) {
 
 	// ------ Helper Functions ---------------------
 	function titleIsValidated() {
-		// console.log('title validation', /[a-z]/i.test(task.title));
-		return /[a-z]/i.test(task.title) ? true : false;
+		return /[a-z]/i.test(task.title);
 	}
 	function commentIsValidated() {
-		// console.log('title validation', /[a-z]/i.test(task.title));
-		return /[a-z]/i.test(newComment) ? true : false;
+		return /[a-z]/i.test(newComment) && currentUser;
 	}
 
 	function formatTime(time) {
-		// const now = new Date();
 		const commentTime = new Date(time);
-		// const nowday = String(now).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
-		// const nowtime = String(now).match(/(\d\d:\d\d)/)[0];
-		// console.log(nowday, nowtime);
 		const day = String(commentTime).match(/(([a-z]+) ([a-z]+) (\d+))/i)[0];
 		const hour = String(commentTime).match(/(\d\d:\d\d)/)[0];
-		// console.log(`${hour.padStart(2, '0')}:${minutes.padStart(2, '0')}`);
 		return `${day} ${hour}`;
-		// console.log(new Date(time));
 	}
 
 	function confirmDelete(confirm) {
 		setDeleteModal(false);
-		console.log('delete task?', confirm);
 		// Delete task if confirmed
 		confirm && deleteTask(`${baseUrl}/tasks/${id}`);
 	}
@@ -182,16 +162,12 @@ function TaskDetails(props) {
 			time: timeStamp,
 			content: newComment,
 		});
-		// console.log(tmpTask);
 		setTask(tmpTask);
 		setNewComment('');
 	}
 
 	function handleChange(ev) {
-		// console.log('handle task details form');
-		// console.log('handleChange:',ev.target.id, ev.target.value);
 		setTask({ ...task, [ev.target.id]: ev.target.value });
-		// console.log(task);
 	}
 
 	function handleTaskSubmit(ev) {
@@ -230,7 +206,6 @@ function TaskDetails(props) {
 			</div>
 		);
 	if (!task) return <div>Waiting for task information ...</div>;
-	console.log('rendering:', task);
 	return (
 		<div>
 			{showDeleteModal && (
@@ -374,7 +349,7 @@ function TaskDetails(props) {
 				<div className='task-bottom-buttons'>
 					<button
 						className='task-button'
-						disabled={titleIsValidated() ? false : true}
+						disabled={!titleIsValidated() || !currentUser}
 						type='button'
 						onClick={handleTaskSubmit}>
 						{newTask ? 'Save' : 'Update'}
@@ -383,6 +358,7 @@ function TaskDetails(props) {
 						<button
 							type='button'
 							className='task-button'
+							disabled={!currentUser}
 							onClick={handleDeleteTask}>
 							Delete
 						</button>
@@ -396,6 +372,7 @@ function TaskDetails(props) {
 						Cancel
 					</button>
 				</div>
+				{!currentUser && <p className='task-login-message'>To add a new task, or update existing one, please <span className='task-login-link' onClick={() => navigate('/login')}>login</span>.</p>}
 			</form>
 		</div>
 	);
