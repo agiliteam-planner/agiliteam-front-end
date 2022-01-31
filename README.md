@@ -24,9 +24,10 @@ AgiliTeam implements the Kanaban method to visualize the project workflow. Tasks
 - Done: completed tasks.
 
 ### Main View
-
 The Main (home) view show all the tasks sorted into the appropriate stages.
 (future development: ability to filter and sort tasks)
+
+![Screen Shot 2022-01-31 at 1 14 08 PM](https://user-images.githubusercontent.com/93807931/151850324-b7fbf870-3ab6-47e2-84e2-4f53a75ff9ce.png)
 
 - Click on **New Task** to add a new task.
 - Click on any existing task to see more details and edit or delete the task.
@@ -34,6 +35,12 @@ The Main (home) view show all the tasks sorted into the appropriate stages.
 ### Task View
 
 When clicking on 'New Task' or an existing task, the task view will be oppened, allowing the user to add or change the following:
+
+#### New Task
+![Screen Shot 2022-01-31 at 1 25 30 PM](https://user-images.githubusercontent.com/93807931/151851314-51b03038-aec4-48e0-a8e6-16966619e371.png)
+
+#### Edit Task
+![Screen Shot 2022-01-31 at 1 20 27 PM](https://user-images.githubusercontent.com/93807931/151850535-e2eda0d1-c47e-40c7-99a4-ffeb389de782.png)
 
 - Task title: This is the only required field. Save/Update will be disabled if the title is empty.
 - Due Date (optional, default to none): set the due date for completing the task
@@ -43,6 +50,10 @@ When clicking on 'New Task' or an existing task, the task view will be oppened, 
 - Description (optional): Additional information about the task
 - Comments (optional): Add comments to communicate with the task owner
 - Click 'Save', 'Update', 'Delete', or 'Cancel'
+
+### Login
+
+Adding or editing a task  is disabled if a user is not logged-in. To login, either click on the alert at the bottom of the task view, or click 'Login' at the navigation menu.
 
 ### Settings
 
