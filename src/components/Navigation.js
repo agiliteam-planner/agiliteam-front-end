@@ -14,7 +14,6 @@ function Navigation({ setCurrentUser }) {
 	};
 
 	function handleLogout(ev) {
-		console.log('logout');
 		setCurrentUser(null);
 		return <Navigate to='/' />;
 	}
