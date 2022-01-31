@@ -82,7 +82,7 @@ function Login({ setCurrentUser }) {
 	}
 
 	return currentUser ? (
-		<div className='login-logout'>
+		<div className='login-logout main-section-style'>
 			<p className='logout-message'>
 				{currentUser.firstName} is already logged in. Do you want to logout?
 			</p>
@@ -91,7 +91,7 @@ function Login({ setCurrentUser }) {
 			</button>
 		</div>
 	) : (
-		<div className='login-wrapper'>
+		<div className='login-wrapper main-section-style'>
 			<form id='login-form' onSubmit={handleSubmit}>
 				<h2>Enter username & password</h2>
 				<div className='login-input'>
