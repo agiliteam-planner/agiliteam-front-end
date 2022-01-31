@@ -22,7 +22,7 @@ button.new-task {
 	align-items: flex-start;
 
 	/* Enable horizontal scrolling */
-	overflow-x: overlay;
+	overflow-x: auto;
 
 	/* Control snap for children tasks */
 	-ms-scroll-snap-type: x proximity;
