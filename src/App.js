@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { UserContext } from './context/UserContext';
 
@@ -17,7 +17,7 @@ function App() {
 	return (
 		<div className='app'>
 			<UserContext.Provider value={{ currentUser }}>
-				<Navigation />
+				<Navigation setCurrentUser={setCurrentUser} />
 				<main>
 					<Routes>
 						<Route path='/' element={<Stages />} />
@@ -32,6 +32,7 @@ function App() {
 							element={<Login setCurrentUser={setCurrentUser} />}
 						/>
 						<Route path='/settings' element={<Settings />} />
+						<Route path='*' element={<Navigate to='/home' />} />
 					</Routes>
 				</main>
 			</UserContext.Provider>
