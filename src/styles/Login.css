@@ -1,43 +1,35 @@
 .login-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#login-form h2 {
-    font-size: 18px;
-    align-self: center;
-    padding-bottom: 8px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: var(--material-padding);
 }
 
 .login-input {
-    font-size: 16px;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
 }
 
 .login-input input {
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid gray;
-    margin: 8px;
+	margin-bottom: var(--material-padding);
+	margin-left: var(--material-padding);
 }
 
-.login-input label {
-    width: 100px;
-    padding-left: 8px;
+.login-buttons {
+	display: flex;
+	flex-direction: row;
+	gap: var(--inline-element-spacing);
+	justify-content: center;
 }
 
-.login-buttons button {
-    padding: 8px 16px;
-    margin: 8px;
-}
 .login-message {
-    padding: 8px;
-    color: red;
+	padding: var(--material-padding);
+	color: red;
 }
