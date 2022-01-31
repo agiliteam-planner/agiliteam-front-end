@@ -22,22 +22,40 @@ button.new-task {
 	align-items: flex-start;
 
 	/* Enable horizontal scrolling */
-	overflow-x: auto;
+	overflow-x: overlay;
 
 	/* Control snap for children tasks */
+	-ms-scroll-snap-type: x proximity;
 	scroll-snap-type: x proximity;
 	scroll-padding-left: var(--app-left-right-margin);
 }
 
 /* Mobile screen */
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 750px) {
 	.stages-container {
 		margin-left: 0;
 		margin-right: 0;
+		-ms-scroll-snap-type: x mandatory;
+		scroll-snap-type: x mandatory;
+		scroll-padding-left: var(--app-left-right-margin);
+	}
+	.new-task {
+		width: -webkit-max-content;
+		width: -moz-max-content;
+		width: max-content;
+	}
+}
+@media only screen and (max-width: 450px) {
+	.stages-container {
+		margin-left: 0;
+		margin-right: 0;
+		-ms-scroll-snap-type: x mandatory;
 		scroll-snap-type: x mandatory;
 		scroll-padding-left: 0;
 	}
 	.new-task {
+		width: -webkit-max-content;
+		width: -moz-max-content;
 		width: max-content;
 	}
 }

@@ -18,7 +18,7 @@
 	--app-left-right-margin: 2rem;
 	--nav-top-bottom-margin: 1.75rem;
 	--main-vertical-spacing: 1.5rem;
-	--main-children-spacing: 1rem;
+	--main-children-spacing: 0.5rem;
 	--material-padding: var(--main-children-spacing);
 	--inline-element-spacing: 0.75rem;
 	--element-label-gap: 0.25rem;
@@ -34,7 +34,7 @@
 		--app-left-right-margin: 1.5rem;
 		--nav-top-bottom-margin: 1.25rem;
 		--main-vertical-spacing: 0.75rem;
-		--main-children-spacing: 0.75rem;
+		--main-children-spacing: 0.35rem;
 		--material-padding: var(--main-children-spacing);
 		--inline-element-spacing: 0.5rem;
 		--element-label-gap: 0.25rem;
@@ -50,6 +50,7 @@ body {
 	font-family: var(--body-font);
 	/* Scale everything down because
 	Oxygen font is a little too large */
+	overflow: overlay;
 }
 
 * {
@@ -187,4 +188,8 @@ button:disabled {
 button:disabled:hover {
 	cursor: auto;
 	filter: brightness(1);
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
 }

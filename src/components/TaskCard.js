@@ -39,7 +39,9 @@ function TaskCard({ task }) {
 			<p className='task-date' title='Due date'>
 				{task.dueDate &&
 					new Date(task.dueDate).toLocaleString('en-US', {
-						dateStyle: 'short',
+						month: 'numeric',
+						day: '2-digit',
+						// dateStyle: 'short',
 					})}
 			</p>
 		</div>
