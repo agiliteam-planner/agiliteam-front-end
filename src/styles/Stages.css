@@ -29,11 +29,15 @@ button.new-task {
 	scroll-padding-left: var(--app-left-right-margin);
 }
 
-/* Narrow screen */
-@media (max-width: 500px) {
+/* Mobile screen */
+@media only screen and (max-width: 640px) {
 	.stages-container {
 		margin-left: 0;
 		margin-right: 0;
 		scroll-snap-type: x mandatory;
+		scroll-padding-left: 0;
+	}
+	.new-task {
+		width: max-content;
 	}
 }

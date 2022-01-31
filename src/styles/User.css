@@ -13,8 +13,6 @@
 	justify-content: space-between;
 }
 
-@media (max-width: 600px) {
-	.user-card {
-		width: 15vw;
-	}
+/* Mobile screen */
+@media only screen and (max-width: 640px) {
 }

@@ -38,8 +38,9 @@
 }
 
 .task-owner {
-	padding: 0.25em;
-	border-radius: var(--typical-radius);
+	padding: 0.5em;
+	border-radius: 50%;
+	/* border-radius: var(--typical-radius); */
 
 	grid-area: owner;
 	justify-self: start;
@@ -58,9 +59,12 @@
 	grid-area: date;
 	justify-self: end;
 }
-
-@media (max-width: 500px) {
-	.task-card {
-		width: 80vw;
+/* Mobile screen */
+@media only screen and (max-width: 640px) {
+	.task-card.card-style {
+		width: calc(
+			100vw - (2 * (var(--app-left-right-margin) + var(--material-padding)))
+		);
+		font-size: small;
 	}
 }

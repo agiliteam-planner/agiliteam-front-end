@@ -368,11 +368,11 @@ function TaskDetails(props) {
 					{!currentUser && (
 						<p className='task-login-message'>
 							To add a new task, or update existing one, please{' '}
-							<span
+							<button
 								className='task-login-link'
 								onClick={() => navigate('/login')}>
 								login
-							</span>
+							</button>
 						</p>
 					)}
 				</form>

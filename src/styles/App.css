@@ -27,6 +27,23 @@
 	--typical-radius: 0.3rem;
 }
 
+/* Overrides for mobile screens */
+@media only screen and (max-width: 640px) {
+	:root {
+		/* Spacing */
+		--app-left-right-margin: 1.5rem;
+		--nav-top-bottom-margin: 1.25rem;
+		--main-vertical-spacing: 0.75rem;
+		--main-children-spacing: 0.75rem;
+		--material-padding: var(--main-children-spacing);
+		--inline-element-spacing: 0.5rem;
+		--element-label-gap: 0.25rem;
+	}
+	html {
+		font-size: 90%;
+	}
+}
+
 /* Determine root font size */
 /* All em units scale relative to this */
 body {
@@ -138,7 +155,7 @@ a {
 
 a:hover {
 	/* text-decoration: underline; */
-	text-shadow: 0 0.2em 0.2em black;
+	text-shadow: 0 0.2em 0.1em black;
 }
 
 ul {
