@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 import '../styles/Navigation.css';
+import MobileMenu from './MobileMenu';
 
 function Navigation({ setCurrentUser }) {
 	const { currentUser } = useContext(UserContext);
+	
 
 	const initials = (user) => {
 		return user
@@ -14,12 +16,14 @@ function Navigation({ setCurrentUser }) {
 	};
 
 	function handleLogout(ev) {
-		console.log('logout');
 		setCurrentUser(null);
 		return <Navigate to='/' />;
 	}
 	return (
 		<header className='app-header'>
+			<div className='mobile-nav'>
+				<MobileMenu handleLogout={handleLogout} initials={initials} />
+			</div>
 			<div className='header-titles'>
 				<Link to='/'>
 					<h1 className='nav-title'>AgiliTeam</h1>

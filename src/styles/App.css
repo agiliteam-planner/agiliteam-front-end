@@ -17,7 +17,7 @@
 	/* Spacing */
 	--app-left-right-margin: 2rem;
 	--nav-top-bottom-margin: 1.75rem;
-	--main-vertical-spacing: 1.5rem;
+	--main-vertical-spacing: 1rem;
 	--main-children-spacing: 1rem;
 	--material-padding: var(--main-children-spacing);
 	--inline-element-spacing: 0.75rem;

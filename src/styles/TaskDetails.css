@@ -4,6 +4,8 @@ of the longest nowrap 'row' */
 .task-details.panel-style {
 	width: min-content;
 	align-items: stretch;
+	padding: var(--material-padding);
+	box-shadow: 0 0 2px 1px gray;
 }
 
 #task-details-form {

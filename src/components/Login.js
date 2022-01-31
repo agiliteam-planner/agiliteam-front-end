@@ -42,6 +42,7 @@ function Login({ setCurrentUser }) {
 		// get the user info from the database
 		setLoading(true);
 		try {
+			console.log(`${url}/users?username=${formState.username}`);
 			const res = await axios.get(
 				`${url}/users?username=${formState.username}`
 			);

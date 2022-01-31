@@ -34,6 +34,7 @@
 	gap: var(--inline-element-spacing);
 	font-size: larger;
 	align-items: center;
+	/* position:absolute; */
 }
 
 .nav-logout {
