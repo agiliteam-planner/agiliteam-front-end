@@ -6,13 +6,13 @@ function Footer(props) {
 		<div className='app-footer'>
 			Visit Github Repositories:
 			<div className='footer-links'>
-				<Link to='https://github.com/agiliteam-planner/agiliteam-front-end'>
+				<a href='https://github.com/agiliteam-planner/agiliteam-front-end'>
 					Front End
-				</Link>
+				</a>
 				{'|'}
-				<Link to='https://github.com/agiliteam-planner/agiliteam-back-end'>
+				<a href='https://github.com/agiliteam-planner/agiliteam-back-end'>
 					API
-				</Link>
+				</a>
 			</div>
 		</div>
 	);
