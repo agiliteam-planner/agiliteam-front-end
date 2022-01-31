@@ -1,13 +1,14 @@
 .users.panel-style {
-	width: 50vw;
+	min-width: 60%;
 	align-items: stretch;
 }
 
 .users-wrapper {
 	margin-bottom: var(--material-padding);
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-template-columns: repeat(3, minmax(min-content, 1fr));
 	gap: var(--material-padding);
+	align-items: flex-start;
 }
 
 .click-edit {
@@ -20,13 +21,20 @@
 }
 
 /* Mobile screen */
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 750px) {
 	.users.panel-style {
-		width: 100%;
+		min-width: 80%;
 		align-items: stretch;
 	}
-	/* .users-wrapper {
-		flex-direction: row;
-		flex-wrap: wrap;
-	} */
+	.users-wrapper {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media only screen and (max-width: 450px) {
+	.users.panel-style {
+		min-width: 100%;
+	}
+	.users-wrapper {
+		grid-template-columns: 1fr;
+	}
 }

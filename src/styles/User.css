@@ -13,6 +13,31 @@
 	justify-content: space-between;
 }
 
+.user-edit-form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.user-edit-form label {
+	text-align: center;
+	margin-bottom: var(--element-label-gap);
+}
+
+.user-edit-form input {
+	margin-bottom: var(--material-padding);
+}
+
+.user-edit-form .user-control {
+	display: flex;
+	justify-content: stretch;
+	flex-flow: row nowrap;
+	gap: var(--inline-element-spacing);
+}
+.user-edit-form .user-control button {
+	flex-grow: 1;
+}
+
 /* Mobile screen */
 @media only screen and (max-width: 640px) {
 }
