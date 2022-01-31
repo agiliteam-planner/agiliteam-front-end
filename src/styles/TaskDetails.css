@@ -80,11 +80,6 @@ of the longest nowrap 'row' */
 	border-radius: var(--typical-radius);
 }
 
-/* Buttons */
-/* .task-button {
-	margin-right: var(--inline-element-spacing);
-} */
-
 .task-comment-button {
 	white-space: nowrap;
 }

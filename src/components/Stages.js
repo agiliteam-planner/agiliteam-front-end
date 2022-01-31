@@ -7,7 +7,6 @@ import Stage from './Stage';
 import '../styles/Stages.css';
 
 function Stages(props) {
-
 	// Initial values while loading tasks from API
 	const placeholderTask = { title: 'Loading...' };
 	const placeholderStages = ['To Do', 'In Progress', 'In Review', 'Done'];
@@ -34,7 +33,6 @@ function Stages(props) {
 		// Keep only truthy owners present in tasks
 		let newUsers = tasks.filter((task) => task.owner);
 		// Keep only unique owners
-		// https://stackoverflow.com/a/58429784/1074802
 		newUsers = [
 			...new Map(newUsers.map((task) => [task.owner._id, task.owner])).values(),
 		];
@@ -50,7 +48,6 @@ function Stages(props) {
 
 	// On initial mount
 	useEffect(() => {
-		// const backendUrl = 'https://agiliteam-mern.herokuapp.com';
 		const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 		// IIFE to make it async
@@ -69,20 +66,6 @@ function Stages(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const priorities = [
-		{ icon: '❗️', string: 'High' },
-		{ icon: '', string: 'Medium' },
-		{ icon: '⬇', string: 'Low' },
-	];
-
-	function sortByPriority(e) {
-		let sortedTasks = [];
-		stagedTasks.forEach((element) => {
-			sortedTasks.push(element.tasks);
-		});
-		console.log(sortedTasks);
-	}
-
 	return (
 		<>
 			<div className='section-heading-style'>
@@ -91,34 +74,6 @@ function Stages(props) {
 						New Task
 					</button>
 				</Link>
-
-				{/* <ul className='stages-options'>
-					<li>Show Cards by Priority:</li>
-					<li>
-						<select
-							onChange={(e) => sortByPriority(e.target.value)}
-							htmlFor='prioritySorting'>
-							<option value=''>Priority</option>
-							<option value='0'>❗️ High</option>
-							<option value='1'>Medium</option>
-							<option value='2'>⬇ Low</option>
-						</select>
-					</li>
-					<li>
-						<button>Due Date △</button>
-					</li>
-					<li>
-						<label htmlFor='filter-user'>Filter: </label>
-						<select name='filter-user' id='filter-user' defaultValue={null}>
-							<option value={null}></option>
-							{users.map((user) => (
-								<option key={user._id} value={user._id}>
-									{`${user.firstName} ${user.lastName.charAt(0)}.`}
-								</option>
-							))}
-						</select>
-					</li>
-				</ul> */}
 			</div>
 			<div className='stages-container'>
 				{stagedTasks.map((stage, i) => (

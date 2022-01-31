@@ -5,7 +5,6 @@ import '../styles/TaskCard.css';
 function TaskCard({ task }) {
 	const navigate = useNavigate();
 
-	// TODO: Load these values from settings?
 	// const priorities = ['high', 'medium', 'low']; // in db settings
 	const priorities = [
 		{ icon: '❗️', string: 'High' },
@@ -21,7 +20,6 @@ function TaskCard({ task }) {
 	return (
 		<div className='task-card card-style' onClick={handleClick}>
 			<p className='task-title'>{task.title}</p>
-			{/* TODO: Refactor to show avatar or initials when owner is populated in tasks */}
 			{task.owner && (
 				<p
 					className='task-owner'
@@ -41,7 +39,6 @@ function TaskCard({ task }) {
 					new Date(task.dueDate).toLocaleString('en-US', {
 						month: 'numeric',
 						day: '2-digit',
-						// dateStyle: 'short',
 					})}
 			</p>
 		</div>

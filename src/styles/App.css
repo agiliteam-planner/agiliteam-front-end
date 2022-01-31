@@ -50,9 +50,6 @@
 /* All em units scale relative to this */
 body {
 	font-family: var(--body-font);
-	/* Scale everything down because
-	Oxygen font is a little too large */
-	overflow: overlay;
 }
 
 * {
