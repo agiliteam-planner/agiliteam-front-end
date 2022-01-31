@@ -9,7 +9,7 @@ function Users(props) {
 	const [users, setUsers] = useState([]);
 	const [edits, setEdits] = useState({});
 	const [editingUser, setEditingUser] = useState(null);
-	// const backendUrl = 'http://localhost:3111';
+
 	const backendUrl = process.env.REACT_APP_BACKEND_URL;
 	console.log(backendUrl);
 
@@ -74,7 +74,7 @@ function Users(props) {
 	}
 
 	return (
-		<div className='settings-panel users'>
+		<div className='users panel-style'>
 			<h3>Manage Users</h3>
 			<div className='users-wrapper'>
 				{users.map((user) => (

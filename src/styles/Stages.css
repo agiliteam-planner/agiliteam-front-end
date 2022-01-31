@@ -1,23 +1,12 @@
-.stages-wrapper {
-	height: 100%;
-	display: flex;
-	flex-flow: column nowrap;
-}
-
-.stages-heading {
-	margin-bottom: var(--main-vertical-spacing);
-	position: sticky;
-
-	left: 0;
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: space-between;
-	align-items: baseline;
-}
-
 .new-task {
 	/* font-size: larger; */
 	font-weight: bold;
+	width: calc(((100%) - (3rem)) / 4);
+	text-align: center;
+}
+
+button.new-task {
+	width: 100%;
 }
 
 .stages-options li {
@@ -33,18 +22,44 @@
 	align-items: flex-start;
 
 	/* Enable horizontal scrolling */
-	overflow-x: auto;
+	overflow-x: overlay;
 
 	/* Control snap for children tasks */
+	-ms-scroll-snap-type: x proximity;
 	scroll-snap-type: x proximity;
 	scroll-padding-left: var(--app-left-right-margin);
 }
 
-/* Narrow screen */
-@media (max-width: 500px) {
+/* Mobile screen */
+@media only screen and (max-width: 750px) {
 	.stages-container {
 		margin-left: 0;
 		margin-right: 0;
+		-ms-scroll-snap-type: x mandatory;
 		scroll-snap-type: x mandatory;
+		scroll-padding-left: var(--app-left-right-margin);
+	}
+	.stages-container:last-child {
+		padding-bottom: calc(2 * var(--main-vertical-spacing));
+	}
+
+	.new-task {
+		width: -webkit-max-content;
+		width: -moz-max-content;
+		width: max-content;
+	}
+}
+@media only screen and (max-width: 450px) {
+	.stages-container {
+		margin-left: 0;
+		margin-right: 0;
+		-ms-scroll-snap-type: x mandatory;
+		scroll-snap-type: x mandatory;
+		scroll-padding-left: 0;
+	}
+	.new-task {
+		width: -webkit-max-content;
+		width: -moz-max-content;
+		width: max-content;
 	}
 }

@@ -85,9 +85,11 @@ function Stages(props) {
 
 	return (
 		<>
-			<div className='stages-heading'>
-				<Link className='new-task' to='/task/new'>
-					<button type='button'>New Task</button>
+			<div className='section-heading-style'>
+				<Link to='/task/new' className='new-task'>
+					<button type='button' className='new-task'>
+						New Task
+					</button>
 				</Link>
 
 				{/* <ul className='stages-options'>
@@ -120,7 +122,7 @@ function Stages(props) {
 			</div>
 			<div className='stages-container'>
 				{stagedTasks.map((stage, i) => (
-					<Stage key={i} stage={stage} />
+					<Stage key={i} stage={stage} id={i} />
 				))}
 			</div>
 		</>

@@ -1,7 +1,6 @@
-.task-card {
-	width: auto;
-	padding: 0.75em;
-	margin-bottom: 1em;
+.task-card.card-style {
+	width: 100%;
+	margin-bottom: var(--material-padding);
 	flex: none;
 
 	display: grid;
@@ -11,13 +10,19 @@
 		'title title title'
 		'owner priority date';
 
-	row-gap: 1rem;
-	column-gap: 0.5em;
+	row-gap: var(--material-padding);
+	column-gap: var(--inline-element-spacing);
 
-	background-color: white;
+	font-size: smaller;
+
 	cursor: pointer;
 
 	/* scroll-snap-align: start; */
+}
+
+/* Tiny margin to allow for drop shadow */
+.task-card:last-child {
+	margin-bottom: 0.2rem;
 }
 
 .task-title {
@@ -33,15 +38,16 @@
 }
 
 .task-owner {
-	padding: 0.25em;
-	border-radius: 0.2em;
+	padding: 0.5em;
+	border-radius: 50%;
+	/* border-radius: var(--typical-radius); */
 
 	grid-area: owner;
 	justify-self: start;
 
-	background-color: darkslategray;
+	background-color: var(--accent-color);
 	font-weight: bold;
-	color: whitesmoke;
+	color: var(--card-background-color);
 }
 
 .task-priority {
@@ -53,9 +59,23 @@
 	grid-area: date;
 	justify-self: end;
 }
-
-@media (max-width: 500px) {
-	.task-card {
-		width: 80vw;
+/* Mobile screen */
+@media only screen and (max-width: 750px) {
+	.task-card.card-style {
+		width: calc(
+			(
+					100vw -
+						(3 * (var(--app-left-right-margin)) + (2 * var(--material-padding)))
+				) / 2
+		);
+		/* font-size: small; */
+	}
+}
+@media only screen and (max-width: 450px) {
+	.task-card.card-style {
+		width: calc(
+			100vw - (2 * (var(--app-left-right-margin) + var(--material-padding)))
+		);
+		font-size: small;
 	}
 }

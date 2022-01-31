@@ -1,16 +1,20 @@
 .app-header {
-	/* Viewport is fixed now, we can make
-	<main> scrollable when needed */
-	/* position: -webkit-sticky; 
-	position: sticky;
-	top: 0;
-	left: 0; */
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	background-color: var(--header-background-color);
 	padding: 0 var(--app-left-right-margin);
 	color: var(--header-font-color);
+	font-family: var(--heading-font);
+}
+
+.nav-initials {
+	background-color: var(--header-font-color);
+	color: var(--header-background-color);
+	padding: 6px;
+	border-radius: 50%;
+	font-weight: bold;
 }
 
 .nav-initials {
@@ -29,12 +33,7 @@
 
 .nav-title {
 	font-size: xx-large;
-	margin-top: var(--nav-top-bottom-margin);
-	margin-bottom: var(--nav-top-bottom-margin);
-}
-
-.app-header a {
-	color: inherit;
+	margin: var(--nav-top-bottom-margin) 0;
 }
 
 .nav-list {
@@ -43,6 +42,52 @@
 	gap: var(--inline-element-spacing);
 	font-size: larger;
 	align-items: center;
+}
+
+.nav-logout {
+	cursor: pointer;
+}
+
+.nav-logout:hover {
+	/* text-decoration: underline; */
+	text-shadow: 0 0.2em 0.2em black;
+}
+
+@media only screen and (max-width: 640px) {
+	.app-header {
+		flex-direction: column;
+	}
+	.nav-title {
+		margin: var(--nav-top-bottom-margin) 0;
+	}
+	.header-nav {
+		margin-top: calc(var(--material-padding) * -1);
+		margin-bottom: var(--main-vertical-spacing);
+	}
+}
+@media only screen and (max-width: 450px) {
+	.app-header {
+		flex-direction: column;
+	}
+	.nav-title {
+		margin: var(--nav-top-bottom-margin) 0;
+		font-size: x-large;
+	}
+	.nav-sub-title {
+		font-size: large;
+	}
+	.header-nav {
+		margin-top: calc(var(--material-padding) * -1);
+		margin-bottom: var(--main-vertical-spacing);
+	}
+}
+@media only screen and (max-width: 450px) {
+	.app-header {
+		flex-direction: column;
+	}
+	.nav-sub-title {
+		display: none;
+	}
 }
 
 .nav-logout {

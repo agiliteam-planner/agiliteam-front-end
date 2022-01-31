@@ -1,24 +1,43 @@
-.user-card {
-	background-color: white;
-	margin: 5px;
-	padding: 20px;
+.user-card.card-style {
 	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
-	border-radius: 0.3rem;
-	width: 60vw;
-	box-shadow: 5px 5px #444;
 }
+
 .user-realname {
 	display: flex;
 	justify-content: space-between;
 }
+
 .user-username {
 	display: flex;
 	justify-content: space-between;
 }
-@media (min-width: 600px) {
-	.user-card {
-		width: 15vw;
-	}
+
+.user-edit-form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.user-edit-form label {
+	text-align: center;
+	margin-bottom: var(--element-label-gap);
+}
+
+.user-edit-form input {
+	margin-bottom: var(--material-padding);
+}
+
+.user-edit-form .user-control {
+	display: flex;
+	justify-content: stretch;
+	flex-flow: row nowrap;
+	gap: var(--inline-element-spacing);
+}
+.user-edit-form .user-control button {
+	flex-grow: 1;
+}
+
+/* Mobile screen */
+@media only screen and (max-width: 640px) {
 }

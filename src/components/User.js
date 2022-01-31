@@ -1,4 +1,4 @@
-import '../styles/User.css'
+import '../styles/User.css';
 function Users({
 	user,
 	editingUser,
@@ -11,19 +11,21 @@ function Users({
 	setEdits,
 }) {
 	function startEdit(e) {
-		// console.log(user._id, user.username, user.firstName, user.lastName);
 		if (editingUser) return;
-		setEditingUser(user._id)
-		let userToEdit = { _id: user._id, username: user.username, firstName: user.firstName, lastName: user.lastName}
-		setEdits({ ...userToEdit })
+		setEditingUser(user._id);
+		let userToEdit = {
+			_id: user._id,
+			username: user.username,
+			firstName: user.firstName,
+			lastName: user.lastName,
+		};
+		setEdits({ ...userToEdit });
 	}
 	if (editingUser === user._id) {
 		// Show editing fields
 		return (
-			<form style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-				<legend style={{ backgroundColor: 'lightblue', padding: '5px' }}>
-					First Name
-				</legend>
+			<form className='user-edit-form card-style'>
+				<label htmlFor='firstName'>First Name</label>
 				<input
 					type='text'
 					form='edit-users'
@@ -33,9 +35,7 @@ function Users({
 					value={edits?.firstName ?? user.firstName}
 					required
 				/>
-				<legend style={{ backgroundColor: 'lightblue', padding: '5px' }}>
-					Last Name
-				</legend>
+				<label htmlFor='lastName'>Last Name</label>
 				<input
 					type='text'
 					form='edit-users'
@@ -45,9 +45,7 @@ function Users({
 					value={edits?.lastName ?? user.lastName}
 					required
 				/>
-				<legend style={{ backgroundColor: 'lightblue', padding: '5px' }}>
-					Username
-				</legend>
+				<label htmlFor='username'>Username</label>
 				<input
 					type='text'
 					form='edit-users'
@@ -78,23 +76,17 @@ function Users({
 	} else {
 		// Not editing: Display normal user row
 		return (
-			<div className='user-card' onClick={startEdit}>
+			<div className='user-card card-style' onClick={startEdit}>
 				<div className='user-realname'>
-					<div className='user-name-header'>
-						Name:
-					</div>
+					<div className='user-name-header'>Name:</div>
 					<div className='user-name-values'>
 						{user.firstName} {user.lastName}
-					</div>	
-				</div>	
-				<div className='user-username'>
-					<div className='username-header'>
-						Username: 
 					</div>
-					<div className='username-value'>
-						{user.username}
-					</div>	
-				</div>	
+				</div>
+				<div className='user-username'>
+					<div className='username-header'>Username:</div>
+					<div className='username-value'>{user.username}</div>
+				</div>
 			</div>
 		);
 	}

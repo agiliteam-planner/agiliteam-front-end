@@ -1,24 +1,25 @@
-.stage {
+.stage.panel-style {
 	max-height: 100%;
-	padding: 0 var(--material-padding);
+	padding-top: 0;
+	padding-bottom: 0;
 	margin-right: var(--main-children-spacing);
+	border-bottom: var(--material-padding) solid var(--panel-background-color);
 	/* Width of stages in 'desktop' view
    grow/shrink 0 keep them equal width 
    4 is to show four stages in full width
    3em subtracts the intermediate margins */
-	flex: 0 0 calc(((100%) - (3rem)) / 4);
+	flex: 0 0 calc(((100%) - (calc(3 * var(--main-children-spacing)))) / 4);
+	align-items: stretch;
 
-	display: flex;
-	flex-direction: column;
-	overflow-y: auto;
-
-	background-color: #eceff1;
+	overflow-x: hidden;
+	overflow-y: overlay;
 
 	/* Control snap for stage (horizontal) */
 	scroll-snap-align: start;
 
 	/* Control snap for children tasks */
-	/* scroll-snap-type: y mandatory; */
+	/* scroll-snap-type: y proximity;
+	scroll-padding-top: calc(4 * var(--material-padding)); */
 }
 
 .stage:last-child {
@@ -26,24 +27,29 @@
 }
 
 .stage-name {
-	padding: var(--material-padding) 0;
+	margin: 0 calc(var(--material-padding) * -1);
+	position: -webkit-sticky;
 	position: sticky;
+	width: inherit;
 	top: 0;
+	left: 0;
 
 	background-color: inherit;
-	text-align: center;
+}
+.stage-name h3 {
+	margin-top: var(--material-padding);
 }
 
-.stage-footer {
-	width: 100%;
-	height: var(--material-padding);
-	position: relative;
-	bottom: 0;
-}
+/* Mobile screen */
+@media only screen and (max-width: 750px) {
+	.stage.panel-style {
+		flex: 0 0 max-content;
 
-/* Narrow screen */
-@media (max-width: 500px) {
-	.stage {
-		flex: 0 0 fit-content;
+		scroll-snap-align: start;
+	}
+}
+@media only screen and (max-width: 450px) {
+	.stage.panel-style {
+		scroll-snap-align: center;
 	}
 }
