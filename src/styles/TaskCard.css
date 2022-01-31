@@ -60,7 +60,18 @@
 	justify-self: end;
 }
 /* Mobile screen */
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 750px) {
+	.task-card.card-style {
+		width: calc(
+			(
+					100vw -
+						(3 * (var(--app-left-right-margin)) + (2 * var(--material-padding)))
+				) / 2
+		);
+		/* font-size: small; */
+	}
+}
+@media only screen and (max-width: 450px) {
 	.task-card.card-style {
 		width: calc(
 			100vw - (2 * (var(--app-left-right-margin) + var(--material-padding)))

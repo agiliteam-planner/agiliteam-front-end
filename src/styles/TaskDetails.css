@@ -71,6 +71,8 @@ of the longest nowrap 'row' */
 }
 .task-new-comment-wrapper {
 	display: flex;
+	column-gap: var(--inline-element-spacing);
+	row-gap: var(--material-padding);
 }
 
 #new_comment {
@@ -79,12 +81,19 @@ of the longest nowrap 'row' */
 }
 
 /* Buttons */
-.task-button {
+/* .task-button {
 	margin-right: var(--inline-element-spacing);
-}
+} */
 
 .task-comment-button {
-	margin-right: var(--inline-element-spacing);
+	white-space: nowrap;
+}
+
+.task-bottom-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--material-padding);
+	margin-bottom: var(--material-padding);
 }
 
 #title.required-field,
@@ -155,7 +164,6 @@ button.task-login-link {
 }
 
 .task-login-message {
-	margin-top: var(--material-padding);
 	font-size: 1.1rem;
 	color: rgba(179, 0, 0, 0.7);
 }
@@ -170,5 +178,11 @@ button.task-login-link {
 	}
 	.task-selector {
 		flex-grow: 1;
+	}
+}
+@media only screen and (max-width: 450px) {
+	.task-new-comment-wrapper {
+		flex-wrap: wrap;
+		gap: var(--material-padding);
 	}
 }

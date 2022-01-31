@@ -8,11 +8,11 @@
    grow/shrink 0 keep them equal width 
    4 is to show four stages in full width
    3em subtracts the intermediate margins */
-	flex: 0 0 calc(((100%) - (3rem)) / 4);
+	flex: 0 0 calc(((100%) - (calc(3 * var(--main-children-spacing)))) / 4);
 	align-items: stretch;
 
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: overlay;
 
 	/* Control snap for stage (horizontal) */
 	scroll-snap-align: start;
@@ -28,6 +28,7 @@
 
 .stage-name {
 	margin: 0 calc(var(--material-padding) * -1);
+	position: -webkit-sticky;
 	position: sticky;
 	width: inherit;
 	top: 0;
@@ -40,7 +41,15 @@
 }
 
 /* Mobile screen */
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 750px) {
+	.stage.panel-style {
+		flex: 0 0 max-content;
+		border-bottom: 1rem solid;
+
+		scroll-snap-align: left;
+	}
+}
+@media only screen and (max-width: 450px) {
 	.stage.panel-style {
 		flex: 0 0 max-content;
 		border-bottom: 1rem solid;
