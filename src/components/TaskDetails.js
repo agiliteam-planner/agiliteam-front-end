@@ -14,7 +14,6 @@ function TaskDetails(props) {
 	const id = params.id;
 	const newTask = id === 'new' ? true : false;
 
-
 	const navigate = useNavigate();
 
 	// API url
@@ -23,7 +22,6 @@ function TaskDetails(props) {
 	// temporary array of users
 	const [users, setUsers] = useState([]);
 	const priorities = ['High', 'Medium', 'Low'];
-
 
 	// Initialize Task state
 	const newTaskDefault = {
@@ -92,35 +90,25 @@ function TaskDetails(props) {
 		} catch (err) {
 			setError('Something went wrong. Please go back and try again.');
 			setLoading(false);
-			// console.log('error:', err.response.data);
 		}
 	}
 	// POST a new task
 	function postTask(url) {
-		console.log('post a new task:', task);
-		axios.post(url, task).then((res) => {
-			console.log('post results:', res);
-		});
+		axios.post(url, task).then((res) => {});
 		// Go to main view after posting a new task
 		navigate('/');
 	}
 
 	// UPDATE a task
 	function updateTask(url) {
-		console.log('update task:', task);
-		axios.put(url, task).then((res) => {
-			console.log('put results:', res);
-		});
+		axios.put(url, task).then((res) => {});
 		// Go to main view after updating a task
 		navigate('/');
 	}
 
 	// DELETE a task
 	function deleteTask(url) {
-		console.log('delete:', url);
-		axios.delete(url).then((res) => {
-			console.log('delete results:', res);
-		});
+		axios.delete(url).then((res) => {});
 		// Go to main view after deleting a task
 		navigate('/');
 	}
@@ -172,20 +160,15 @@ function TaskDetails(props) {
 
 	function handleTaskSubmit(ev) {
 		ev.preventDefault();
-		console.log('new/update:', task);
 		// Task object validation
 		if (!task.stage) {
-			console.log('task has no stage setting to', stages[0]);
 			task.stage = stages[0];
 		}
 		if (!task.owner) task.owner = null;
 
-		console.log(task);
 		if (newTask) {
-			console.log('creating new task', task);
 			postTask(`${baseUrl}/tasks`);
 		} else {
-			console.log('updating task', id);
 			updateTask(`${baseUrl}/tasks/${id}`);
 		}
 	}
@@ -242,7 +225,7 @@ function TaskDetails(props) {
 						className={titleIsValidated() ? '' : 'required-field'}
 						type='text'
 						id='title'
-            maxLength='70'
+						maxLength='70'
 						onChange={handleChange}
 						placeholder='Task Title - required field'
 						value={task.title}
@@ -372,7 +355,16 @@ function TaskDetails(props) {
 						Cancel
 					</button>
 				</div>
-				{!currentUser && <p className='task-login-message'>To add a new task, or update existing one, please <span className='task-login-link' onClick={() => navigate('/login')}>login</span>.</p>}
+				{!currentUser && (
+					<p className='task-login-message'>
+						To add a new task, or update existing one, please{' '}
+						<span
+							className='task-login-link'
+							onClick={() => navigate('/login')}>
+							login
+						</span>
+					</p>
+				)}
 			</form>
 		</div>
 	);
