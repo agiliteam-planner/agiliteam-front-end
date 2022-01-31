@@ -13,7 +13,7 @@
 	align-items: stretch;
 
 	overflow-x: hidden;
-	overflow-y: overlay;
+	overflow-y: auto;
 
 	/* Control snap for stage (horizontal) */
 	scroll-snap-align: start;
