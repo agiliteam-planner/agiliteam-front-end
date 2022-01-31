@@ -7,9 +7,8 @@
 	margin-bottom: var(--material-padding);
 	display: grid;
 	grid-template-columns: repeat(3, minmax(max-content, 1fr));
-	gap: var(--material-padding);
+	gap: var(--stage-panel-padding);
 	align-items: flex-start;
-	margin-bottom: var(--material-padding);
 }
 
 .new-user {
@@ -34,7 +33,7 @@
 }
 
 .new-user-form input {
-	margin-bottom: var(--material-padding);
+	margin-bottom: var(--stage-panel-padding);
 }
 
 .click-edit {

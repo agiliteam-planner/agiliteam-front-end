@@ -18,14 +18,14 @@ of the longest nowrap 'row' */
 .task-title-wrapper {
 	display: flex;
 	flex-direction: column;
-	margin-bottom: var(--material-padding);
+	margin-bottom: var(--stage-panel-padding);
 }
 
 .task-selectors-wrapper {
 	display: flex;
 	flex-wrap: nowrap;
 	gap: var(--inline-element-spacing);
-	margin-bottom: var(--material-padding);
+	margin-bottom: var(--stage-panel-padding);
 }
 
 .task-selector {
@@ -35,11 +35,11 @@ of the longest nowrap 'row' */
 
 #description {
 	resize: vertical;
-	margin-bottom: var(--material-padding);
+	margin-bottom: var(--stage-panel-padding);
 }
 
 .task-comments-wrapper {
-	margin-bottom: var(--material-padding);
+	margin-bottom: var(--stage-panel-padding);
 }
 
 .task-comments-list {
@@ -71,7 +71,7 @@ of the longest nowrap 'row' */
 }
 .task-new-comment-wrapper {
 	display: flex;
-	column-gap: var(--inline-element-spacing);
+	column-gap: var(--stage-panel-padding);
 	row-gap: var(--material-padding);
 }
 
@@ -92,8 +92,8 @@ of the longest nowrap 'row' */
 .task-bottom-buttons {
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--material-padding);
-	margin-bottom: var(--material-padding);
+	gap: var(--stage-panel-padding);
+	margin-bottom: var(--stage-panel-padding);
 }
 
 #title.required-field,

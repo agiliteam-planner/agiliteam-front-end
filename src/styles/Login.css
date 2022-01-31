@@ -8,7 +8,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	gap: var(--material-padding);
 }
 
 .login-input {

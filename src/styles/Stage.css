@@ -1,14 +1,15 @@
 .stage.panel-style {
 	max-height: 100%;
+	padding: var(--stage-panel-padding);
 	padding-top: 0;
 	padding-bottom: 0;
-	margin-right: var(--main-children-spacing);
-	border-bottom: var(--material-padding) solid var(--panel-background-color);
+	margin-right: var(--stage-panel-padding);
+	border-bottom: var(--stage-panel-padding) solid var(--panel-background-color);
 	/* Width of stages in 'desktop' view
    grow/shrink 0 keep them equal width 
    4 is to show four stages in full width
    3em subtracts the intermediate margins */
-	flex: 0 0 calc(((100%) - (calc(3 * var(--main-children-spacing)))) / 4);
+	flex: 0 0 calc(((100%) - (calc(3 * var(--stage-panel-padding)))) / 4);
 	align-items: stretch;
 
 	overflow-x: hidden;
