@@ -11,7 +11,7 @@ function Users(props) {
 	const [editingUser, setEditingUser] = useState(null);
 
 	const backendUrl = process.env.REACT_APP_BACKEND_URL;
-	console.log(backendUrl);
+	// console.log(backendUrl);
 
 	// On initial mount
 	useEffect(() => {
@@ -20,7 +20,7 @@ function Users(props) {
 			try {
 				const response = await axios.get(`${backendUrl}/users`);
 				setUsers(response.data);
-				console.log(response.data);
+				// console.log(response.data);
 			} catch (error) {
 				// TODO: Handle errors for user
 				console.error(error);
@@ -43,7 +43,7 @@ function Users(props) {
 	function handleDelete(userID) {
 		axios
 			.delete(`${backendUrl}/users/${userID}`)
-			.then((res) => console.log(res))
+			// .then((res) => console.log(res))
 			.finally(clearEditingStates);
 	}
 
@@ -61,14 +61,14 @@ function Users(props) {
 			// Update user
 			axios
 				.put(`${backendUrl}/users/${edits._id}`, edits)
-				.then((res) => console.log(res))
+				// .then((res) => console.log(res))
 				.finally(clearEditingStates);
 		} else {
 			const userToPost = edits;
 			delete userToPost._id; // Remove temporary _id property
 			axios
 				.post(`${backendUrl}/users`, userToPost)
-				.then((res) => console.log(res))
+				// .then((res) => console.log(res))
 				.finally(clearEditingStates);
 		}
 	}
@@ -93,32 +93,34 @@ function Users(props) {
 				))}
 			</div>
 			{editingUser !== 'NEW_USER' ? (
-				<button onClick={startNewUser}>Add New User</button>
+				<div className='new-user'>
+					<button className='add-new-user' onClick={startNewUser}>
+						Add New User
+					</button>
+				</div>
 			) : (
 				<form className='new-user-form'>
 					<div className='new-user-form-wrapper'>
-						<h2 style={{ textAlign: 'center' }}>Add New User</h2>
-						<legend>First Name:</legend>
+						<h3>Add New User</h3>
+						<label htmlFor='firstName'>First Name</label>
 						<input
 							type='text'
 							onChange={handleChange}
 							id='firstName'
 							value={edits?.firstName ?? users.firstName}></input>
-						<legend style={{ paddingTop: '15px' }}>Last Name:</legend>
+						<label htmlFor='lastName'>Last Name</label>
 						<input type='text' onChange={handleChange} id='lastName'></input>
-						<legend style={{ paddingTop: '15px' }}>
-							User Name (6-10 characters):
-						</legend>
+						<label htmlFor='userName'>Username (6-10 characters)</label>
 						<input type='text' onChange={handleChange} id='username'></input>
+						<div className='new-user'>
+							<button onClick={handleSubmit}>Add User</button>
+							<button onClick={clearEditingStates}>Cancel</button>
+						</div>
 					</div>
 				</form>
 			)}
-			{editingUser !== 'NEW_USER' ? null : (
-				<div>
-					<button onClick={handleSubmit}>Add User</button>
-					<button onClick={clearEditingStates}>Cancel</button>
-				</div>
-			)}
+			{/* {editingUser !== 'NEW_USER' ? null : (
+			)} */}
 		</div>
 	);
 }

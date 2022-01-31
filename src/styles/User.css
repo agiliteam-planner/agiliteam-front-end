@@ -25,7 +25,7 @@
 }
 
 .user-edit-form input {
-	margin-bottom: var(--material-padding);
+	margin-bottom: var(--stage-panel-padding);
 }
 
 .user-edit-form .user-control {

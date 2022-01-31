@@ -77,17 +77,19 @@ function Login({ setCurrentUser }) {
 
 	return currentUser ? (
 		<div className='login-logout main-section-style'>
-			<p className='logout-message'>
-				{currentUser.firstName} is already logged in. Do you want to logout?
-			</p>
-			<button className='login-button' onClick={handleLogout}>
-				Logout
-			</button>
+			<div className='panel-style'>
+				<p className='logout-message'>
+					{currentUser.firstName} is already logged in. Do you want to logout?
+				</p>
+				<button className='login-button' onClick={handleLogout}>
+					Logout
+				</button>
+			</div>
 		</div>
 	) : (
 		<div className='login-wrapper main-section-style'>
-			<form id='login-form' onSubmit={handleSubmit}>
-				<h2>Enter username & password</h2>
+			<form className='panel-style' id='login-form' onSubmit={handleSubmit}>
+				<h3>Enter username & password</h3>
 				<div className='login-input'>
 					<label htmlFor='username'>Username</label>
 					<input
@@ -112,18 +114,18 @@ function Login({ setCurrentUser }) {
 						onChange={handleChange}
 					/>
 				</div>
+				<div className='login-buttons'>
+					<button className='login-button' type='submit' form='login-form'>
+						Submit
+					</button>
+					<button
+						type='button'
+						className='login-button'
+						onClick={() => navigate(-1)}>
+						Cancel
+					</button>
+				</div>
 			</form>
-			<div className='login-buttons'>
-				<button className='login-button' type='submit' form='login-form'>
-					Submit
-				</button>
-				<button
-					type='button'
-					className='login-button'
-					onClick={() => navigate(-1)}>
-					Cancel
-				</button>
-			</div>
 			<div className='login-message'>
 				{userExist ? '' : 'Could not find username, please try again.'}
 				{passwordMatch ? '' : 'Password is incorrect, please try again.'}

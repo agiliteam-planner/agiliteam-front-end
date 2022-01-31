@@ -1,6 +1,6 @@
 .task-card.card-style {
 	width: 100%;
-	margin-bottom: var(--material-padding);
+	margin-bottom: var(--stage-panel-padding);
 	flex: none;
 
 	display: grid;
@@ -10,7 +10,7 @@
 		'title title title'
 		'owner priority date';
 
-	row-gap: var(--material-padding);
+	row-gap: var(--stage-panel-padding);
 	column-gap: var(--inline-element-spacing);
 
 	font-size: smaller;
@@ -65,7 +65,10 @@
 		width: calc(
 			(
 					100vw -
-						(3 * (var(--app-left-right-margin)) + (2 * var(--material-padding)))
+						(
+							3 * (var(--app-left-right-margin)) +
+								(2 * var(--stage-panel-padding))
+						)
 				) / 2
 		);
 		/* font-size: small; */
@@ -74,7 +77,7 @@
 @media only screen and (max-width: 450px) {
 	.task-card.card-style {
 		width: calc(
-			100vw - (2 * (var(--app-left-right-margin) + var(--material-padding)))
+			100vw - (2 * (var(--app-left-right-margin) + var(--stage-panel-padding)))
 		);
 		font-size: small;
 	}

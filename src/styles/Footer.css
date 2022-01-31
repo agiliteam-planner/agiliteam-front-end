@@ -7,4 +7,16 @@
 	padding: var(--main-children-spacing) var(--app-left-right-margin);
 	color: var(--header-font-color);
 	font-family: var(--heading-font);
+	white-space: nowrap;
+}
+
+.app-footer a {
+	margin: 0 var(--inline-element-spacing);
+}
+
+/* Mobile screen */
+@media only screen and (max-width: 450px) {
+	.app-footer {
+		flex-flow: column;
+	}
 }
