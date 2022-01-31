@@ -7,6 +7,7 @@ import TaskDetails from './components/TaskDetails';
 import About from './components/About';
 import Settings from './components/Settings';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 import Login from './components/Login';
 
 import './styles/App.css';
@@ -35,6 +36,7 @@ function App() {
 						<Route path='*' element={<Navigate to='/' />} />
 					</Routes>
 				</main>
+				<Footer />
 			</UserContext.Provider>
 		</div>
 	);

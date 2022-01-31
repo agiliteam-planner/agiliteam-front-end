@@ -1,49 +1,62 @@
+/* This determines the width of
+the panel shrinking to the width
+of the longest nowrap 'row' */
+.task-details.panel-style {
+	width: min-content;
+	align-items: stretch;
+}
+
 #task-details-form {
 	display: flex;
 	flex-direction: column;
-	/* padding: 3vh 5vw; */
+}
+
+#task-details-form label {
+	margin-bottom: var(--element-label-gap);
 }
 
 .task-title-wrapper {
 	display: flex;
 	flex-direction: column;
-	/* align-items: center; */
+	margin-bottom: var(--material-padding);
 }
 
-.task-title-wrapper input {
+/* .task-title-wrapper input {
 	flex-grow: 1;
-	border-radius: 0.3rem;
-	border: 1px solid;
+	border-radius: var(--typical-radius);
 	padding: 5px;
-	border-color: gray;
-}
+} */
 
 .task-selectors-wrapper {
+	/* padding-top: 10px;
+	padding-bottom: 10px; */
 	display: flex;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
+	gap: var(--inline-element-spacing);
+	margin-bottom: var(--material-padding);
 }
 
 .task-selector {
+	/* margin-right: 10px;
+	margin-top: 10px; */
 	display: flex;
 	flex-direction: column;
-	margin-right: 10px;
-	margin-top: 10px;
 }
 
-.task-selector input,
-select {
+/* .task-selector input,
+.task-selector select {
 	height: 30px;
 	border-radius: 4px;
 	border: 1px solid gray;
 	padding: 5px;
-}
+} */
 
 #description {
-	border-radius: 4px;
-	border: 1px solid gray;
-	padding: 5px;
+	resize: vertical;
+	margin-bottom: var(--material-padding);
+	/* border-radius: 4px; */
+	/* border: 1px solid gray; */
+	/* padding: 5px; */
 }
 
 /* input#title {
@@ -51,62 +64,68 @@ select {
 } */
 
 /* Comments styling */
-.task-comments-wrapper {
+/* .task-comments-wrapper {
 	padding-top: 12px;
+} */
+
+.task-comments-wrapper {
+	margin-bottom: var(--material-padding);
 }
 
 .task-comments-list {
-	border: none;
+	margin-top: var(--element-label-gap);
+	/* border: none; */
 	background-color: gray;
-	border-radius: 0.3rem;
-	padding: 2px 4px;
+	border-radius: var(--typical-radius);
+	padding: 0.1rem 0.25rem;
+	margin-bottom: 0.5rem;
 }
 .task-comment {
 	/* padding: 5px 10px; */
-	margin: 4px 0px;
-	border: 1px solid gray;
-	border-radius: 0.3rem;
+	margin: 0.25rem 0;
+	/* border: 1px solid gray; */
+	border-radius: var(--typical-radius);
 }
 
-.task-comment-user {
-	/* font-weight: bold; */
-}
+/* .task-comment-user {
+	font-weight: bold;
+} */
 
 .task-comment-header {
 	display: flex;
 	justify-content: space-between;
-	padding: 4px 10px;
+	padding: 0.25rem 0.7rem;
 	background-color: rgb(237, 237, 237);
 	font-style: italic;
-	border-radius: 5px 5px 0 0;
+	border-radius: var(--typical-radius) var(--typical-radius) 0 0;
 }
 
 .task-comment-content {
-	padding: 5px 0 5px 20px;
+	padding: 0.3rem 1.25rem;
 	background-color: white;
-	border-radius: 0 0 5px 5px;
+	border-radius: 0 0 var(--typical-radius) var(--typical-radius);
 }
 .task-new-comment-wrapper {
 	display: flex;
-	padding-top: 8px;
 }
 
 #new_comment {
 	flex-grow: 1;
-	margin-left: 10px;
-	border-radius: 4px;
-	border: 1px solid gray;
-	padding: 5px 10px;
+	/* margin-left: 10px; */
+	border-radius: var(--typical-radius);
+	/* border: 1px solid gray; */
+	/* padding: 5px 10px; */
 }
 
 /* Buttons */
 .task-button {
-	margin-right: 10px;
-	margin-top: 10px;
+	/* margin-right: 10px;
+	margin-top: 10px; */
+	margin-right: var(--inline-element-spacing);
 }
 
 .task-comment-button {
-	margin: 0;
+	margin-right: var(--inline-element-spacing);
 }
 
 #title.required-field,
@@ -117,15 +136,17 @@ select {
 
 /* Delete confirmation modal */
 .delete-confirm-wrapper {
-	z-index: 10;
+	width: 100%;
+	height: 100%;
+	/* z-index: 10; */
+	position: absolute;
+	left: 0;
+	margin-top: calc(var(--main-vertical-spacing) * -1);
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 100%;
-	width: 100%;
-	position: absolute;
-	left: 0;
-	right: 0;
+
 	background-color: rgba(201, 201, 201, 0.51);
 }
 
@@ -137,7 +158,7 @@ select {
 	padding: 25px;
 	text-align: center;
 	border-radius: 4px;
-	border: 1px solid gray;
+	/* border: 1px solid gray; */
 	box-shadow: 0px 0px 5px gray;
 	font-size: 1rem;
 	line-height: 1.5;

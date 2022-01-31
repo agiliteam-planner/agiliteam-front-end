@@ -1,5 +1,13 @@
-.users-table .user-control button {
-	display: inline-block;
+.users.panel-style {
+	width: 50vw;
+	align-items: stretch;
+}
+
+.users-wrapper {
+	margin-bottom: var(--material-padding);
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--material-padding);
 }
 
 .click-edit {
@@ -11,12 +19,7 @@
 	visibility: visible;
 }
 
-.users-wrapper {
-	display: flex;
-	flex-direction: column;
-}
-
-@media (min-width: 600px) {
+@media (max-width: 600px) {
 	.users-wrapper {
 		flex-direction: row;
 		flex-wrap: wrap;

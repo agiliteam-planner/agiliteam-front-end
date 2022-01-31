@@ -1,7 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&family=Secular+One&display=swap');
 
 /* Global Variables */
 :root {
+	/* Fonts */
+	--heading-font: 'Secular One', sans-serif;
+	--body-font: 'Oxygen', sans-serif;
+
+	/* Colors */
+	--header-background-color: darkslategray;
+	--header-font-color: whitesmoke;
+	--panel-background-color: whitesmoke;
+	--accent-color: #383e56;
+	--accent-background-color: #7a8e8e;
+	--card-background-color: white;
+
 	/* Spacing */
 	--app-left-right-margin: 2rem;
 	--nav-top-bottom-margin: 1.75rem;
@@ -9,14 +21,10 @@
 	--main-children-spacing: 1rem;
 	--material-padding: var(--main-children-spacing);
 	--inline-element-spacing: 0.75rem;
+	--element-label-gap: 0.25rem;
 
-	/* Fonts */
-	--body-font: 'Oxygen', sans-serif;
-
-	/* Colors */
-	--header-background-color: darkslategray;
-	--header-font-color: whitesmoke;
-	--accent-color: var(--header-background-color);
+	/* Decorations */
+	--typical-radius: 0.3rem;
 }
 
 /* Determine root font size */
@@ -25,7 +33,6 @@ body {
 	font-family: var(--body-font);
 	/* Scale everything down because
 	Oxygen font is a little too large */
-	font-size: 0.9rem;
 }
 
 * {
@@ -50,6 +57,15 @@ body,
 	flex-direction: column;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--heading-font);
+}
+
 main {
 	/* This causes main to create no box so that the
 	child component falls straight into .app */
@@ -58,21 +74,66 @@ main {
 
 /* Uniform margins and spacing for components inside main */
 main > * {
-	margin: 0 var(--app-left-right-margin);
+	padding: 0 var(--app-left-right-margin);
 }
 main > *:first-child {
-	margin-top: var(--main-vertical-spacing);
+	padding-top: var(--main-vertical-spacing);
 }
 main > *:last-child {
+	padding-bottom: var(--main-vertical-spacing);
+}
+main > .main-section-style {
+	/* Take up remaining height
+	between header and footer
+	(This pushes footer to bottom) */
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	/* Allow vertical scrolling */
+	overflow-y: auto;
+}
+main .section-heading-style {
+	width: 100%;
 	margin-bottom: var(--main-vertical-spacing);
+	position: sticky;
+
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: baseline;
 }
 
-main > h2 {
-	margin-bottom: var(--main-vertical-spacing);
+.panel-style {
+	padding: var(--material-padding);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	border-radius: var(--typical-radius);
+	background-color: whitesmoke;
+}
+
+.panel-style h2,
+.panel-style h3 {
+	margin-bottom: var(--material-padding);
+	text-align: center;
+}
+
+.card-style {
+	padding: var(--inline-element-spacing);
+	border-radius: var(--typical-radius);
+	box-shadow: 0 0.1em 0.2em var(--accent-background-color);
+	background-color: var(--card-background-color);
 }
 
 a {
 	text-decoration: none;
+	color: inherit;
 }
 
 a:hover {
@@ -85,11 +146,19 @@ ul {
 	padding: 0;
 }
 
+/* Form Inputs and Buttons */
+input,
+select,
+textarea,
 button {
-	padding: 0.5em 1em;
-	background-color: rgb(244, 244, 244);
+	padding: 0.4em;
 	border: 1px solid gray;
-	border-radius: 0.3rem;
+	border-radius: var(--typical-radius);
+}
+
+button {
+	padding: 0.4em 1em;
+	background-color: rgb(244, 244, 244);
 	cursor: pointer;
 }
 button:hover {

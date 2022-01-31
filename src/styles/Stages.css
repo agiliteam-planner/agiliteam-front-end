@@ -1,23 +1,12 @@
-.stages-wrapper {
-	height: 100%;
-	display: flex;
-	flex-flow: column nowrap;
-}
-
-.stages-heading {
-	margin-bottom: var(--main-vertical-spacing);
-	position: sticky;
-
-	left: 0;
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: space-between;
-	align-items: baseline;
-}
-
 .new-task {
 	/* font-size: larger; */
 	font-weight: bold;
+	width: calc(((100%) - (3rem)) / 4);
+	text-align: center;
+}
+
+button.new-task {
+	width: 100%;
 }
 
 .stages-options li {

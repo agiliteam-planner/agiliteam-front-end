@@ -74,7 +74,7 @@ function Users(props) {
 	}
 
 	return (
-		<div className='settings-panel users'>
+		<div className='users panel-style'>
 			<h3>Manage Users</h3>
 			<div className='users-wrapper'>
 				{users.map((user) => (
