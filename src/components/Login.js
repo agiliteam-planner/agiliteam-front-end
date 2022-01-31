@@ -29,7 +29,6 @@ function Login({ setCurrentUser }) {
 
 	function handleSubmit(ev) {
 		ev.preventDefault();
-		console.log('submit:', formState);
 		getUserInfo(baseUrl);
 	}
 
@@ -55,25 +54,20 @@ function Login({ setCurrentUser }) {
 		} catch (err) {
 			setError('Something went wrong. Please go back and try again.');
 			setLoading(false);
-			// console.log('error:', err.response.data);
 		}
 	}
 
 	function validateUser(user) {
 		// Check if username exist and if the password is correct
 		if (user) {
-			console.log('found user:', user);
 			setUserExist(true);
 			if (user.password === formState.password) {
-				console.log('password match!');
 				// username and password match
 				setPasswordMatch(true);
 				setCurrentUser(user);
 				// go to previous page
-				console.log('history:', navigate);
 				navigate(-1);
 			} else {
-				console.log('wrong password');
 				setPasswordMatch(false);
 			}
 		} else {

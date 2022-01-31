@@ -11,7 +11,6 @@ function Users({
 	setEdits,
 }) {
 	function startEdit(e) {
-		// console.log(user._id, user.username, user.firstName, user.lastName);
 		if (editingUser) return;
 		setEditingUser(user._id);
 		let userToEdit = {
