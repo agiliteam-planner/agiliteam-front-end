@@ -116,6 +116,7 @@ main > .main-section-style {
 main .section-heading-style {
 	width: 100%;
 	margin-bottom: var(--main-vertical-spacing);
+	position: -webkit-sticky;
 	position: sticky;
 
 	top: 0;
@@ -180,6 +181,7 @@ button {
 	cursor: pointer;
 }
 button:hover {
+	-webkit-filter: brightness(0.88);
 	filter: brightness(0.88);
 }
 button:disabled {
@@ -187,9 +189,14 @@ button:disabled {
 }
 button:disabled:hover {
 	cursor: auto;
+	-webkit-filter: brightness(1);
 	filter: brightness(1);
 }
 
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar {
 	background: transparent;
+}
+
+body::-webkit-scrollbar-track-piece {
+	display: none;
 }

@@ -24,15 +24,8 @@ function Users({
 	if (editingUser === user._id) {
 		// Show editing fields
 		return (
-			<form
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-				}}>
-				<legend style={{ backgroundColor: 'lightblue', padding: '5px' }}>
-					First Name
-				</legend>
+			<form className='user-edit-form card-style'>
+				<label htmlFor='firstName'>First Name</label>
 				<input
 					type='text'
 					form='edit-users'
@@ -42,9 +35,7 @@ function Users({
 					value={edits?.firstName ?? user.firstName}
 					required
 				/>
-				<legend style={{ backgroundColor: 'lightblue', padding: '5px' }}>
-					Last Name
-				</legend>
+				<label htmlFor='lastName'>Last Name</label>
 				<input
 					type='text'
 					form='edit-users'
@@ -54,9 +45,7 @@ function Users({
 					value={edits?.lastName ?? user.lastName}
 					required
 				/>
-				<legend style={{ backgroundColor: 'lightblue', padding: '5px' }}>
-					Username
-				</legend>
+				<label htmlFor='username'>Username</label>
 				<input
 					type='text'
 					form='edit-users'

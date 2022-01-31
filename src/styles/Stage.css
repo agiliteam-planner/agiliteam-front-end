@@ -44,16 +44,12 @@
 @media only screen and (max-width: 750px) {
 	.stage.panel-style {
 		flex: 0 0 max-content;
-		border-bottom: 1rem solid;
 
-		scroll-snap-align: left;
+		scroll-snap-align: start;
 	}
 }
 @media only screen and (max-width: 450px) {
 	.stage.panel-style {
-		flex: 0 0 max-content;
-		border-bottom: 1rem solid;
-
 		scroll-snap-align: center;
 	}
 }

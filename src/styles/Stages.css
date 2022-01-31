@@ -39,6 +39,10 @@ button.new-task {
 		scroll-snap-type: x mandatory;
 		scroll-padding-left: var(--app-left-right-margin);
 	}
+	.stages-container:last-child {
+		padding-bottom: calc(2 * var(--main-vertical-spacing));
+	}
+
 	.new-task {
 		width: -webkit-max-content;
 		width: -moz-max-content;
