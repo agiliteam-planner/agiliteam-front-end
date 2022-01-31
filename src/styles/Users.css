@@ -19,9 +19,14 @@
 	visibility: visible;
 }
 
-@media (max-width: 600px) {
-	.users-wrapper {
+/* Mobile screen */
+@media only screen and (max-width: 640px) {
+	.users.panel-style {
+		width: 100%;
+		align-items: stretch;
+	}
+	/* .users-wrapper {
 		flex-direction: row;
 		flex-wrap: wrap;
-	}
+	} */
 }

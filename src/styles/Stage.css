@@ -9,7 +9,6 @@
    4 is to show four stages in full width
    3em subtracts the intermediate margins */
 	flex: 0 0 calc(((100%) - (3rem)) / 4);
-	position: static;
 	align-items: stretch;
 
 	overflow-x: hidden;
@@ -19,7 +18,8 @@
 	scroll-snap-align: start;
 
 	/* Control snap for children tasks */
-	/* scroll-snap-type: y mandatory; */
+	/* scroll-snap-type: y proximity;
+	scroll-padding-top: calc(4 * var(--material-padding)); */
 }
 
 .stage:last-child {
@@ -39,9 +39,12 @@
 	margin-top: var(--material-padding);
 }
 
-/* Narrow screen */
-@media (max-width: 500px) {
-	.stage {
-		flex: 0 0 fit-content;
+/* Mobile screen */
+@media only screen and (max-width: 640px) {
+	.stage.panel-style {
+		flex: 0 0 max-content;
+		border-bottom: 1rem solid;
+
+		scroll-snap-align: center;
 	}
 }
