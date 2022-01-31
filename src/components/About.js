@@ -3,9 +3,9 @@ import '../styles/About.css';
 function About(props) {
 	return (
 		<div className='main-section-style'>
-			<h2 className='section-heading-style'>About</h2>
+			{/* <h2 className='section-heading-style'>About</h2> */}
 			<div className='about-container panel-style'>
-				<h3>AgiliTeam Project Planner</h3>
+				<h3>About AgiliTeam</h3>
 				<p>
 					The AgiliTeam Project Planner was designed and developed to help teams
 					using an Agile methodology to manage their workflow. Tasks are

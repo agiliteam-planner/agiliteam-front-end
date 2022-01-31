@@ -122,7 +122,7 @@ function Stages(props) {
 			</div>
 			<div className='stages-container'>
 				{stagedTasks.map((stage, i) => (
-					<Stage key={i} stage={stage} />
+					<Stage key={i} stage={stage} id={i} />
 				))}
 			</div>
 		</>

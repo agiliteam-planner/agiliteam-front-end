@@ -118,6 +118,7 @@ main .section-heading-style {
 	background-color: whitesmoke;
 }
 
+.panel-style h2,
 .panel-style h3 {
 	margin-bottom: var(--material-padding);
 	text-align: center;

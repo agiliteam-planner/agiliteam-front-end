@@ -250,11 +250,11 @@ function TaskDetails(props) {
 					</div>
 				</div>
 			)}
-			<h2 className='section-heading-style'>
+			{/* <h2 className='section-heading-style'>
 				{newTask ? 'New Task' : 'Edit Task'}
-			</h2>
+			</h2> */}
 			<div className='task-details panel-style'>
-				<h3>Task Details</h3>
+				<h3>{newTask ? 'New Task' : 'Edit Task'}</h3>
 				<form
 					id='task-details-form'
 					onSubmit={(ev) => {
