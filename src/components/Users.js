@@ -11,6 +11,7 @@ function Users(props) {
 	const [editingUser, setEditingUser] = useState(null);
 
 	const backendUrl = process.env.REACT_APP_BACKEND_URL;
+	console.log(backendUrl);
 
 	// On initial mount
 	useEffect(() => {
@@ -19,6 +20,7 @@ function Users(props) {
 			try {
 				const response = await axios.get(`${backendUrl}/users`);
 				setUsers(response.data);
+				console.log(response.data);
 			} catch (error) {
 				// TODO: Handle errors for user
 				console.error(error);

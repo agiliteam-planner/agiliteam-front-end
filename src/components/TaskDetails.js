@@ -11,8 +11,10 @@ import '../styles/TaskDetails.css';
 function TaskDetails(props) {
 	const { params } = useMatch('/task/:id');
 	const { currentUser } = useContext(UserContext);
+
 	const id = params.id;
 	const newTask = id === 'new' ? true : false;
+
 
 	const navigate = useNavigate();
 

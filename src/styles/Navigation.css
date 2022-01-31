@@ -17,6 +17,14 @@
 	font-weight: bold;
 }
 
+.nav-initials {
+	background-color: var(--header-font-color);
+	color: var(--header-background-color);
+	padding: 6px;
+	border-radius: 50%;
+	font-weight: bold;
+}
+
 .header-titles {
 	display: flex;
 	align-items: baseline;
@@ -80,4 +88,13 @@
 	.nav-sub-title {
 		display: none;
 	}
+}
+
+.nav-logout {
+	cursor: pointer;
+}
+
+.nav-logout:hover {
+	/* text-decoration: underline; */
+	text-shadow: 0 0.2em 0.2em black;
 }
