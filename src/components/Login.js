@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import { useContext, useState } from 'react';
-import { useNavigate, useMatch } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 import '../styles/Login.css';
@@ -33,6 +33,11 @@ function Login({ setCurrentUser }) {
 		getUserInfo(baseUrl);
 	}
 
+	function handleLogout(ev) {
+		setCurrentUser(null);
+		navigate('/');
+	}
+
 	async function getUserInfo(url) {
 		// get the user info from the database
 		setLoading(true);
@@ -43,7 +48,6 @@ function Login({ setCurrentUser }) {
 			if (res.status === 200) {
 				// Check if username exist and if the password is correct
 				validateUser(res.data[0]);
-				// setUsers(res.data);
 			} else {
 				setError('Could not get users data');
 				setLoading(false);
@@ -62,8 +66,12 @@ function Login({ setCurrentUser }) {
 			setUserExist(true);
 			if (user.password === formState.password) {
 				console.log('password match!');
+				// username and password match
 				setPasswordMatch(true);
 				setCurrentUser(user);
+				// go to previous page
+				console.log('history:', navigate);
+				navigate(-1);
 			} else {
 				console.log('wrong password');
 				setPasswordMatch(false);
@@ -73,7 +81,16 @@ function Login({ setCurrentUser }) {
 		}
 	}
 
-	return (
+	return currentUser ? (
+		<div className='login-logout'>
+			<p className='logout-message'>
+				{currentUser.firstName} is already logged in. Do you want to logout?
+			</p>
+			<button className='login-button' onClick={handleLogout}>
+				Logout
+			</button>
+		</div>
+	) : (
 		<div className='login-wrapper'>
 			<form id='login-form' onSubmit={handleSubmit}>
 				<h2>Enter username & password</h2>
