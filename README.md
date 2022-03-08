@@ -6,7 +6,7 @@ AgiliTeam is a project management app based on Agile management style. It allows
 
 Inspired by kanban boards, AgiliTeam is designed to help teams visualize the status of the project at a glance, with each task name, owner, and priority clearly visible. Tasks can be easily created, staged, assigned, and updated.
 
-This repository is the backend part of a full stack application. Please see the [AgiliTeam Frontend repository](https://github.com/agiliteam-planner/agiliteam-back-end) for information about the backend.
+This repository is the frontend part of a full stack application. Please see the [AgiliTeam Backend repository](https://github.com/agiliteam-planner/agiliteam-back-end) for information about the backend.
 
 AgiliTeam was developed by Elad Sadeh, Oscar Sanchez de Zulueta, and Kurt Shields as part of a General Assembly SEIR1115 cohort project.
 
